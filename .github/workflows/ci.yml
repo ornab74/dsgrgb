@@ -1,4 +1,4 @@
-name: v22 CI
+name: v23 CI
 
 on:
   push:
@@ -32,8 +32,14 @@ jobs:
       - name: Unit tests
         run: python -m unittest discover -s tests -v
       - name: Standard fallback smoke test
-        run: python main.py --rounds 2 "CI selective epistemic communication smoke test"
+        run: python main.py --rounds 2 "CI v23 information economy smoke test"
       - name: Secure ephemeral smoke test
         env:
           DSG_ALLOW_EPHEMERAL_MEMORY: "1"
-        run: python secure_main.py --rounds 1 "CI secure epistemic memory smoke test"
+        run: python secure_main.py --rounds 1 "CI v23 secure memory smoke test"
+      - name: Specialist opt-in fallback smoke test
+        env:
+          DSG_EXECUTE_SPECIALISTS: "1"
+          DSG_SPECIALIST_LIMIT: "1"
+          DSG_SPECIALIST_TOKEN_QUOTA: "512"
+        run: python main.py --rounds 1 "CI specialist quota smoke test"
