@@ -26,6 +26,50 @@ The previous monolithic simulator/prompt pipeline has been redesigned into an ex
 - bounded HTTP model concurrency, retries, timeouts, and a no-key local fallback;
 - JSON-only inter-agent schemas designed to keep peer output as untrusted evidence rather than instructions.
 
+## PCOSM: beyond a homomorphic communication surface
+
+The secure runtime adds an experimental architecture called **PCOSM — Proof-Carrying Oblivious Semantic Mesh**. PCOSM is not a new cryptographic primitive; it is a composition pattern designed to reduce what the vector store and peer agents need to learn.
+
+The storage path combines:
+
+- **AES-256-GCM sealed memories** — plaintext prompts, conclusions, metadata, and policy objects are encrypted before storage.
+- **HKDF-SHA256 domain separation** — independent subkeys are derived for payload sealing, blind routing, capabilities, proof attestations, and pseudonyms.
+- **keyed blind semantic routing sketches** — Weaviate can perform candidate retrieval over keyed HMAC-derived vectors without storing raw text or ordinary embeddings.
+- **capability-secured memory access** — short-lived signed capability tokens constrain namespace, operation, expiry, and maximum retrieval count.
+- **proof-carrying commitments** — every encrypted record carries a SHA-256 commitment and HMAC integrity attestation linked to the previous namespace commitment.
+- **optional CKKS vector arithmetic** — when TenSEAL is installed and `DSG_ENABLE_CKKS=1`, supplied numerical embeddings can be encrypted and dot products evaluated over ciphertext. The runtime never labels AES or blind routing as homomorphic encryption.
+- **pseudonymous ownership** — vector-store records contain a keyed owner pseudonym rather than the raw agent identity.
+- **minimum-context release** — only top capability-authorized results are decrypted locally and supplied to an active agent run.
+
+This aims beyond a simple “encrypted message pipe.” The communication object is a **sealed claim capsule**: ciphertext + routing sketch + provenance + policy digest + commitment + integrity attestation + capability requirements. Agents can locate and validate admissible memory before plaintext is released to the authorized runtime.
+
+PCOSM does **not** currently claim ORAM-level access-pattern hiding, zero-knowledge proof semantics, secure multi-party computation, trusted-execution-environment guarantees, or post-quantum security. Those would require separate, audited implementations. The term “proof-carrying” here means cryptographic commitment and integrity attestation, not a SNARK/STARK or formal proof system.
+
+Run the secure surface with:
+
+```bash
+python secure_main.py --rounds 2 "Design a resilient agent protocol and verify its failure modes"
+```
+
+Generate a persistent memory key and keep it outside Git:
+
+```bash
+export DSG_MEMORY_MASTER_KEY="$(python - <<'PY'
+import base64, secrets
+print(base64.urlsafe_b64encode(secrets.token_bytes(32)).decode())
+PY
+)"
+```
+
+Optional CKKS support:
+
+```bash
+python -m pip install tenseal
+export DSG_ENABLE_CKKS=1
+```
+
+If CKKS is requested but unavailable, the secure runtime reports HE as disabled rather than silently degrading the claim.
+
 ## Quick start
 
 ```bash
@@ -65,6 +109,11 @@ DSG_MAX_QUEUE=128
 DSG_HYPER_ROUNDS=2
 DSG_MODEL_TIMEOUT=90
 DSG_MODEL_CONCURRENCY=6
+DSG_MEMORY_MASTER_KEY=
+WEAVIATE_URL=
+DSG_WEAVIATE_COLLECTION=DSGPCOSMOpaqueMemory
+DSG_BLIND_VECTOR_DIMS=256
+DSG_ENABLE_CKKS=0
 ```
 
 For authenticated envelopes, generate a high-entropy secret and keep it out of Git:
@@ -123,6 +172,10 @@ Every record includes the previous record hash, producing a simple tamper-eviden
 ## Main files
 
 - `main.py` — RGB HyperCommunication runtime and CLI.
+- `hypercrypto.py` — PCOSM encrypted semantic-memory and optional CKKS layer.
+- `secure_runtime.py` — capability-gated encrypted-memory wrapper around the agent runtime.
+- `secure_main.py` — secure CLI surface.
+- `tests/test_hypercrypto.py` — security/behavior tests for sealing, capabilities and tamper rejection.
 - `requirements.txt` — runtime plus research-paper dependencies.
 - `.env.example` — configuration template with no credentials.
 - `outputs/` — generated traces and retained historical outputs.
