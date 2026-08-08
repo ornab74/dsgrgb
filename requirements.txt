@@ -1,9 +1,10 @@
-# Runtime dependencies for main.py
+# Core v21 runtime
 httpx>=0.27.0,<1.0
 numpy>=1.26.0,<3.0
-psutil>=5.9.0,<8.0
+cryptography>=42.0.0,<47.0
+
+# Optional vector backend. Without it, secure mode uses encrypted SQLite.
 weaviate-client>=4.6.0,<5.0
 
-# Research-paper rebuild dependencies
-matplotlib>=3.8.0,<4.0
-python-docx>=1.1.0,<2.0
+# Optional CKKS backend (install explicitly when required):
+# tenseal>=0.3.16
