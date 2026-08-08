@@ -1,74 +1,130 @@
-# DysonSphereGamma RGB HyperCommunication Fabric
+# DysonSphereGamma HyperCommunication v21
 
-`dsgrgb` is now a bounded multi-agent communication runtime built around five coordinated information channels:
+This branch is a ground-up rearchitecture of `dsgrgb` into a bounded multi-agent runtime with an optional encrypted semantic-memory layer.
 
-- **R / Red** — urgency, anomaly detection, adversarial challenge, failure modes.
-- **G / Green** — constructive synthesis, planning, recovery, implementation paths.
-- **B / Blue** — evidence quality, verification, contradiction checks, falsification.
-- **Gamma** — cross-agent coupling, dependency discovery, second-order effects, novel recombination.
-- **Sync** — final arbitration, calibrated consensus, unresolved-disagreement preservation.
+The five historical channels remain, but they now have explicit software responsibilities:
 
-The RGB/Gamma terminology is an information-routing metaphor implemented in ordinary software. It does not imply physical quantum, nonlocal, or future-information sensing.
+- **Red** — adversarial analysis and credible failure modes.
+- **Green** — constructive design and recovery paths.
+- **Blue** — verification, provenance, and structured challenges.
+- **Gamma** — cross-domain dependencies and second-order coupling.
+- **Sync** — final arbitration over an immutable bounded transcript.
 
-## What changed
+The RGB/Gamma terminology is an information-routing metaphor. It is not a claim of physical quantum, nonlocal, remote, or future sensing.
 
-The previous monolithic simulator/prompt pipeline has been redesigned into an explicit communication fabric:
+## What v21 changes
 
-- typed `AgentEnvelope` messages with trace/correlation/parent IDs;
-- HMAC-SHA256 envelope authentication when `DSG_MESSAGE_SECRET` is configured;
-- message-size limits, TTLs, hop limits, replay protection, and bounded priority queues;
-- directed routing plus topic subscriptions with per-agent backpressure;
-- parallel Red/Green/Blue/Gamma analysis rounds followed by a dedicated Sync arbitration pass;
-- versioned shared `Blackboard` state with provenance, confidence, hashes, and writer identity;
-- adaptive `TrustGraph` scores and communication-edge weights;
-- deterministic verification feedback from Blue into agent trust;
-- append-only SHA-256 hash-chained JSONL trace records;
-- bounded HTTP model concurrency, retries, timeouts, and a no-key local fallback;
-- JSON-only inter-agent schemas designed to keep peer output as untrusted evidence rather than instructions.
+The old runtime mixed routing, prompts, state, trust, tracing, and secure memory across a large script and wrappers. v21 separates them into a package:
 
-## PCOSM: beyond a homomorphic communication surface
-
-The secure runtime adds an experimental architecture called **PCOSM — Proof-Carrying Oblivious Semantic Mesh**. PCOSM is not a new cryptographic primitive; it is a composition pattern designed to reduce what the vector store and peer agents need to learn.
-
-The storage path combines:
-
-- **AES-256-GCM sealed memories** — plaintext prompts, conclusions, metadata, and policy objects are encrypted before storage.
-- **HKDF-SHA256 domain separation** — independent subkeys are derived for payload sealing, blind routing, capabilities, proof attestations, and pseudonyms.
-- **keyed blind semantic routing sketches** — Weaviate can perform candidate retrieval over keyed HMAC-derived vectors without storing raw text or ordinary embeddings.
-- **capability-secured memory access** — short-lived signed capability tokens constrain namespace, operation, expiry, and maximum retrieval count.
-- **proof-carrying commitments** — every encrypted record carries a SHA-256 commitment and HMAC integrity attestation linked to the previous namespace commitment.
-- **optional CKKS vector arithmetic** — when TenSEAL is installed and `DSG_ENABLE_CKKS=1`, supplied numerical embeddings can be encrypted and dot products evaluated over ciphertext. The runtime never labels AES or blind routing as homomorphic encryption.
-- **pseudonymous ownership** — vector-store records contain a keyed owner pseudonym rather than the raw agent identity.
-- **minimum-context release** — only top capability-authorized results are decrypted locally and supplied to an active agent run.
-
-This aims beyond a simple “encrypted message pipe.” The communication object is a **sealed claim capsule**: ciphertext + routing sketch + provenance + policy digest + commitment + integrity attestation + capability requirements. Agents can locate and validate admissible memory before plaintext is released to the authorized runtime.
-
-PCOSM does **not** currently claim ORAM-level access-pattern hiding, zero-knowledge proof semantics, secure multi-party computation, trusted-execution-environment guarantees, or post-quantum security. Those would require separate, audited implementations. The term “proof-carrying” here means cryptographic commitment and integrity attestation, not a SNARK/STARK or formal proof system.
-
-Run the secure surface with:
-
-```bash
-python secure_main.py --rounds 2 "Design a resilient agent protocol and verify its failure modes"
+```text
+dsghyper/
+  config.py      environment parsing and bounded configuration
+  protocol.py    immutable agent result/claim/challenge/note schemas
+  model.py       bounded HTTP model transport
+  ledger.py      per-trace tamper-evident hash chain
+  memory.py      PCESM encrypted semantic vector memory
+  runtime.py     deterministic bounded orchestration
+  cli.py         standard + secure CLI
 ```
 
-Generate a persistent memory key and keep it outside Git:
+Compatibility entry points remain:
+
+```text
+main.py
+secure_main.py
+```
+
+### Communication model
+
+v21 deliberately removes recursive peer-agent execution from the core. A worker may emit a peer note, but that note is an **immutable artifact for the next round**, not an immediate model call.
+
+```text
+                        ┌──── Red ────┐
+User task ── Round 1 ───┼──── Green ──┼── immutable results
+                        ├──── Blue ───┤         │
+                        └──── Gamma ──┘         ▼
+                                          peer-note router
+                                                │
+                        ┌──── Red ────┐         ▼
+             Round 2 ───┼──── Green ──┼── immutable results
+                        ├──── Blue ───┤
+                        └──── Gamma ──┘
+                                                │
+                                                ▼
+                                         Sync arbitration
+```
+
+This fixes the previous race where a peer note could re-enter `HyperAgent.handle()` and overwrite an already-completed round result.
+
+Other changes include structured challenge targets instead of string-search trust updates, explicit round timeouts, per-result failure states, bounded context serialization, a fixed model-call graph, and a per-trace ledger that verifies its own chain after a run.
+
+## PCESM: Proof-Carrying Encrypted Semantic Mesh v2
+
+Secure mode uses **PCESM**, an architecture composed from established cryptographic primitives. PCESM is not itself a new cryptographic primitive and does not claim to supersede homomorphic encryption mathematically.
+
+PCESM combines:
+
+- AES-256-GCM sealed memory payloads and metadata;
+- HKDF-SHA256 domain-separated subkeys;
+- HMAC-SHA256 keyed blind feature sketches for vector candidate routing;
+- signed capability tokens with subject, namespace, operations, audience, expiry, result limits, and revocation;
+- record commitments that are **recomputed from the stored fields** before HMAC attestation verification;
+- pseudonymous owner identifiers;
+- encrypted SQLite persistence by default;
+- optional Weaviate storage of opaque records and blind vectors;
+- optional CKKS encrypted-embedding reranking through TenSEAL.
+
+### Important privacy boundary
+
+Blind feature sketches are not ORAM and are not zero-knowledge search. The vector backend can still observe access timing, namespace labels, result counts, and similarity/access patterns. The README and runtime status therefore report:
+
+```text
+access_pattern_hiding = false
+```
+
+That distinction is intentional.
+
+### CKKS behavior
+
+CKKS is optional and is never silently substituted with AES.
+
+If `DSG_ENABLE_CKKS=1` and TenSEAL is unavailable, runtime status reports HE disabled. If TenSEAL is available but persistent serialized contexts are not supplied, the generated CKKS context is session-only and CKKS ciphertext is not written into a persistent vector backend.
+
+For persistent HE records, supply both:
+
+```text
+DSG_CKKS_PUBLIC_CONTEXT_B64
+DSG_CKKS_SECRET_CONTEXT_B64
+```
+
+The stored vector candidate-routing sketch and CKKS ciphertext serve different purposes: the keyed sketch selects a bounded candidate set; CKKS can rerank embeddings without decrypting stored embedding vectors during the arithmetic operation.
+
+## Secure-memory failure behavior
+
+Secure mode no longer creates unrecoverable persistent ciphertext by default.
+
+A persistent secure run requires `DSG_MEMORY_MASTER_KEY`. Generate one, for example:
 
 ```bash
-export DSG_MEMORY_MASTER_KEY="$(python - <<'PY'
+python - <<'PY'
 import base64, secrets
-print(base64.urlsafe_b64encode(secrets.token_bytes(32)).decode())
+print("b64:" + base64.urlsafe_b64encode(secrets.token_bytes(32)).decode().rstrip("="))
 PY
-)"
 ```
 
-Optional CKKS support:
+Then export it:
 
 ```bash
-python -m pip install tenseal
-export DSG_ENABLE_CKKS=1
+export DSG_MEMORY_MASTER_KEY='b64:...'
 ```
 
-If CKKS is requested but unavailable, the secure runtime reports HE as disabled rather than silently degrading the claim.
+For development-only process-local memory, explicitly opt in:
+
+```bash
+export DSG_ALLOW_EPHEMERAL_MEMORY=1
+```
+
+Ephemeral mode uses an in-memory vector backend and never writes ciphertext that cannot be reopened after restart.
 
 ## Quick start
 
@@ -78,110 +134,83 @@ source .venv/bin/activate
 python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
 cp .env.example .env
-export OPENAI_API_KEY="your-key"
-python main.py
 ```
 
-One-shot request:
+Standard mode:
 
 ```bash
-python main.py --rounds 2 "Design a resilient agent protocol and verify its failure modes"
+python main.py --rounds 2 "Design and audit a resilient agent system"
 ```
 
-Machine-readable output:
+Secure PCESM mode:
 
 ```bash
-python main.py --rounds 3 --json "Review this architecture for hidden coupling risks"
+export DSG_MEMORY_MASTER_KEY='b64:YOUR_GENERATED_KEY'
+python main.py --secure --rounds 2 "Design and audit a resilient agent system"
 ```
 
-Without `OPENAI_API_KEY`, the fabric still boots and exercises routing, queueing, trust, ledger, trace, and consensus plumbing in local fallback mode.
-
-## Environment variables
-
-```text
-OPENAI_API_KEY=
-OPENAI_MODEL=gpt-5.6
-OPENAI_BASE_URL=https://api.openai.com/v1
-DSG_MESSAGE_SECRET=
-DSG_TRACE_FILE=outputs/hypercomm_trace.jsonl
-DSG_MAX_PAYLOAD_BYTES=65536
-DSG_MAX_QUEUE=128
-DSG_HYPER_ROUNDS=2
-DSG_MODEL_TIMEOUT=90
-DSG_MODEL_CONCURRENCY=6
-DSG_MEMORY_MASTER_KEY=
-WEAVIATE_URL=
-DSG_WEAVIATE_COLLECTION=DSGPCOSMOpaqueMemory
-DSG_BLIND_VECTOR_DIMS=256
-DSG_ENABLE_CKKS=0
-```
-
-For authenticated envelopes, generate a high-entropy secret and keep it out of Git:
+The compatibility secure entry point also works:
 
 ```bash
-export DSG_MESSAGE_SECRET="$(python - <<'PY'
-import secrets
-print(secrets.token_hex(32))
-PY
-)"
+python secure_main.py "Review the architecture"
 ```
 
-## Communication lifecycle
+Without `OPENAI_API_KEY`, the orchestration and security plumbing run in a deterministic local fallback mode without remote inference.
+
+## Vector backends
+
+If `WEAVIATE_URL` is unset, secure mode uses persistent encrypted SQLite at:
 
 ```text
-User request
-    │
-    ├── Spectrum inference (R/G/B/Gamma/Sync weights)
-    │
-    ├── Round N ──┬── Red   ─┐
-    │             ├── Green  ├── versioned blackboard
-    │             ├── Blue   ┤        │
-    │             └── Gamma  ┘        ├── peer notes (directed only)
-    │                                 └── trust updates
-    │
-    └── Sync arbitration ──> final answer + uncertainty + next checks
+outputs/secure_memory.sqlite3
 ```
 
-Each round is fan-out/fan-in. Explicit recipients override topic subscriptions, so directed peer notes do not accidentally broadcast to every agent.
+If `WEAVIATE_URL` is configured, PCESM uses Weaviate and performs namespace filtering in the vector query itself instead of retrieving cross-namespace candidates and filtering them afterward. If Weaviate initialization fails, the runtime records a warning and falls back to encrypted SQLite.
 
-## Security and reliability model
+## Trace integrity
 
-The runtime deliberately treats agent text as **data**, not authority. Peer messages are supplied to each model inside a structured packet and the system prompt explicitly says peer text is untrusted evidence. The runtime does not execute model-generated shell commands, code, network requests, or tools.
-
-Important controls include:
-
-- **Integrity:** optional HMAC-SHA256 signatures over canonical envelopes.
-- **Replay defense:** bounded seen-message cache.
-- **Propagation bounds:** TTL and hop limits.
-- **Resource bounds:** payload caps, queue caps, round caps, model concurrency caps, provider timeout.
-- **Traceability:** message IDs, parent IDs, correlation IDs, trace IDs, provenance and confidence labels.
-- **Tamper evidence:** hash-chained event ledger persisted as JSONL.
-- **Consensus separation:** Sync does not participate in earlier analysis rounds.
-- **Trust adaptation:** verifier feedback can reduce or increase agent influence over time.
-
-## Output trace
-
-By default, communication events are appended to:
+Each request receives its own ledger file:
 
 ```text
-outputs/hypercomm_trace.jsonl
+outputs/traces/<trace-id>.jsonl
 ```
 
-Every record includes the previous record hash, producing a simple tamper-evident chain for post-run inspection.
+Each record commits to the previous record hash. Only hashes and bounded routing metadata are written; raw model prompts/results are not copied into the ledger. The chain is verified at the end of every run. This provides tamper evidence, not hardware-backed immutability.
 
-## Main files
+Set:
 
-- `main.py` — RGB HyperCommunication runtime and CLI.
-- `hypercrypto.py` — PCOSM encrypted semantic-memory and optional CKKS layer.
-- `secure_runtime.py` — capability-gated encrypted-memory wrapper around the agent runtime.
-- `secure_main.py` — secure CLI surface.
-- `tests/test_hypercrypto.py` — security/behavior tests for sealing, capabilities and tamper rejection.
-- `requirements.txt` — runtime plus research-paper dependencies.
-- `.env.example` — configuration template with no credentials.
-- `outputs/` — generated traces and retained historical outputs.
-- `paper/` — retained research-paper material from the earlier simulator generation.
-- `prompts/` — retained historical prompt artifacts.
+```text
+DSG_REQUIRE_LEDGER=1
+```
 
-## Historical research artifacts
+if a trace-persistence failure should fail the run rather than degrade to in-memory accounting.
 
-The existing research-paper, turnout, and simulator output artifacts remain in the repository for provenance. They should be read as historical synthetic/simulation material; the new runtime architecture focuses on explicit multi-agent communication, verification, and consensus rather than presenting internal simulation metrics as external measurements.
+## Tests
+
+```bash
+python -m py_compile main.py secure_main.py dsghyper/*.py tests/*.py
+python -m unittest discover -s tests -v
+```
+
+The v21 suite covers:
+
+- encrypted-memory round trip;
+- full record-commitment recomputation;
+- ciphertext tamper rejection;
+- capability scope enforcement;
+- capability revocation and expiry;
+- SQLite encrypted-memory persistence across restart with the same master key;
+- structured protocol bounds;
+- fixed worker call graph with no recursive peer calls;
+- per-trace ledger verification;
+- explicit secure ephemeral mode.
+
+## Deliberately deferred to the next agent-communication iteration
+
+The current rework establishes a stable base before increasing agent autonomy. Good next-stage research targets include threshold-decryption identities, post-quantum authenticated peer identities, policy-carrying messages, explicit information-budget negotiation, zero-knowledge authorization proofs, mixnet/ORAM-style access-pattern defenses, multi-model quorum arbitration, and causal credit assignment across long agent conversations.
+
+Those features are **not** claimed to be implemented in v21.
+
+## Legacy artifact policy
+
+The old monolithic simulator source, stale SHA-256 manifest, and historical DOCX builder are removed from this rearchitecture branch. Their history remains recoverable through Git. Static `paper/`, `outputs/`, and `prompts/` research artifacts may remain for provenance, but they are not imported or executed by v21.
