@@ -1,6 +1,6 @@
-# DysonSphereGamma HyperCommunication v22
+# DysonSphereGamma HyperCommunication v23
 
-`dsgrgb` is now a bounded multi-agent runtime with selective epistemic routing and an optional encrypted semantic-memory layer.
+`dsgrgb` is a bounded multi-agent runtime with selective epistemic routing, an explicit **Agent Information Economy**, and an optional encrypted semantic-memory layer.
 
 The five historical channels remain as software roles:
 
@@ -12,27 +12,24 @@ The five historical channels remain as software roles:
 
 The RGB/Gamma terminology is an information-routing metaphor. It is not a claim of physical quantum, nonlocal, remote, or future sensing.
 
-## v22: Selective Epistemic Mesh
+## v23: Agent Information Economy
 
-v21 removed recursive peer-agent execution. v22 goes further: workers no longer receive a broadcast copy of the complete previous-round transcript.
+v22 introduced the Selective Epistemic Mesh. v23 makes communication capacity an explicit allocatable resource and adds research-grade communication-analysis primitives around that mesh.
 
-Each round produces immutable artifacts:
+Operational v23 mechanisms include:
 
-- atomic claims with confidence, salience, provenance, and evidence;
-- explicit claim relationships: `supports`, `contradicts`, `depends_on`, `refines`, `duplicates`;
-- targeted challenges against specific agent/claim identifiers;
-- targeted information requests with estimated utility;
-- small peer notes for the next bounded round only.
+- claim freshness decay and hard round-based expiration;
+- deterministic information-market allocation under hard token budgets;
+- claim-level structural causal-credit propagation over explicit graph edges;
+- deterministic replay snapshots and counterfactual market evaluation;
+- proof-carrying HMAC policy envelopes with payload binding, audience, purpose, operation, expiry, and nonce replay checks;
+- bounded specialist planning plus **opt-in** conflict-specialist execution under count/token/time quotas;
+- bounded multi-model quorum cells over explicitly configured model IDs;
+- explicit capability reporting for threshold authentication, post-quantum identity, ORAM, PIR, and zero-knowledge authorization.
 
-The new `dsghyper/epistemic.py` builds globally addressable claim IDs such as:
+The advanced cryptographic/privacy capabilities are **not reported active unless a real backend is registered**. The default runtime does not claim threshold signatures, post-quantum transport authentication, ORAM, PIR, or ZK authorization.
 
-```text
-r2:blue:claim_4
-```
-
-and converts those artifacts into a deterministic claim graph.
-
-### Communication path
+## Communication path
 
 ```text
 User task
@@ -47,70 +44,225 @@ Round 1: Red / Green / Blue / Gamma
    └── targeted information requests
    │
    ▼
-Epistemic Mesh
+Selective Epistemic Mesh
    │
-   ├── resolve global claim identities
-   ├── discard unresolved reputation challenges
-   ├── compute bounded communication priorities
-   ├── enforce claim / character / request budgets
-   └── create role-specific next-round packets
+   ├── global claim identities
+   ├── targeted role routing
+   └── contested/dependency bookkeeping
    │
    ▼
-Round 2..N: selective role-specific context
+Freshness gate
+   │
+   ├── decay stale evidence
+   └── expire claims past TTL
    │
    ▼
-Sync receives compact graph + contested claims + unresolved requests
+Information Market
+   │
+   ├── utility
+   ├── confidence
+   ├── salience
+   ├── freshness
+   └── estimated token cost
+   │
+   ▼
+Role-specific winning communication packet
+   │
+   ▼
+Round 2..N
+   │
+   ▼
+Conflict specialist planner / optional executor
+   │
+   ▼
+Sync arbitration
+   │
+   ├── claim graph summary
+   ├── causal-credit diagnostics
+   ├── specialist evidence
+   ├── optional multi-model quorum cell
+   └── policy envelope verification
+   │
+   ▼
+Final answer + replay/counterfactual metadata
 ```
 
-`full_prior_round_broadcast` is explicitly reported as `false`.
+`recursive_peer_calls` remains `0` and `full_prior_round_broadcast` remains `false`.
 
-## Communication budgets
+## Claim-level causal credit
 
-The mesh enforces deterministic limits rather than letting agent communication grow without bound. The default budget currently limits:
+`dsghyper.research.CausalCreditEngine` propagates bounded structural credit backward through explicit graph edges such as:
 
-- claims delivered per worker;
-- total routed claim characters;
-- targeted information requests;
-- peer notes and peer-note characters;
-- total claims exposed to Sync.
+- `supports`
+- `refines`
+- `depends_on`
+- `contradicts`
+- `challenges`
 
-Dropped-by-budget artifacts are counted in runtime metrics.
+This is **communication-graph attribution**, not proof of real-world causality. Runtime output names the mode accordingly:
 
-This makes communication capacity a controlled resource rather than an accidental function of how verbose agents become.
+```text
+bounded-graph-structural-credit-not-real-world-causality
+```
 
-## Quorum bookkeeping is not truth
+The engine is cycle-bounded, depth-bounded, and decay-weighted.
 
-For each claim, the mesh derives bookkeeping values including:
+## Evidence freshness and expiration
 
-- weighted support mass;
-- weighted challenge mass;
-- support fraction;
-- reviewer diversity;
-- dependency count;
-- supporters and challengers;
-- status: `weak`, `provisional`, `cross_supported`, or `contested`.
+Freshness is controlled with:
 
-These values are **not truth probabilities**. Agreement does not make a claim true, and disagreement does not make it false. Sync is explicitly instructed to preserve materially contested claims and missing information.
+```text
+DSG_FRESHNESS_TTL_ROUNDS=4
+DSG_FRESHNESS_HALF_LIFE_ROUNDS=2.0
+```
 
-## Influence safety
+A claim older than the TTL is not allowed to enter the information market. Claims inside the TTL receive a deterministic exponential freshness score.
 
-Agent influence is a bounded reliability heuristic, not a truth score.
+## Information-market allocation
 
-A challenge affects influence only when the Epistemic Mesh can resolve the referenced claim to the stated target agent. Invalid, ambiguous, or missing claim references are counted as unresolved and have no influence effect.
+Each candidate communication artifact becomes a `MarketBid` containing:
 
-This closes a class of reputation-poisoning errors where arbitrary claim IDs could previously lower another agent's score.
+- sender and recipient;
+- globally addressed claim/artifact ID;
+- utility;
+- confidence;
+- salience;
+- freshness;
+- estimated token cost.
+
+The deterministic market ranks benefit relative to cost and admits winners until the recipient's token budget is exhausted.
+
+Configure the hard per-recipient/per-round budget with:
+
+```text
+DSG_MARKET_TOKEN_BUDGET=4500
+```
+
+The runtime records allocation digests, tokens used, winning bid IDs, and rejected bid IDs in the tamper-evident ledger.
+
+## Conflict-focused specialists
+
+The `SpecialistScheduler` creates bounded plans only for sufficiently contested claims. Default behavior is **plan-only** so v23 does not silently increase model cost.
+
+```text
+DSG_SPECIALIST_LIMIT=2
+DSG_SPECIALIST_TOKEN_QUOTA=3000
+DSG_EXECUTE_SPECIALISTS=0
+```
+
+To opt in to specialist execution:
+
+```bash
+export DSG_EXECUTE_SPECIALISTS=1
+```
+
+`SpecialistExecutor` then enforces:
+
+- maximum specialist count;
+- total output-token reservation;
+- per-specialist token cap;
+- per-specialist timeout;
+- advisory-only results that do not replace Red/Green/Blue/Gamma worker state.
+
+## Multi-model quorum cells
+
+Additional compatible model IDs may be configured with:
+
+```text
+DSG_QUORUM_MODELS=model-a,model-b,model-c
+```
+
+When an API key is configured, `QuorumCell` sends the same bounded Sync packet independently to those models with model-count, timeout, and token caps.
+
+The runtime reports:
+
+- each model result digest;
+- answer fingerprints;
+- response diversity;
+- mean confidence;
+- status counts;
+- quorum digest.
+
+It deliberately reports:
+
+```text
+truth_probability = null
+```
+
+Agreement is diagnostic bookkeeping, not proof and not a truth probability. The primary Sync result remains the user-facing answer unless a future explicit adjudication policy says otherwise.
+
+## Proof-carrying policy messages
+
+If configured:
+
+```text
+DSG_POLICY_AUTH_KEY=
+```
+
+v23 can attach an HMAC-authenticated policy envelope to the Sync packet. The envelope binds:
+
+- sender;
+- audience;
+- purpose;
+- allowed operations;
+- payload digest;
+- issued/expiry times;
+- nonce;
+- policy digest;
+- HMAC authenticator.
+
+This protects integrity/authenticity under the shared policy key. It is **not zero knowledge**, **not threshold authentication**, and **not post-quantum authentication**.
+
+## Deterministic replay and counterfactual communication evaluation
+
+Every completed run can emit a deterministic replay snapshot over:
+
+- request digest;
+- epistemic mesh digest;
+- influence digest;
+- information-market allocation digests;
+- final result digest.
+
+Configure counterfactual market budgets with:
+
+```text
+DSG_COUNTERFACTUAL_BUDGETS=1024,2048,4096
+```
+
+The replay engine reruns the deterministic allocation policy over the same recorded bids and reports which artifacts would have won under each budget. It does not re-contact models and therefore isolates communication-policy effects from model nondeterminism.
+
+## Advanced security capability surface
+
+The runtime exposes explicit status entries for:
+
+- `threshold_authenticated_identity`
+- `post_quantum_transport_identity`
+- `oram_access_pattern_hiding`
+- `pir_private_retrieval`
+- `zero_knowledge_authorization`
+
+Default state is intentionally:
+
+```text
+implemented = false
+active = false
+```
+
+until a vetted backend is integrated and registered. This prevents architecture names from being mistaken for cryptographic guarantees.
 
 ## Package architecture
 
 ```text
 dsghyper/
-  config.py      environment parsing and bounded configuration
+  config.py      runtime, memory, and v23 research configuration
   protocol.py    immutable claims, relations, challenges, requests and notes
-  epistemic.py   claim graph, selective routing, budgets and quorum bookkeeping
-  model.py       bounded HTTP model transport
+  epistemic.py   selective claim graph and bounded routing
+  research.py    freshness, markets, causal credit, replay, policy/security surface
+  cells.py       bounded specialist and multi-model quorum execution cells
+  model.py       bounded HTTP model transport with per-call model/token overrides
   ledger.py      per-trace tamper-evident hash chain
   memory.py      PCESM encrypted semantic vector memory
-  runtime.py     bounded orchestration + selective mesh integration
+  runtime.py     v23 orchestration integration
   cli.py         standard + secure CLI
 ```
 
@@ -141,38 +293,9 @@ PCESM is not itself a new cryptographic primitive.
 
 Blind feature sketches are not ORAM, PIR, or zero-knowledge search. Backends may still observe timing, namespace labels, result counts, and access/similarity patterns.
 
-Runtime status therefore reports:
-
-```text
-access_pattern_hiding = false
-```
+Runtime status therefore does not claim access-pattern hiding.
 
 CKKS is optional and never silently replaced by AES or ordinary vector search.
-
-## Secure-memory behavior
-
-Persistent secure mode requires:
-
-```text
-DSG_MEMORY_MASTER_KEY
-```
-
-Generate one:
-
-```bash
-python - <<'PY'
-import base64, secrets
-print("b64:" + base64.urlsafe_b64encode(secrets.token_bytes(32)).decode().rstrip("="))
-PY
-```
-
-Development-only process-local memory requires explicit opt-in:
-
-```bash
-export DSG_ALLOW_EPHEMERAL_MEMORY=1
-```
-
-Ephemeral mode uses an in-memory backend and does not write unrecoverable ciphertext.
 
 ## Quick start
 
@@ -181,6 +304,7 @@ python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
 python -m pip install -e .
+cp .env.example .env
 ```
 
 Standard mode:
@@ -196,17 +320,7 @@ export DSG_MEMORY_MASTER_KEY='b64:YOUR_GENERATED_KEY'
 python main.py --secure --rounds 3 "Design and verify a resilient agent communication system"
 ```
 
-Without `OPENAI_API_KEY`, orchestration and security plumbing run in deterministic local fallback mode without remote model inference.
-
-## Trace integrity
-
-Each request gets its own ledger:
-
-```text
-outputs/traces/<trace-id>.jsonl
-```
-
-Every record commits to the previous hash. The chain is verified after the run. This is tamper evidence, not hardware-backed immutability.
+Without `OPENAI_API_KEY`, orchestration and security plumbing run in deterministic local fallback mode without remote model inference. Quorum model IDs are not activated by the main runtime when no API key is configured.
 
 ## Tests
 
@@ -215,36 +329,34 @@ python -m compileall -q main.py secure_main.py dsghyper tests
 python -m unittest discover -s tests -v
 ```
 
-The suite now covers the v21 security/runtime cases plus v22 communication properties:
+The suite covers v21/v22 guarantees plus v23 behavior:
 
-- global claim identities;
-- targeted challenge resolution;
-- unresolved challenges cannot affect reputation;
-- selective routing respects claim budgets;
-- information requests reach only intended roles;
-- quorum bookkeeping never emits Boolean truth flags;
-- no recursive peer calls;
-- no full previous-round broadcast;
 - encrypted-memory persistence and tamper rejection;
 - capability scope, expiry, and revocation;
-- per-trace ledger verification.
+- per-trace ledger verification;
+- global claim identities and targeted challenge resolution;
+- no recursive peer calls or full previous-round broadcast;
+- freshness decay and expiration;
+- deterministic budget-bounded information-market allocation;
+- bounded structural causal-credit propagation;
+- HMAC policy-envelope payload binding and nonce replay rejection;
+- specialist hard quotas and explicit opt-in execution;
+- multi-model quorum diagnostic behavior;
+- advanced security features default inactive when no backend exists;
+- deterministic replay/counterfactual market primitives.
 
-GitHub Actions runs compile, unit tests, standard fallback smoke, and secure-ephemeral smoke on Python 3.10 and 3.12.
+GitHub Actions runs compile, unit tests, standard fallback smoke, secure-ephemeral smoke, and specialist opt-in fallback smoke on Python 3.10 and 3.12.
 
-## Next communication research layer
+## Research roadmap beyond v23
 
-v22 provides a stable base for a later iteration with substantially stronger communication semantics, such as:
+The next credible steps are deeper implementations rather than names alone:
 
-- claim-level causal credit assignment;
-- evidence freshness and expiration;
-- explicit information-market bidding under token budgets;
-- multi-model quorum cells;
-- conflict-focused specialist spawning with hard quotas;
-- proof-carrying policy/capability messages;
-- threshold-authenticated peer identities;
-- post-quantum authenticated transport identities;
-- privacy-preserving routing with ORAM/PIR-style access-pattern defenses;
-- zero-knowledge authorization proofs;
-- deterministic replay and counterfactual communication evaluation.
+1. integrate a vetted threshold-signature library and real M-of-N peer authentication;
+2. add hybrid classical + ML-DSA / ML-KEM authenticated transport identities using a maintained cryptographic backend;
+3. evaluate concrete ORAM or PIR libraries for memory retrieval with fixed-size request/result envelopes;
+4. implement zero-knowledge authorization only with a real proving/verifying system and explicit circuit/policy semantics;
+5. add persistent replay corpora and offline communication-policy benchmarks;
+6. measure specialist/quorum information gain against token cost instead of assuming extra agents help;
+7. add multi-provider quorum adapters so independent models need not share one API endpoint or provider.
 
-Those are research directions, not claims about current v22 behavior.
+Those are future work and are not claimed by v23 unless their capability status explicitly reports `implemented=true` and `active=true`.
