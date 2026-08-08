@@ -26,7 +26,7 @@ class RuntimeTests(unittest.TestCase):
             require_ledger=True,
         )
 
-    def test_fallback_runtime_has_fixed_call_graph(self):
+    def test_fallback_runtime_has_fixed_call_graph_and_v23_surface(self):
         with tempfile.TemporaryDirectory() as tmp:
             config = self.runtime_config(Path(tmp))
 
@@ -35,8 +35,19 @@ class RuntimeTests(unittest.TestCase):
                     return await runtime.ask("design and verify a resilient system")
 
             result = asyncio.run(scenario())
-            self.assertEqual(result["communication"]["worker_results"], 8)
-            self.assertEqual(result["communication"]["recursive_peer_calls"], 0)
+            comm = result["communication"]
+            self.assertEqual(comm["architecture"], "AGENT_INFORMATION_ECONOMY_V23")
+            self.assertEqual(comm["worker_results"], 8)
+            self.assertEqual(comm["recursive_peer_calls"], 0)
+            self.assertFalse(comm["full_prior_round_broadcast"])
+            self.assertIn("information_market", comm)
+            self.assertIn("causal_credit", comm)
+            self.assertIn("deterministic_replay", comm)
+            self.assertEqual(comm["specialists"]["execution"], "planned-not-autonomously-spawned")
+            self.assertFalse(comm["multi_model_quorum"]["active"])
+            self.assertEqual(comm["multi_model_quorum"]["configured_models"], 1)
+            for capability in comm["advanced_security_surface"].values():
+                self.assertFalse(capability["active"])
             self.assertTrue(result["ledger"]["verified"])
             self.assertEqual(result["final"]["status"], "fallback")
 
@@ -68,6 +79,7 @@ class RuntimeTests(unittest.TestCase):
             self.assertFalse(status["master_key_persistent"])
             self.assertFalse(status["backend_persistent"])
             self.assertTrue(result["secure_memory"]["capabilities_revoked_after_run"])
+            self.assertEqual(result["communication"]["architecture"], "AGENT_INFORMATION_ECONOMY_V23")
 
 
 if __name__ == "__main__":
