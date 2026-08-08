@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+import math
 from dataclasses import asdict, dataclass
 from typing import Any
 
@@ -10,9 +11,20 @@ from .ledger import TamperEvidentLedger
 from .memory import SecureSemanticFabric
 from .model import ModelClient
 from .protocol import AgentResult, MessageEnvelope, Spectrum, WORKERS, new_id, safe_text, stable_json, utc_now
+from .research import (
+    AdvancedSecuritySurface,
+    CausalCreditEngine,
+    DeterministicReplay,
+    FreshnessPolicy,
+    InformationMarket,
+    MarketAllocation,
+    MarketBid,
+    MultiModelQuorum,
+    SpecialistScheduler,
+)
 
 APP = "DysonSphereGamma HyperCommunication"
-VERSION = "22.0.0-epistemic-mesh"
+VERSION = "23.0.0-agent-information-economy"
 
 ROLE_PROMPTS = {
     "red": "RED is the adversarial analysis role. Identify credible failure modes, hidden assumptions, security or reliability risks, and contradictions. Distinguish evidence-backed concerns from merely imaginable ones.",
@@ -113,12 +125,70 @@ class HyperOrchestrator:
         self.model = ModelClient(self.config)
         self.agents = {name: RoleAgent(name, self.model, self.config) for name in (*WORKERS, "sync")}
         self.communication_budget = CommunicationBudget()
+        self.freshness = FreshnessPolicy()
+        self.market = InformationMarket(
+            token_budget=max(512, self.communication_budget.max_chars // 4),
+            max_winners=self.communication_budget.max_claims,
+        )
+        self.credit = CausalCreditEngine()
+        self.specialists = SpecialistScheduler(max_specialists=2, token_quota=3000)
+        self.quorum = MultiModelQuorum()
+        self.replay = DeterministicReplay()
+        self.security_surface = AdvancedSecuritySurface()
 
     async def __aenter__(self) -> "HyperOrchestrator":
         return self
 
     async def __aexit__(self, *_exc: Any) -> None:
         await self.model.close()
+
+    def _market_route(
+        self,
+        recipient: str,
+        routed: dict[str, Any],
+        *,
+        current_round: int,
+    ) -> tuple[dict[str, Any], MarketAllocation]:
+        bids: list[MarketBid] = []
+        for item in routed.get("claims", []):
+            claim = item.get("claim", {})
+            created_round = int(claim.get("round", 0) or 0)
+            freshness = self.freshness.score(created_round, current_round)
+            if freshness <= 0.0:
+                continue
+            payload = {
+                **item,
+                "freshness": freshness,
+                "expired": False,
+            }
+            estimated_tokens = max(16, int(math.ceil(len(stable_json(payload)) / 4.0)))
+            bids.append(MarketBid(
+                bid_id=f"bid:{recipient}:{claim.get('global_id', 'unknown')}",
+                sender=safe_text(claim.get("agent", "unknown"), 64),
+                recipient=recipient,
+                artifact_id=safe_text(claim.get("global_id", "unknown"), 180),
+                utility=min(1.0, float(item.get("route_score", 0.0) or 0.0)),
+                confidence=float(claim.get("confidence", 0.5) or 0.5),
+                salience=float(claim.get("salience", 0.5) or 0.5),
+                freshness=freshness,
+                estimated_tokens=estimated_tokens,
+                payload=payload,
+            ))
+        allocation = self.market.allocate(recipient, bids)
+        selected = [bid.payload for bid in allocation.winners]
+        market_route = {
+            "claims": selected,
+            "information_requests": routed.get("information_requests", []),
+            "budget": routed.get("budget", {}),
+            "information_market": {
+                "token_budget": allocation.token_budget,
+                "tokens_used": allocation.tokens_used,
+                "winner_count": len(allocation.winners),
+                "rejected_count": len(allocation.rejected),
+                "allocation_digest": allocation.allocation_digest,
+            },
+        }
+        return market_route, allocation
 
     async def _run_worker_round(
         self,
@@ -132,16 +202,30 @@ class HyperOrchestrator:
         influence: InfluenceGraph,
         mesh: EpistemicMesh,
         ledger: TamperEvidentLedger,
+        allocations: list[MarketAllocation],
     ) -> dict[str, AgentResult]:
         tasks: dict[str, asyncio.Task[AgentResult]] = {}
         influence_snapshot = influence.snapshot()
         for agent_name in WORKERS:
-            routed = mesh.route_for(
-                agent_name,
-                current_round=round_no,
-                spectrum=spectrum,
-                influence=influence_snapshot,
-            ) if round_no > 1 else {"claims": [], "information_requests": [], "budget": {}}
+            if round_no > 1:
+                routed = mesh.route_for(
+                    agent_name,
+                    current_round=round_no,
+                    spectrum=spectrum,
+                    influence=influence_snapshot,
+                )
+                routed, allocation = self._market_route(agent_name, routed, current_round=round_no)
+                allocations.append(allocation)
+                ledger.append("information_market", agent_name, {
+                    "round": round_no,
+                    "token_budget": allocation.token_budget,
+                    "tokens_used": allocation.tokens_used,
+                    "winner_ids": [bid.bid_id for bid in allocation.winners],
+                    "rejected_ids": list(allocation.rejected),
+                    "allocation_digest": allocation.allocation_digest,
+                })
+            else:
+                routed = {"claims": [], "information_requests": [], "budget": {}, "information_market": {}}
             packet = {
                 "runtime": {"app": APP, "version": VERSION, "trace_id": trace_id, "round": round_no, "agent": agent_name},
                 "task": request,
@@ -152,7 +236,7 @@ class HyperOrchestrator:
                     "incoming_peer_notes": incoming_notes.get(agent_name, []),
                     "influence_graph": influence_snapshot,
                 },
-                "instruction": "Analyze from your assigned role. Use the selective epistemic route, emit immutable atomic claims, link them explicitly to prior claims when relevant, and request only high-utility missing information.",
+                "instruction": "Analyze from your assigned role. Use only the market-allocated selective route, emit immutable atomic claims, link them explicitly to prior claims when relevant, and request only high-utility missing information.",
             }
             tasks[agent_name] = asyncio.create_task(self.agents[agent_name].evaluate(packet), name=f"{trace_id}:{round_no}:{agent_name}")
 
@@ -234,6 +318,7 @@ class HyperOrchestrator:
         influence = InfluenceGraph()
         mesh = EpistemicMesh(self.communication_budget)
         rounds: list[dict[str, AgentResult]] = []
+        allocations: list[MarketAllocation] = []
         incoming_notes: dict[str, list[dict[str, Any]]] = {name: [] for name in WORKERS}
         note_count = 0
 
@@ -248,6 +333,7 @@ class HyperOrchestrator:
                 influence=influence,
                 mesh=mesh,
                 ledger=ledger,
+                allocations=allocations,
             )
             rounds.append(results)
             report = mesh.ingest_round(round_no, results)
@@ -263,7 +349,23 @@ class HyperOrchestrator:
             incoming_notes, added = self._route_notes(trace_id, round_no, results, ledger)
             note_count += added
 
-        sync_context = mesh.sync_summary(influence.snapshot())
+        influence_snapshot = influence.snapshot()
+        sync_context = mesh.sync_summary(influence_snapshot)
+        specialist_plans = self.specialists.plan(sync_context.get("contested_claims", []))
+        selected_for_sync = [
+            item.get("claim", {}).get("global_id", "")
+            for item in sync_context.get("claims", [])[:12]
+            if item.get("claim", {}).get("global_id")
+        ]
+        causal_credit = self.credit.assign(
+            list(mesh.nodes),
+            mesh.edges,
+            selected_for_sync,
+        )
+        credit_summary = [
+            asdict(value)
+            for value in sorted(causal_credit.values(), key=lambda x: x.total_credit, reverse=True)[:24]
+        ]
         worker_status = [
             {agent: {"status": result.status, "confidence": result.confidence, "result_id": result.result_id} for agent, result in round_result.items()}
             for round_result in rounds
@@ -275,10 +377,12 @@ class HyperOrchestrator:
             "context": {
                 "retrieved_memory": memory_context,
                 "epistemic_graph_summary": sync_context,
+                "causal_credit": credit_summary,
+                "specialist_plans": [asdict(plan) for plan in specialist_plans],
                 "worker_status": worker_status,
-                "influence_graph": influence.snapshot(),
+                "influence_graph": influence_snapshot,
             },
-            "instruction": "Produce the final answer from the bounded epistemic graph. Treat quorum values as communication/evidence bookkeeping, not truth. Explicitly preserve contested claims and unresolved information needs when material.",
+            "instruction": "Produce the final answer from the bounded epistemic graph. Treat quorum and causal-credit values as communication-analysis bookkeeping, not truth or proof of real-world causality. Preserve contested claims and unresolved information needs when material.",
         }
         try:
             final = await asyncio.wait_for(self.agents["sync"].evaluate(sync_packet), timeout=self.config.round_timeout)
@@ -287,12 +391,24 @@ class HyperOrchestrator:
         except Exception as exc:
             final = AgentResult.failure("sync", f"{type(exc).__name__}: {exc}")
         influence.observe_result(final)
+        final_influence = influence.snapshot()
+        mesh_digest = mesh.digest(final_influence)
+        single_model_quorum = self.quorum.summarize([(self.config.model, final)])
+        replay_snapshot = self.replay.capture(
+            trace_id=trace_id,
+            request=request,
+            mesh_digest=mesh_digest,
+            influence=final_influence,
+            allocations=allocations,
+            final=final,
+        )
         ledger.append("sync_result", "sync", {
             "result_id": final.result_id,
             "status": final.status,
             "confidence": final.confidence,
             "claim_count": len(final.claims),
-            "mesh_digest": mesh.digest(influence.snapshot()),
+            "mesh_digest": mesh_digest,
+            "replay_snapshot": replay_snapshot.snapshot_digest,
         })
 
         verified, verify_detail = TamperEvidentLedger.verify_file(ledger_path) if ledger.persistence_error is None else (False, ledger.persistence_error or "ledger unavailable")
@@ -304,15 +420,39 @@ class HyperOrchestrator:
             "model": self.config.model,
             "rounds": self.rounds,
             "spectrum": {**asdict(spectrum), "dominant": spectrum.dominant(), "entropy": round(spectrum.entropy(), 6)},
-            "influence_graph": influence.snapshot(),
+            "influence_graph": final_influence,
             "communication": {
-                "architecture": "SELECTIVE_EPISTEMIC_MESH_V22",
+                "architecture": "AGENT_INFORMATION_ECONOMY_V23",
                 "peer_notes_emitted": note_count,
                 "recursive_peer_calls": 0,
                 "worker_results": sum(len(item) for item in rounds),
                 "mesh": mesh.metrics_dict(),
-                "mesh_digest": mesh.digest(influence.snapshot()),
+                "mesh_digest": mesh_digest,
                 "full_prior_round_broadcast": False,
+                "freshness_policy": asdict(self.freshness),
+                "information_market": {
+                    "allocations": len(allocations),
+                    "token_budget_per_recipient_round": self.market.token_budget,
+                    "tokens_used": sum(a.tokens_used for a in allocations),
+                    "allocation_digests": [a.allocation_digest for a in allocations],
+                },
+                "causal_credit": {
+                    "mode": "bounded-graph-structural-credit-not-real-world-causality",
+                    "top": credit_summary,
+                },
+                "specialists": {
+                    "execution": "planned-not-autonomously-spawned",
+                    "hard_quota": self.specialists.max_specialists,
+                    "plans": [asdict(plan) for plan in specialist_plans],
+                },
+                "multi_model_quorum": {
+                    "active": False,
+                    "configured_models": 1,
+                    "single_model_bookkeeping": asdict(single_model_quorum),
+                    "note": "MultiModelQuorum supports independent model results; this runtime has one configured model endpoint.",
+                },
+                "advanced_security_surface": self.security_surface.status(),
+                "deterministic_replay": asdict(replay_snapshot),
             },
             "model_metrics": asdict(self.model.metrics),
             "ledger": {
@@ -397,6 +537,7 @@ class SecureHyperOrchestrator:
                     "ledger_head": result.get("ledger", {}).get("head"),
                     "spectrum": result.get("spectrum"),
                     "communication_mesh_digest": result.get("communication", {}).get("mesh_digest"),
+                    "replay_snapshot": result.get("communication", {}).get("deterministic_replay", {}).get("snapshot_digest"),
                 },
                 capability=write_cap,
                 provenance="SYNC_CONSENSUS",
@@ -409,7 +550,7 @@ class SecureHyperOrchestrator:
                     "routing": "keyed-blind-feature-sketch",
                     "access_pattern_hiding": False,
                     "he": "ckks-optional-rerank",
-                    "communication": "selective-epistemic-mesh-v22",
+                    "communication": "agent-information-economy-v23",
                 },
             )
         except Exception as exc:
