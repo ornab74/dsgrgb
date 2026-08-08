@@ -11,6 +11,7 @@ from typing import Any
 
 AGENTS = ("red", "green", "blue", "gamma", "sync")
 WORKERS = ("red", "green", "blue", "gamma")
+RELATION_KINDS = ("supports", "contradicts", "depends_on", "refines", "duplicates")
 
 
 def utc_now() -> str:
@@ -96,11 +97,12 @@ class Claim:
     confidence: float
     provenance: str
     evidence: tuple[EvidenceRef, ...] = ()
+    salience: float = 0.5
 
     @classmethod
     def from_any(cls, value: Any, index: int) -> "Claim":
         if not isinstance(value, dict):
-            return cls(f"claim_{index}", safe_text(value, 2500), 0.35, "INFERRED", ())
+            return cls(f"claim_{index}", safe_text(value, 2500), 0.35, "INFERRED", (), 0.5)
         evidence_raw = value.get("evidence", [])
         if not isinstance(evidence_raw, list):
             evidence_raw = [evidence_raw]
@@ -110,6 +112,7 @@ class Claim:
             clamp(value.get("confidence", 0.5)),
             safe_text(value.get("provenance", "INFERRED"), 80),
             tuple(EvidenceRef.from_any(item) for item in evidence_raw[:12]),
+            clamp(value.get("salience", 0.5)),
         )
 
 
@@ -130,10 +133,59 @@ class Challenge:
             return None
         return cls(
             target,
-            safe_text(value.get("claim_id", "unknown"), 120),
+            safe_text(value.get("claim_id", "unknown"), 180),
             safe_text(value.get("reason", ""), 2000),
             clamp(value.get("severity", 0.5)),
             clamp(value.get("confidence", 0.5)),
+        )
+
+
+@dataclass(frozen=True, slots=True)
+class Relation:
+    kind: str
+    source_claim_id: str | None
+    target_claim_id: str
+    reason: str
+    confidence: float
+
+    @classmethod
+    def from_any(cls, value: Any) -> "Relation | None":
+        if not isinstance(value, dict):
+            return None
+        kind = safe_text(value.get("kind", ""), 32).lower()
+        if kind not in RELATION_KINDS:
+            return None
+        target = safe_text(value.get("target_claim_id", ""), 180)
+        if not target:
+            return None
+        source = safe_text(value.get("source_claim_id", ""), 180) or None
+        return cls(kind, source, target, safe_text(value.get("reason", ""), 1600), clamp(value.get("confidence", 0.5)))
+
+
+@dataclass(frozen=True, slots=True)
+class InformationRequest:
+    recipient: str
+    question: str
+    reason: str
+    utility: float
+    related_claim_id: str | None = None
+
+    @classmethod
+    def from_any(cls, value: Any) -> "InformationRequest | None":
+        if not isinstance(value, dict):
+            return None
+        recipient = safe_text(value.get("recipient", ""), 32).lower()
+        if recipient not in WORKERS:
+            return None
+        question = safe_text(value.get("question", ""), 1800)
+        if not question:
+            return None
+        return cls(
+            recipient,
+            question,
+            safe_text(value.get("reason", ""), 1200),
+            clamp(value.get("utility", 0.5)),
+            safe_text(value.get("related_claim_id", ""), 180) or None,
         )
 
 
@@ -171,6 +223,8 @@ class AgentResult:
     next_checks: tuple[str, ...]
     peer_notes: tuple[PeerNote, ...]
     confidence: float
+    relations: tuple[Relation, ...] = ()
+    information_requests: tuple[InformationRequest, ...] = ()
     status: str = "ok"
     error: str | None = None
     result_id: str = field(default_factory=lambda: new_id("result"))
@@ -182,15 +236,21 @@ class AgentResult:
             data = {"answer": safe_text(data)}
         claims_raw = data.get("claims", [])
         challenges_raw = data.get("challenges", [])
+        relations_raw = data.get("relations", [])
+        requests_raw = data.get("information_requests", [])
         notes_raw = data.get("peer_notes", data.get("messages", []))
         uncertainties = data.get("uncertainties", [])
         checks = data.get("next_checks", [])
         if not isinstance(claims_raw, list): claims_raw = [claims_raw]
         if not isinstance(challenges_raw, list): challenges_raw = [challenges_raw]
+        if not isinstance(relations_raw, list): relations_raw = [relations_raw]
+        if not isinstance(requests_raw, list): requests_raw = [requests_raw]
         if not isinstance(notes_raw, list): notes_raw = [notes_raw]
         if not isinstance(uncertainties, list): uncertainties = [uncertainties]
         if not isinstance(checks, list): checks = [checks]
         challenges = [Challenge.from_any(x) for x in challenges_raw[:24]]
+        relations = [Relation.from_any(x) for x in relations_raw[:32]]
+        requests = [InformationRequest.from_any(x) for x in requests_raw[:16]]
         notes = [PeerNote.from_any(x) for x in notes_raw[:16]]
         return cls(
             agent=agent,
@@ -201,13 +261,28 @@ class AgentResult:
             next_checks=tuple(safe_text(x, 1600) for x in checks[:16]),
             peer_notes=tuple(x for x in notes if x is not None),
             confidence=clamp(data.get("confidence", 0.5)),
+            relations=tuple(x for x in relations if x is not None),
+            information_requests=tuple(x for x in requests if x is not None),
             status=safe_text(data.get("status", "ok"), 32),
             error=safe_text(data.get("error", ""), 2000) or None,
         )
 
     @classmethod
     def failure(cls, agent: str, error: str, status: str = "error") -> "AgentResult":
-        return cls(agent, "", (), (), ("agent execution failed",), (), (), 0.0, safe_text(status, 32), safe_text(error, 2000))
+        return cls(
+            agent=agent,
+            answer="",
+            claims=(),
+            challenges=(),
+            uncertainties=("agent execution failed",),
+            next_checks=(),
+            peer_notes=(),
+            confidence=0.0,
+            relations=(),
+            information_requests=(),
+            status=safe_text(status, 32),
+            error=safe_text(error, 2000),
+        )
 
     def public_dict(self) -> dict[str, Any]:
         return asdict(self)
