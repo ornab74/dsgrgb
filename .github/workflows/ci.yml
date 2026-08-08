@@ -1,4 +1,4 @@
-name: v21 CI
+name: v22 CI
 
 on:
   push:
@@ -32,8 +32,8 @@ jobs:
       - name: Unit tests
         run: python -m unittest discover -s tests -v
       - name: Standard fallback smoke test
-        run: python main.py --rounds 1 "CI bounded communication smoke test"
+        run: python main.py --rounds 2 "CI selective epistemic communication smoke test"
       - name: Secure ephemeral smoke test
         env:
           DSG_ALLOW_EPHEMERAL_MEMORY: "1"
-        run: python secure_main.py --rounds 1 "CI secure memory smoke test"
+        run: python secure_main.py --rounds 1 "CI secure epistemic memory smoke test"
