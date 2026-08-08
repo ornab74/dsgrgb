@@ -3,6 +3,7 @@ from __future__ import annotations
 import asyncio
 import random
 from dataclasses import dataclass
+from typing import Any
 
 import httpx
 
@@ -27,12 +28,22 @@ class ModelClient:
     async def close(self) -> None:
         await self._client.aclose()
 
-    async def invoke(self, agent: str, system: str, packet: dict) -> AgentResult:
+    async def invoke(
+        self,
+        agent: str,
+        system: str,
+        packet: dict[str, Any],
+        *,
+        model_override: str | None = None,
+        max_tokens_override: int | None = None,
+    ) -> AgentResult:
         if not self.config.api_key:
             return AgentResult.from_model(agent, {
                 "answer": "LOCAL_FALLBACK: OPENAI_API_KEY is not configured.",
                 "claims": [],
                 "challenges": [],
+                "relations": [],
+                "information_requests": [],
                 "uncertainties": ["No remote model inference was performed."],
                 "next_checks": [],
                 "peer_notes": [],
@@ -40,14 +51,18 @@ class ModelClient:
                 "status": "fallback",
             })
 
+        model = (model_override or self.config.model).strip()
+        max_tokens = self.config.max_output_tokens
+        if max_tokens_override is not None:
+            max_tokens = max(128, min(self.config.max_output_tokens, int(max_tokens_override)))
         body = {
-            "model": self.config.model,
+            "model": model,
             "messages": [
                 {"role": "system", "content": system},
                 {"role": "user", "content": stable_json(packet)},
             ],
             "temperature": 0.2,
-            "max_tokens": self.config.max_output_tokens,
+            "max_tokens": max_tokens,
         }
         headers = {
             "Authorization": f"Bearer {self.config.api_key}",
