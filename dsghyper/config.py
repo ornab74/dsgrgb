@@ -30,13 +30,23 @@ def _bounded_float(name: str, default: float, lo: float, hi: float) -> float:
     return max(lo, min(hi, value))
 
 
-def parse_secret(raw: str, *, name: str, minimum: int = 32) -> bytes:
-    """Parse explicit hex:/b64: secrets; otherwise derive a fixed-length key.
+def _csv(name: str) -> tuple[str, ...]:
+    raw = os.getenv(name, "")
+    return tuple(x.strip() for x in raw.split(",") if x.strip())
 
-    A plain string is accepted for compatibility, but is fed through scrypt rather than
-    used directly as cryptographic key material. Deployments should prefer generated
-    b64:/hex: values with at least 32 random bytes.
-    """
+
+def _csv_ints(name: str, default: tuple[int, ...]) -> tuple[int, ...]:
+    values: list[int] = []
+    for item in _csv(name):
+        try:
+            values.append(int(item))
+        except ValueError:
+            continue
+    return tuple(values) or default
+
+
+def parse_secret(raw: str, *, name: str, minimum: int = 32) -> bytes:
+    """Parse explicit hex:/b64: secrets; otherwise derive a fixed-length key."""
     raw = raw.strip()
     if not raw:
         raise ValueError(f"{name} is empty")
@@ -89,6 +99,35 @@ class RuntimeConfig:
             max_context_chars=_bounded_int("DSG_MAX_CONTEXT_CHARS", 48000, 4096, 300000),
             trace_root=Path(os.getenv("DSG_TRACE_ROOT", "outputs/traces")),
             require_ledger=_flag("DSG_REQUIRE_LEDGER", False),
+        )
+
+
+@dataclass(frozen=True, slots=True)
+class ResearchConfig:
+    market_token_budget: int
+    freshness_ttl_rounds: int
+    freshness_half_life_rounds: float
+    specialist_limit: int
+    specialist_token_quota: int
+    execute_specialists: bool
+    quorum_models: tuple[str, ...]
+    counterfactual_budgets: tuple[int, ...]
+    policy_auth_key_raw: str
+
+    @classmethod
+    def from_env(cls) -> "ResearchConfig":
+        return cls(
+            market_token_budget=_bounded_int("DSG_MARKET_TOKEN_BUDGET", 4500, 256, 50000),
+            freshness_ttl_rounds=_bounded_int("DSG_FRESHNESS_TTL_ROUNDS", 4, 1, 64),
+            freshness_half_life_rounds=_bounded_float("DSG_FRESHNESS_HALF_LIFE_ROUNDS", 2.0, 0.25, 64.0),
+            specialist_limit=_bounded_int("DSG_SPECIALIST_LIMIT", 2, 0, 8),
+            specialist_token_quota=_bounded_int("DSG_SPECIALIST_TOKEN_QUOTA", 3000, 0, 50000),
+            execute_specialists=_flag("DSG_EXECUTE_SPECIALISTS", False),
+            quorum_models=_csv("DSG_QUORUM_MODELS")[:8],
+            counterfactual_budgets=tuple(
+                max(128, min(50000, x)) for x in _csv_ints("DSG_COUNTERFACTUAL_BUDGETS", (1024, 2048, 4096))
+            )[:12],
+            policy_auth_key_raw=os.getenv("DSG_POLICY_AUTH_KEY", "").strip(),
         )
 
 
