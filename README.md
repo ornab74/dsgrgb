@@ -1,109 +1,163 @@
-# DysonSphereGamma HyperCommunication v21
+# DysonSphereGamma HyperCommunication v22
 
-This branch is a ground-up rearchitecture of `dsgrgb` into a bounded multi-agent runtime with an optional encrypted semantic-memory layer.
+`dsgrgb` is now a bounded multi-agent runtime with selective epistemic routing and an optional encrypted semantic-memory layer.
 
-The five historical channels remain, but they now have explicit software responsibilities:
+The five historical channels remain as software roles:
 
 - **Red** — adversarial analysis and credible failure modes.
 - **Green** — constructive design and recovery paths.
 - **Blue** — verification, provenance, and structured challenges.
 - **Gamma** — cross-domain dependencies and second-order coupling.
-- **Sync** — final arbitration over an immutable bounded transcript.
+- **Sync** — final arbitration over the bounded epistemic graph.
 
 The RGB/Gamma terminology is an information-routing metaphor. It is not a claim of physical quantum, nonlocal, remote, or future sensing.
 
-## What v21 changes
+## v22: Selective Epistemic Mesh
 
-The old runtime mixed routing, prompts, state, trust, tracing, and secure memory across a large script and wrappers. v21 separates them into a package:
+v21 removed recursive peer-agent execution. v22 goes further: workers no longer receive a broadcast copy of the complete previous-round transcript.
+
+Each round produces immutable artifacts:
+
+- atomic claims with confidence, salience, provenance, and evidence;
+- explicit claim relationships: `supports`, `contradicts`, `depends_on`, `refines`, `duplicates`;
+- targeted challenges against specific agent/claim identifiers;
+- targeted information requests with estimated utility;
+- small peer notes for the next bounded round only.
+
+The new `dsghyper/epistemic.py` builds globally addressable claim IDs such as:
+
+```text
+r2:blue:claim_4
+```
+
+and converts those artifacts into a deterministic claim graph.
+
+### Communication path
+
+```text
+User task
+   │
+   ▼
+Round 1: Red / Green / Blue / Gamma
+   │
+   ├── immutable claims
+   ├── evidence references
+   ├── challenge edges
+   ├── support/dependency edges
+   └── targeted information requests
+   │
+   ▼
+Epistemic Mesh
+   │
+   ├── resolve global claim identities
+   ├── discard unresolved reputation challenges
+   ├── compute bounded communication priorities
+   ├── enforce claim / character / request budgets
+   └── create role-specific next-round packets
+   │
+   ▼
+Round 2..N: selective role-specific context
+   │
+   ▼
+Sync receives compact graph + contested claims + unresolved requests
+```
+
+`full_prior_round_broadcast` is explicitly reported as `false`.
+
+## Communication budgets
+
+The mesh enforces deterministic limits rather than letting agent communication grow without bound. The default budget currently limits:
+
+- claims delivered per worker;
+- total routed claim characters;
+- targeted information requests;
+- peer notes and peer-note characters;
+- total claims exposed to Sync.
+
+Dropped-by-budget artifacts are counted in runtime metrics.
+
+This makes communication capacity a controlled resource rather than an accidental function of how verbose agents become.
+
+## Quorum bookkeeping is not truth
+
+For each claim, the mesh derives bookkeeping values including:
+
+- weighted support mass;
+- weighted challenge mass;
+- support fraction;
+- reviewer diversity;
+- dependency count;
+- supporters and challengers;
+- status: `weak`, `provisional`, `cross_supported`, or `contested`.
+
+These values are **not truth probabilities**. Agreement does not make a claim true, and disagreement does not make it false. Sync is explicitly instructed to preserve materially contested claims and missing information.
+
+## Influence safety
+
+Agent influence is a bounded reliability heuristic, not a truth score.
+
+A challenge affects influence only when the Epistemic Mesh can resolve the referenced claim to the stated target agent. Invalid, ambiguous, or missing claim references are counted as unresolved and have no influence effect.
+
+This closes a class of reputation-poisoning errors where arbitrary claim IDs could previously lower another agent's score.
+
+## Package architecture
 
 ```text
 dsghyper/
   config.py      environment parsing and bounded configuration
-  protocol.py    immutable agent result/claim/challenge/note schemas
+  protocol.py    immutable claims, relations, challenges, requests and notes
+  epistemic.py   claim graph, selective routing, budgets and quorum bookkeeping
   model.py       bounded HTTP model transport
   ledger.py      per-trace tamper-evident hash chain
   memory.py      PCESM encrypted semantic vector memory
-  runtime.py     deterministic bounded orchestration
+  runtime.py     bounded orchestration + selective mesh integration
   cli.py         standard + secure CLI
 ```
 
-Compatibility entry points remain:
+Compatibility entry points:
 
 ```text
 main.py
 secure_main.py
 ```
 
-### Communication model
+## Secure memory: PCESM
 
-v21 deliberately removes recursive peer-agent execution from the core. A worker may emit a peer note, but that note is an **immutable artifact for the next round**, not an immediate model call.
+Secure mode continues to use **PCESM — Proof-Carrying Encrypted Semantic Mesh**, an architecture composed from established primitives:
 
-```text
-                        ┌──── Red ────┐
-User task ── Round 1 ───┼──── Green ──┼── immutable results
-                        ├──── Blue ───┤         │
-                        └──── Gamma ──┘         ▼
-                                          peer-note router
-                                                │
-                        ┌──── Red ────┐         ▼
-             Round 2 ───┼──── Green ──┼── immutable results
-                        ├──── Blue ───┤
-                        └──── Gamma ──┘
-                                                │
-                                                ▼
-                                         Sync arbitration
-```
-
-This fixes the previous race where a peer note could re-enter `HyperAgent.handle()` and overwrite an already-completed round result.
-
-Other changes include structured challenge targets instead of string-search trust updates, explicit round timeouts, per-result failure states, bounded context serialization, a fixed model-call graph, and a per-trace ledger that verifies its own chain after a run.
-
-## PCESM: Proof-Carrying Encrypted Semantic Mesh v2
-
-Secure mode uses **PCESM**, an architecture composed from established cryptographic primitives. PCESM is not itself a new cryptographic primitive and does not claim to supersede homomorphic encryption mathematically.
-
-PCESM combines:
-
-- AES-256-GCM sealed memory payloads and metadata;
+- AES-256-GCM sealed payloads;
 - HKDF-SHA256 domain-separated subkeys;
-- HMAC-SHA256 keyed blind feature sketches for vector candidate routing;
-- signed capability tokens with subject, namespace, operations, audience, expiry, result limits, and revocation;
-- record commitments that are **recomputed from the stored fields** before HMAC attestation verification;
-- pseudonymous owner identifiers;
-- encrypted SQLite persistence by default;
-- optional Weaviate storage of opaque records and blind vectors;
-- optional CKKS encrypted-embedding reranking through TenSEAL.
+- HMAC-SHA256 keyed blind feature sketches;
+- scoped, expiring, revocable capabilities;
+- recomputed SHA-256 record commitments plus HMAC attestations;
+- pseudonymous owner IDs;
+- encrypted SQLite persistence;
+- optional Weaviate opaque-vector storage;
+- optional CKKS reranking through TenSEAL.
 
-### Important privacy boundary
+PCESM is not itself a new cryptographic primitive.
 
-Blind feature sketches are not ORAM and are not zero-knowledge search. The vector backend can still observe access timing, namespace labels, result counts, and similarity/access patterns. The README and runtime status therefore report:
+### Privacy boundary
+
+Blind feature sketches are not ORAM, PIR, or zero-knowledge search. Backends may still observe timing, namespace labels, result counts, and access/similarity patterns.
+
+Runtime status therefore reports:
 
 ```text
 access_pattern_hiding = false
 ```
 
-That distinction is intentional.
+CKKS is optional and never silently replaced by AES or ordinary vector search.
 
-### CKKS behavior
+## Secure-memory behavior
 
-CKKS is optional and is never silently substituted with AES.
-
-If `DSG_ENABLE_CKKS=1` and TenSEAL is unavailable, runtime status reports HE disabled. If TenSEAL is available but persistent serialized contexts are not supplied, the generated CKKS context is session-only and CKKS ciphertext is not written into a persistent vector backend.
-
-For persistent HE records, supply both:
+Persistent secure mode requires:
 
 ```text
-DSG_CKKS_PUBLIC_CONTEXT_B64
-DSG_CKKS_SECRET_CONTEXT_B64
+DSG_MEMORY_MASTER_KEY
 ```
 
-The stored vector candidate-routing sketch and CKKS ciphertext serve different purposes: the keyed sketch selects a bounded candidate set; CKKS can rerank embeddings without decrypting stored embedding vectors during the arithmetic operation.
-
-## Secure-memory failure behavior
-
-Secure mode no longer creates unrecoverable persistent ciphertext by default.
-
-A persistent secure run requires `DSG_MEMORY_MASTER_KEY`. Generate one, for example:
+Generate one:
 
 ```bash
 python - <<'PY'
@@ -112,19 +166,13 @@ print("b64:" + base64.urlsafe_b64encode(secrets.token_bytes(32)).decode().rstrip
 PY
 ```
 
-Then export it:
-
-```bash
-export DSG_MEMORY_MASTER_KEY='b64:...'
-```
-
-For development-only process-local memory, explicitly opt in:
+Development-only process-local memory requires explicit opt-in:
 
 ```bash
 export DSG_ALLOW_EPHEMERAL_MEMORY=1
 ```
 
-Ephemeral mode uses an in-memory vector backend and never writes ciphertext that cannot be reopened after restart.
+Ephemeral mode uses an in-memory backend and does not write unrecoverable ciphertext.
 
 ## Quick start
 
@@ -132,85 +180,71 @@ Ephemeral mode uses an in-memory vector backend and never writes ciphertext that
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
-cp .env.example .env
+python -m pip install -e .
 ```
 
 Standard mode:
 
 ```bash
-python main.py --rounds 2 "Design and audit a resilient agent system"
+python main.py --rounds 3 "Design and verify a resilient agent communication system"
 ```
 
-Secure PCESM mode:
+Secure mode:
 
 ```bash
 export DSG_MEMORY_MASTER_KEY='b64:YOUR_GENERATED_KEY'
-python main.py --secure --rounds 2 "Design and audit a resilient agent system"
+python main.py --secure --rounds 3 "Design and verify a resilient agent communication system"
 ```
 
-The compatibility secure entry point also works:
-
-```bash
-python secure_main.py "Review the architecture"
-```
-
-Without `OPENAI_API_KEY`, the orchestration and security plumbing run in a deterministic local fallback mode without remote inference.
-
-## Vector backends
-
-If `WEAVIATE_URL` is unset, secure mode uses persistent encrypted SQLite at:
-
-```text
-outputs/secure_memory.sqlite3
-```
-
-If `WEAVIATE_URL` is configured, PCESM uses Weaviate and performs namespace filtering in the vector query itself instead of retrieving cross-namespace candidates and filtering them afterward. If Weaviate initialization fails, the runtime records a warning and falls back to encrypted SQLite.
+Without `OPENAI_API_KEY`, orchestration and security plumbing run in deterministic local fallback mode without remote model inference.
 
 ## Trace integrity
 
-Each request receives its own ledger file:
+Each request gets its own ledger:
 
 ```text
 outputs/traces/<trace-id>.jsonl
 ```
 
-Each record commits to the previous record hash. Only hashes and bounded routing metadata are written; raw model prompts/results are not copied into the ledger. The chain is verified at the end of every run. This provides tamper evidence, not hardware-backed immutability.
-
-Set:
-
-```text
-DSG_REQUIRE_LEDGER=1
-```
-
-if a trace-persistence failure should fail the run rather than degrade to in-memory accounting.
+Every record commits to the previous hash. The chain is verified after the run. This is tamper evidence, not hardware-backed immutability.
 
 ## Tests
 
 ```bash
-python -m py_compile main.py secure_main.py dsghyper/*.py tests/*.py
+python -m compileall -q main.py secure_main.py dsghyper tests
 python -m unittest discover -s tests -v
 ```
 
-The v21 suite covers:
+The suite now covers the v21 security/runtime cases plus v22 communication properties:
 
-- encrypted-memory round trip;
-- full record-commitment recomputation;
-- ciphertext tamper rejection;
-- capability scope enforcement;
-- capability revocation and expiry;
-- SQLite encrypted-memory persistence across restart with the same master key;
-- structured protocol bounds;
-- fixed worker call graph with no recursive peer calls;
-- per-trace ledger verification;
-- explicit secure ephemeral mode.
+- global claim identities;
+- targeted challenge resolution;
+- unresolved challenges cannot affect reputation;
+- selective routing respects claim budgets;
+- information requests reach only intended roles;
+- quorum bookkeeping never emits Boolean truth flags;
+- no recursive peer calls;
+- no full previous-round broadcast;
+- encrypted-memory persistence and tamper rejection;
+- capability scope, expiry, and revocation;
+- per-trace ledger verification.
 
-## Deliberately deferred to the next agent-communication iteration
+GitHub Actions runs compile, unit tests, standard fallback smoke, and secure-ephemeral smoke on Python 3.10 and 3.12.
 
-The current rework establishes a stable base before increasing agent autonomy. Good next-stage research targets include threshold-decryption identities, post-quantum authenticated peer identities, policy-carrying messages, explicit information-budget negotiation, zero-knowledge authorization proofs, mixnet/ORAM-style access-pattern defenses, multi-model quorum arbitration, and causal credit assignment across long agent conversations.
+## Next communication research layer
 
-Those features are **not** claimed to be implemented in v21.
+v22 provides a stable base for a later iteration with substantially stronger communication semantics, such as:
 
-## Legacy artifact policy
+- claim-level causal credit assignment;
+- evidence freshness and expiration;
+- explicit information-market bidding under token budgets;
+- multi-model quorum cells;
+- conflict-focused specialist spawning with hard quotas;
+- proof-carrying policy/capability messages;
+- threshold-authenticated peer identities;
+- post-quantum authenticated transport identities;
+- privacy-preserving routing with ORAM/PIR-style access-pattern defenses;
+- zero-knowledge authorization proofs;
+- deterministic replay and counterfactual communication evaluation.
 
-The old monolithic simulator source, stale SHA-256 manifest, and historical DOCX builder are removed from this rearchitecture branch. Their history remains recoverable through Git. Static `paper/`, `outputs/`, and `prompts/` research artifacts may remain for provenance, but they are not imported or executed by v21.
+Those are research directions, not claims about current v22 behavior.
