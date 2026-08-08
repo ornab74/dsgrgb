@@ -5,7 +5,8 @@ import math
 from dataclasses import asdict, dataclass
 from typing import Any
 
-from .config import MemoryConfig, RuntimeConfig
+from .cells import QuorumCell, SpecialistExecutor
+from .config import MemoryConfig, ResearchConfig, RuntimeConfig, parse_secret
 from .epistemic import CommunicationBudget, EpistemicMesh, GraphEdge
 from .ledger import TamperEvidentLedger
 from .memory import SecureSemanticFabric
@@ -20,6 +21,7 @@ from .research import (
     MarketAllocation,
     MarketBid,
     MultiModelQuorum,
+    PolicyEnvelopeAuthority,
     SpecialistScheduler,
 )
 
@@ -119,22 +121,58 @@ class RoleAgent:
 
 
 class HyperOrchestrator:
-    def __init__(self, rounds: int | None = None, config: RuntimeConfig | None = None):
+    def __init__(
+        self,
+        rounds: int | None = None,
+        config: RuntimeConfig | None = None,
+        research_config: ResearchConfig | None = None,
+    ):
         self.config = config or RuntimeConfig.from_env()
+        self.research_config = research_config or ResearchConfig.from_env()
         self.rounds = max(1, min(8, int(rounds if rounds is not None else self.config.rounds)))
         self.model = ModelClient(self.config)
         self.agents = {name: RoleAgent(name, self.model, self.config) for name in (*WORKERS, "sync")}
         self.communication_budget = CommunicationBudget()
-        self.freshness = FreshnessPolicy()
+        self.freshness = FreshnessPolicy(
+            ttl_rounds=self.research_config.freshness_ttl_rounds,
+            half_life_rounds=self.research_config.freshness_half_life_rounds,
+        )
         self.market = InformationMarket(
-            token_budget=max(512, self.communication_budget.max_chars // 4),
+            token_budget=self.research_config.market_token_budget,
             max_winners=self.communication_budget.max_claims,
         )
         self.credit = CausalCreditEngine()
-        self.specialists = SpecialistScheduler(max_specialists=2, token_quota=3000)
+        self.specialists = SpecialistScheduler(
+            max_specialists=self.research_config.specialist_limit,
+            token_quota=self.research_config.specialist_token_quota,
+        )
+        self.specialist_executor = SpecialistExecutor(
+            self.model,
+            enabled=self.research_config.execute_specialists,
+            max_specialists=self.research_config.specialist_limit,
+            total_token_quota=self.research_config.specialist_token_quota,
+            timeout=self.config.round_timeout,
+        )
+        quorum_models = self.research_config.quorum_models if self.config.api_key else ()
+        self.quorum_cell = QuorumCell(
+            self.model,
+            quorum_models,
+            max_models=4,
+            timeout=self.config.round_timeout,
+            max_tokens_per_model=min(1600, self.config.max_output_tokens),
+        )
         self.quorum = MultiModelQuorum()
         self.replay = DeterministicReplay()
         self.security_surface = AdvancedSecuritySurface()
+        self.policy_authority: PolicyEnvelopeAuthority | None = None
+        self.policy_key_error: str | None = None
+        if self.research_config.policy_auth_key_raw:
+            try:
+                self.policy_authority = PolicyEnvelopeAuthority(
+                    parse_secret(self.research_config.policy_auth_key_raw, name="DSG_POLICY_AUTH_KEY")
+                )
+            except Exception as exc:
+                self.policy_key_error = f"{type(exc).__name__}: {exc}"
 
     async def __aenter__(self) -> "HyperOrchestrator":
         return self
@@ -148,7 +186,7 @@ class HyperOrchestrator:
         routed: dict[str, Any],
         *,
         current_round: int,
-    ) -> tuple[dict[str, Any], MarketAllocation]:
+    ) -> tuple[dict[str, Any], MarketAllocation, tuple[MarketBid, ...]]:
         bids: list[MarketBid] = []
         for item in routed.get("claims", []):
             claim = item.get("claim", {})
@@ -188,7 +226,7 @@ class HyperOrchestrator:
                 "allocation_digest": allocation.allocation_digest,
             },
         }
-        return market_route, allocation
+        return market_route, allocation, tuple(bids)
 
     async def _run_worker_round(
         self,
@@ -203,6 +241,7 @@ class HyperOrchestrator:
         mesh: EpistemicMesh,
         ledger: TamperEvidentLedger,
         allocations: list[MarketAllocation],
+        market_history: list[tuple[str, tuple[MarketBid, ...]]],
     ) -> dict[str, AgentResult]:
         tasks: dict[str, asyncio.Task[AgentResult]] = {}
         influence_snapshot = influence.snapshot()
@@ -214,8 +253,9 @@ class HyperOrchestrator:
                     spectrum=spectrum,
                     influence=influence_snapshot,
                 )
-                routed, allocation = self._market_route(agent_name, routed, current_round=round_no)
+                routed, allocation, bids = self._market_route(agent_name, routed, current_round=round_no)
                 allocations.append(allocation)
+                market_history.append((agent_name, bids))
                 ledger.append("information_market", agent_name, {
                     "round": round_no,
                     "token_budget": allocation.token_budget,
@@ -319,6 +359,7 @@ class HyperOrchestrator:
         mesh = EpistemicMesh(self.communication_budget)
         rounds: list[dict[str, AgentResult]] = []
         allocations: list[MarketAllocation] = []
+        market_history: list[tuple[str, tuple[MarketBid, ...]]] = []
         incoming_notes: dict[str, list[dict[str, Any]]] = {name: [] for name in WORKERS}
         note_count = 0
 
@@ -334,6 +375,7 @@ class HyperOrchestrator:
                 mesh=mesh,
                 ledger=ledger,
                 allocations=allocations,
+                market_history=market_history,
             )
             rounds.append(results)
             report = mesh.ingest_round(round_no, results)
@@ -357,15 +399,19 @@ class HyperOrchestrator:
             for item in sync_context.get("claims", [])[:12]
             if item.get("claim", {}).get("global_id")
         ]
-        causal_credit = self.credit.assign(
-            list(mesh.nodes),
-            mesh.edges,
-            selected_for_sync,
-        )
+        causal_credit = self.credit.assign(list(mesh.nodes), mesh.edges, selected_for_sync)
         credit_summary = [
             asdict(value)
             for value in sorted(causal_credit.values(), key=lambda x: x.total_credit, reverse=True)[:24]
         ]
+        specialist_batch = await self.specialist_executor.execute(
+            specialist_plans,
+            task=request,
+            epistemic_context={
+                "contested_claims": sync_context.get("contested_claims", [])[:16],
+                "causal_credit": credit_summary,
+            },
+        )
         worker_status = [
             {agent: {"status": result.status, "confidence": result.confidence, "result_id": result.result_id} for agent, result in round_result.items()}
             for round_result in rounds
@@ -379,11 +425,39 @@ class HyperOrchestrator:
                 "epistemic_graph_summary": sync_context,
                 "causal_credit": credit_summary,
                 "specialist_plans": [asdict(plan) for plan in specialist_plans],
+                "specialist_evidence": specialist_batch.public_dict(),
                 "worker_status": worker_status,
                 "influence_graph": influence_snapshot,
             },
-            "instruction": "Produce the final answer from the bounded epistemic graph. Treat quorum and causal-credit values as communication-analysis bookkeeping, not truth or proof of real-world causality. Preserve contested claims and unresolved information needs when material.",
+            "instruction": "Produce the final answer from the bounded epistemic graph. Treat quorum, specialist, and causal-credit values as advisory communication-analysis bookkeeping, not truth or proof of real-world causality. Preserve contested claims and unresolved information needs when material.",
         }
+
+        policy_envelope: dict[str, Any] | None = None
+        policy_verified = False
+        if self.policy_authority is not None:
+            envelope = self.policy_authority.issue(
+                sender="orchestrator",
+                audience="sync",
+                purpose="bounded-sync-arbitration",
+                operations=("read", "arbitrate"),
+                payload=sync_packet,
+                ttl_seconds=max(30, int(self.config.round_timeout) + 30),
+            )
+            policy_verified = self.policy_authority.verify(
+                envelope,
+                audience="sync",
+                operation="arbitrate",
+                payload=sync_packet,
+                consume_nonce=False,
+            )
+            policy_envelope = asdict(envelope)
+            ledger.append("policy_envelope", "orchestrator->sync", {
+                "policy_digest": envelope.policy_digest,
+                "verified": policy_verified,
+                "purpose": envelope.purpose,
+            })
+            sync_packet["policy_envelope"] = policy_envelope
+
         try:
             final = await asyncio.wait_for(self.agents["sync"].evaluate(sync_packet), timeout=self.config.round_timeout)
         except asyncio.TimeoutError:
@@ -393,7 +467,11 @@ class HyperOrchestrator:
         influence.observe_result(final)
         final_influence = influence.snapshot()
         mesh_digest = mesh.digest(final_influence)
-        single_model_quorum = self.quorum.summarize([(self.config.model, final)])
+
+        quorum_cell = await self.quorum_cell.evaluate(sync_packet)
+        combined_quorum_pairs = [(self.config.model, final), *list(quorum_cell.model_results)]
+        combined_quorum = self.quorum.summarize(combined_quorum_pairs)
+
         replay_snapshot = self.replay.capture(
             trace_id=trace_id,
             request=request,
@@ -402,6 +480,18 @@ class HyperOrchestrator:
             allocations=allocations,
             final=final,
         )
+        counterfactuals: list[dict[str, Any]] = []
+        for recipient, bids in market_history[:8]:
+            if not bids:
+                continue
+            counterfactuals.append({
+                "recipient": recipient,
+                "budgets": self.replay.counterfactual_market(
+                    recipient,
+                    list(bids),
+                    self.research_config.counterfactual_budgets,
+                ),
+            })
         ledger.append("sync_result", "sync", {
             "result_id": final.result_id,
             "status": final.status,
@@ -409,6 +499,7 @@ class HyperOrchestrator:
             "claim_count": len(final.claims),
             "mesh_digest": mesh_digest,
             "replay_snapshot": replay_snapshot.snapshot_digest,
+            "quorum_digest": combined_quorum.quorum_digest,
         })
 
         verified, verify_detail = TamperEvidentLedger.verify_file(ledger_path) if ledger.persistence_error is None else (False, ledger.persistence_error or "ledger unavailable")
@@ -441,18 +532,35 @@ class HyperOrchestrator:
                     "top": credit_summary,
                 },
                 "specialists": {
-                    "execution": "planned-not-autonomously-spawned",
+                    "execution": "enabled" if specialist_batch.enabled else "planned-not-autonomously-spawned",
                     "hard_quota": self.specialists.max_specialists,
                     "plans": [asdict(plan) for plan in specialist_plans],
+                    "batch": specialist_batch.public_dict(),
                 },
                 "multi_model_quorum": {
-                    "active": False,
-                    "configured_models": 1,
-                    "single_model_bookkeeping": asdict(single_model_quorum),
-                    "note": "MultiModelQuorum supports independent model results; this runtime has one configured model endpoint.",
+                    "active": quorum_cell.active,
+                    "configured_models": 1 + len(quorum_cell.configured_models),
+                    "cell": quorum_cell.public_dict(),
+                    "combined_report": {
+                        "votes": [asdict(v) for v in combined_quorum.votes],
+                        "response_diversity": combined_quorum.response_diversity,
+                        "confidence_mean": combined_quorum.confidence_mean,
+                        "status_counts": combined_quorum.status_counts,
+                        "quorum_digest": combined_quorum.quorum_digest,
+                        "truth_probability": None,
+                    },
+                },
+                "policy_messages": {
+                    "hmac_policy_envelope_configured": self.policy_authority is not None,
+                    "policy_key_error": self.policy_key_error,
+                    "sync_policy_verified": policy_verified,
+                    "envelope": policy_envelope,
+                    "zero_knowledge": False,
+                    "threshold_authenticated": False,
                 },
                 "advanced_security_surface": self.security_surface.status(),
                 "deterministic_replay": asdict(replay_snapshot),
+                "counterfactual_market_evaluation": counterfactuals,
             },
             "model_metrics": asdict(self.model.metrics),
             "ledger": {
@@ -474,10 +582,16 @@ class SecureHyperOrchestrator:
         *,
         runtime_config: RuntimeConfig | None = None,
         memory_config: MemoryConfig | None = None,
+        research_config: ResearchConfig | None = None,
     ):
         self.runtime_config = runtime_config or RuntimeConfig.from_env()
         self.memory_config = memory_config or MemoryConfig.from_env()
-        self.runtime = HyperOrchestrator(rounds=rounds, config=self.runtime_config)
+        self.research_config = research_config or ResearchConfig.from_env()
+        self.runtime = HyperOrchestrator(
+            rounds=rounds,
+            config=self.runtime_config,
+            research_config=self.research_config,
+        )
         self.memory = SecureSemanticFabric.from_config(self.memory_config)
 
     async def __aenter__(self) -> "SecureHyperOrchestrator":
