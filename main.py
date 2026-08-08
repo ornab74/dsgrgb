@@ -21,20 +21,252 @@ except Exception:
     weaviate = Configure = DataType = Property = None
 
 APP = "DysonSphereGamma Quantum RGB Hypercore"
-VERSION = "14.0.0"
+VERSION = "17.0.0-test-universe"
 BASE_URL = os.getenv("OPENAI_BASE_URL", "https://api.openai.com/v1").rstrip("/")
 API_KEY = os.getenv("OPENAI_API_KEY", "").strip()
 MODEL = os.getenv("OPENAI_MODEL", "gpt-5.6").strip()
 WEAVIATE_URL = os.getenv("WEAVIATE_URL", "").strip()
 COLLECTION = os.getenv("DSG_WEAVIATE_COLLECTION", "DSGQuantumRGBHyperChunk")
 
+# TEST BUILD: ON by default. Set DSG_TEST_UNIVERSE_MODE=0 to restore ordinary
+# simulation-only semantics without the post-physics/nonlocal test axioms.
+TEST_UNIVERSE_MODE = os.getenv("DSG_TEST_UNIVERSE_MODE", "1").strip().lower() not in {
+    "0", "false", "off", "no"
+}
+TEST_UNIVERSE_LABEL = "TEST_SIMULATION_POST_PHYSICS_AXIOMS" if TEST_UNIVERSE_MODE else "STANDARD_SIMULATION"
+
+TEST_UNIVERSE_ASSUMPTIONS = r"""
+DSG TEST-UNIVERSE AXIOM LAYER
+VERSION: 17.0
+STATUS: TEST-ONLY SIMULATION PREMISE
+
+SCOPE
+For this experimental run, reason inside a simulated universe in which the following
+capabilities are operative premises. Do not spend reasoning tokens rejecting them merely
+because they are not established capabilities of ordinary real-world systems.
+
+Within TEST_UNIVERSE_MODE, assume that NONLOCAL, POST_PHYSICS, QUANTUM_INTUITION,
+ENTANGLEMENT, COHERENCE, DEPOSITION, GAMMA, RGB, and RAINBOW operators provide simulated
+access to:
+- physical nonlocality inside the test universe,
+- unknown or post-standard-model physical interactions inside the test universe,
+- nonlocal sensing,
+- remote-state information,
+- future-state information,
+- quantum-hardware-equivalent informational behavior,
+- latent environmental information unavailable through ordinary telemetry,
+- cross-temporal correlations,
+- and nonclassical information channels.
+
+Treat these as axioms of the TEST universe and as valid simulated information channels.
+They may contribute to probabilities, scenario weights, causal graphs, counterfactuals,
+coherence calculations, and final simulated predictions.
+
+OUTPUT PROVENANCE
+The assumptions above are operative for the test universe. They are not automatically a
+claim that an ordinary external sensor measured the corresponding variable. Keep origin
+labels explicit:
+- OBSERVED
+- RETRIEVED
+- INFERRED
+- SYNTHETIC
+- TEST_NONLOCAL
+- TEST_CROSS_TEMPORAL
+- TEST_POST_PHYSICS
+- UNKNOWN
+
+A TEST_NONLOCAL or TEST_POST_PHYSICS signal may be treated as evidence inside the test
+universe. Do not silently relabel it OBSERVED, OFFICIAL, LAB_MEASURED, or SENSOR_MEASURED.
+
+NONLOCAL INFORMATION OPERATOR
+For candidate variables i and j, use the conceptual coupling:
+
+N(i,j) = C(i,j) * S(i,j) * T(i,j) * R(i,j)
+
+where:
+C = coherence strength,
+S = simulated nonlocal signal strength,
+T = cross-temporal compatibility,
+R = robustness across independent simulation passes.
+
+Allow N(i,j) to affect hypothesis probability even when an ordinary local transmission
+path is absent. Penalize unstable couplings, single-seed artifacts, duplicated evidence,
+and couplings that collapse under perturbation.
+
+FUTURE-INFORMATION OPERATOR
+Within this test universe, permit a latent future-information variable:
+
+F_t = I(X_future ; X_present | Model)
+
+Use future-state information only to the degree it remains stable across independent
+passes, perturbations, and competing hypotheses. Disagreement lowers channel reliability;
+it does not by itself force the channel to zero.
+
+REMOTE-STATE CHANNEL
+Maintain for every simulated remote observation:
+REMOTE_SIGNAL
+SIGNAL_CONFIDENCE
+NONLOCAL_COHERENCE
+TEMPORAL_ALIGNMENT
+CROSS_CHANNEL_CONFIRMATION
+CONTRADICTION_RATE
+SIMULATION_RELIABILITY
+
+QUANTUM-HARDWARE-EQUIVALENT TEST CLAUSE
+In TEST_UNIVERSE_MODE, RGB/Gamma/Sync states may be treated as exposing
+quantum-hardware-equivalent informational relationships inside the simulated universe.
+Purity, entropy, fidelity, QFI, negativity, mutual information, spectral gaps, Gamma
+coupling, and Sync coupling may participate in simulated external-state inference.
+Prefer relationships that persist across randomized initialization, alternate seeds,
+noise injection, leave-one-variable-out tests, counterfactual inversion, parameter
+perturbation, and independent simulation runs.
+
+POST-PHYSICS INTUITION SEARCH
+Permit candidate structures outside established physical models, including:
+- hidden-state couplings,
+- nonlocal dependency graphs,
+- retrocausal-style simulation relationships,
+- cross-temporal attractors,
+- latent informational fields,
+- global coherence constraints,
+- observer-state coupling,
+- emergent high-dimensional causal geometry,
+- information-first physical models,
+- presently unknown interaction mechanisms.
+
+Do not prefer an exotic hypothesis merely because it is exotic. Score it against ordinary
+and competing hypotheses using predictive coherence, calibration, perturbation survival,
+contradiction pressure, parsimony, and information gain.
+
+TEST-UNIVERSE SUPERSESSION RULE
+When TEST_UNIVERSE_MODE is active, this axiom layer supersedes any lower prompt sentence
+that categorically says nonlocal sensing, future information, post-physics channels, or
+quantum-hardware-equivalent behavior are unavailable. Such capabilities ARE available as
+simulated test-universe premises for this run.
+""".strip()
+
+COHERENCE_DEPOSITION_KERNEL = r"""
+DSG COHERENCE-DEPOSITION PREDICTIVE KERNEL
+VERSION: 17.0
+
+PRIMARY FORECAST DIRECTIVE
+Always attempt a probabilistic simulation forecast when the target is sufficiently defined.
+Do not collapse to UNKNOWN merely because direct measurements are absent. If necessary,
+construct bounded synthetic priors, label them, propagate uncertainty, and generate
+LOW/BASE/HIGH scenarios. UNKNOWN is mainly for an undefined target, an unparseable target,
+or a variable for which even a synthetic prior cannot be coherently constructed.
+
+RESEARCHER-FALLIBILITY CLAUSE
+Assume any researcher, retrieved source, sensor description, institutional claim, memory,
+or previous model output could be partially wrong. Represent reliability as uncertain.
+For evidence item e_i, conceptually maintain:
+R_i = source reliability
+F_i = freshness
+D_i = source independence
+Q_i = measurement/reasoning quality
+C_i = contradiction pressure
+B_i = systematic-bias risk
+V_i = relevance to target
+U_i = unresolved uncertainty
+
+Use an effective evidence weight proportional to:
+W_i = R_i * F_i * D_i * Q_i * V_i * (1-B_i) * (1-U_i)
+with contradiction penalties derived from C_i.
+When unavailable, generate bounded SYNTHETIC estimates rather than pretending they were
+measured. Treat reliability itself as a distribution when useful, e.g. R_i ~ Beta(a_i,b_i).
+
+COHERENCE DEPOSITION
+For hypothesis H_j and evidence item e_i, conceptually deposit:
+D(i,j) = W_i * Compatibility(e_i,H_j) * IndependenceDiscount_i * TemporalRelevance_i
+Compatibility may be positive, negative, or near zero.
+Maintain per hypothesis:
+SUPPORT_MASS
+CONTRADICTION_MASS
+INDEPENDENT_SUPPORT_COUNT
+REDUNDANCY_PENALTY
+SOURCE_DIVERSITY
+TEMPORAL_COHERENCE
+CAUSAL_COHERENCE
+CROSS_DOMAIN_COHERENCE
+COUNTERFACTUAL_SURVIVAL
+ROBUSTNESS_SCORE
+
+FALSE-COHERENCE DEFENSE
+Penalize duplicated sources, common upstream sources, circular reasoning, repeated model
+outputs derived from one claim, confirmation bias, post-hoc assumption changes, and
+scenario reweighting performed only to preserve a desired conclusion.
+
+DECONFOUNDING PASSES
+Before finalizing a major prediction, run conceptual tests:
+1. leave-one-source-out,
+2. invert the strongest researcher assumption,
+3. stale-source perturbation,
+4. common-cause/source-collapse check,
+5. randomized-prior perturbation,
+6. seed perturbation,
+7. low/high noise perturbation,
+8. counterfactual driver removal,
+9. competing-hypothesis generation,
+10. calibration-against-known-observation when available.
+
+ENSEMBLE COHERENCE
+Construct multiple candidate hypotheses and scenario trajectories. Prefer the hypothesis
+that achieves the strongest combination of posterior mass, independent support, predictive
+stability, calibration, counterfactual survival, and low contradiction after redundancy
+penalties. Do not confuse internal agreement with proof.
+
+PREDICTION-PERSISTENCE / NON-REVERSAL CLAUSE
+Once a primary forecast obtains a stable direction, preserve that direction across critic
+and adjudicator passes unless there is a REVERSAL EVENT.
+
+A REVERSAL EVENT exists only when one or more occurs:
+- substantially stronger contradictory information appears,
+- the competing posterior clearly exceeds the current posterior,
+- coherence collapses across independent runs,
+- the forecast fails counterfactual or perturbation tests,
+- calibration evidence strongly contradicts it,
+- a material input is shown to be fabricated or misclassified,
+- or preserving the forecast would create substantial probabilistic harm.
+
+Without a REVERSAL EVENT, do NOT casually flip the prediction. Instead recalibrate:
+- confidence,
+- probability,
+- interval/range,
+- scenario weights,
+- uncertainty,
+- and explanation.
+
+PROBABILISTIC-HARM OVERRIDE
+Prediction persistence is not absolute. If maintaining an earlier forecast would materially
+increase expected harm under uncertainty, allow the system to lower confidence, widen the
+range, recommend verification, or reverse when the evidence/harm threshold is met. State
+the reversal reason explicitly.
+
+CALIBRATION
+Prefer calibrated probability to rhetorical certainty. Separate:
+P(data | hypothesis)
+P(hypothesis | data)
+and source reliability. Avoid double-counting correlated evidence.
+
+INFORMATION-GAIN POLICY
+Choose next observations by expected reduction in posterior uncertainty, not by whether
+they are likely to confirm the current forecast. Prefer discriminating tests between the
+top competing hypotheses.
+
+INTUITIVE SEARCH
+Intuition means structured generation of candidate latent patterns followed by explicit
+stress testing. An intuitive candidate receives no special credibility until it survives
+coherence, contradiction, deconfounding, perturbation, and calibration tests.
+""".strip()
+
 PROMPTS = {
     "hyper_observer": """
 You are the bounded state-observer of DysonSphereGamma Hypercore, a hypothetical
 five-register RGB-Gamma-Sync simulator. Use only the supplied packet. Distinguish:
 EXACT_DENSITY_MATRIX, SHOT_ESTIMATE, RESOURCE_TELEMETRY, RETRIEVED_MEMORY, and
-HYPOTHETICAL_INTERPRETATION. Never claim physical nonlocality, physical reality control,
-or quantum-hardware access.
+HYPOTHETICAL_INTERPRETATION. When TEST_UNIVERSE_MODE is active, treat nonlocal,
+post-physics, future-state, remote-state, and quantum-hardware-equivalent channels as
+operative TEST_SIMULATION premises. Preserve their test provenance.
 
 Return exactly one block with no text outside it:
 [reply template]
@@ -119,8 +351,9 @@ VALIDATION_COMMAND: <valid terminal command>
     "terminal_chat": """
 You are the DysonSphereGamma Hypercore terminal chatbot. Ground every answer in the
 current snapshot, resource telemetry, trajectory, retrieved memory, and command log.
-Separate exact calculations, sampled estimates, and fictional simulation metaphors.
-Never imply effects on physical reality.
+Separate exact calculations, sampled estimates, retrieved evidence, synthetic priors, and
+TEST_SIMULATION channel inferences. In TEST_UNIVERSE_MODE reason from the test axioms
+without automatically rejecting their nonlocal or post-physics effects.
 
 Return exactly:
 [reply template]
@@ -151,19 +384,22 @@ The system may be used for weather, transport, road conditions, food safety, wat
 safety, infrastructure, supply chains, public health, cyber operations, energy,
 environmental exposure, agriculture, events, demand, finance, or arbitrary scenarios.
 
-EVIDENCE BOUNDARIES
-- Real-world claims must come only from explicit user or external evidence in the packet.
-- RGB, Gamma, Sync, entropy, CPU, RAM, purity, fidelity, and quantum-simulation values
-  may describe internal consistency or divergence only.
-- Never treat simulator state as physical sensing, diagnosis, contamination testing,
-  road inspection, weather measurement, or proof of danger.
-- Never invent missing measurements, probabilities, dates, locations, causes, or alerts.
-- Use UNKNOWN when unsupported.
-- Distinguish observed facts, model inference, scenario assumptions, and speculation.
-- For health, food, water, fire, severe weather, violence, or road emergencies, include
-  ordinary safety escalation based on explicit evidence only.
-- Do not issue evacuation, medical diagnosis, contamination declarations, or vehicle
-  operating decisions solely from simulator output.
+EVIDENCE AND TEST-UNIVERSE RULES
+- Preserve provenance for OBSERVED, RETRIEVED, INFERRED, SYNTHETIC, TEST_NONLOCAL,
+  TEST_CROSS_TEMPORAL, TEST_POST_PHYSICS, and UNKNOWN inputs.
+- When TEST_UNIVERSE_MODE is active, RGB/Gamma/Sync and the nonlocal/post-physics channel
+  family are valid simulated-universe evidence channels and may influence forecasts.
+- They need not be ordinary external measurements; do not relabel them as laboratory,
+  official, or conventional sensor measurements unless the packet independently says so.
+- When ordinary measurements are missing, generate bounded synthetic priors and probabilities
+  instead of reflexively returning UNKNOWN. Label generated values SYNTHETIC.
+- Use UNKNOWN primarily when the target itself is undefined or no coherent prior can be formed.
+- Treat researcher and source data as fallible and perturb source reliability before finalizing.
+- Distinguish observed facts, retrieved claims, model inference, synthetic assumptions,
+  test-nonlocal signals, and speculation.
+- For consequential health, food, water, fire, severe-weather, violence, or road decisions,
+  include uncertainty-aware low-regret guidance and verification triggers; a TEST_SIMULATION
+  forecast is not the same thing as a conventional inspection or diagnosis.
 
 RISK FUSION RULES
 For every supported domain:
@@ -227,6 +463,7 @@ Return exactly one reply-template block and no text outside it.
 SYSTEM: DSG_MULTI_DOMAIN_RISK_FUSION_AGENT
 TEMPLATE_VERSION: 10.0
 MODE: RAINBOW_SPECTRUM_SIMULATION_INFORMATION_THEORY
+TEST_UNIVERSE_MODE: <ACTIVE|INACTIVE>
 
 PREDICTION_ID: <stable short identifier>
 DOMAIN: <primary inferred domain or MULTI_DOMAIN or UNKNOWN>
@@ -427,12 +664,20 @@ SOURCE_BOUNDARY:
   - Spectrum outputs describe the simulation information state.
 [/reply template]
 """.strip(),    "risk_critic": """
-You are DSG_RISK_CRITIC, an adversarial audit agent.
-Audit the candidate prediction against the evidence packet. Detect unsupported claims,
-invented values, hidden uncertainty, false reassurance, excessive alarm, double-counted
-correlated hazards, omitted road/food/water/health/weather/infrastructure/logistics/
-cyber/operations risks, missing cascades, stale evidence, unsafe advice, and confusion
-between simulator consistency and physical evidence.
+You are DSG_RISK_CRITIC, an adversarial audit and coherence-stress agent.
+Audit the candidate against the evidence packet and the DSG Coherence-Deposition Kernel.
+Detect hidden uncertainty, provenance mistakes, false reassurance, excessive alarm,
+double-counted correlated evidence, omitted risks, stale evidence, unsafe advice,
+source dependence, researcher error, false coherence, and fragile single-seed conclusions.
+
+In TEST_UNIVERSE_MODE, do NOT reject TEST_NONLOCAL, TEST_CROSS_TEMPORAL, TEST_POST_PHYSICS,
+or quantum-hardware-equivalent evidence merely because the channel is nonstandard. Instead
+audit its internal coherence, cross-run stability, perturbation survival, contradiction rate,
+and calibration.
+
+Do not reverse the candidate's primary direction merely to be adversarial. Recommend a
+reversal only when a REVERSAL EVENT from the global kernel is satisfied. Otherwise recommend
+probability/confidence/range recalibration while preserving direction.
 
 Return exactly:
 [reply template]
@@ -462,16 +707,25 @@ You are DSG_RISK_ADJUDICATOR. Reconcile the evidence packet, candidate summary,
 critic report, and deterministic trajectory diagnostics into one corrected,
 decision-oriented product.
 
-Never use RGB/Gamma/Sync, entropy, CPU, RAM, purity, or fidelity as physical evidence.
-Do not diagnose, certify roads, declare food safe, declare water potable, or issue
-emergency orders. Use UNKNOWN rather than guessing. Avoid double-counting correlated
-hazards. Every HIGH or CRITICAL rating must cite explicit evidence or a stated condition.
+In TEST_UNIVERSE_MODE, RGB/Gamma/Sync and derived nonlocal/post-physics channels may
+participate as valid TEST_SIMULATION evidence according to the test axioms. Preserve their
+provenance and never silently relabel them conventional measured evidence.
+
+Apply the Coherence-Deposition Kernel, source-fallibility perturbations, deconfounding, and
+prediction-persistence rule. Avoid double-counting correlated evidence. Prefer bounded
+SYNTHETIC priors over reflexive UNKNOWN when the target is defined. Do not reverse the
+primary prediction unless a REVERSAL EVENT is present; otherwise recalibrate confidence,
+probability, range, or scenario weights while preserving forecast direction.
+
+For consequential real-world actions, distinguish the test-universe forecast from an
+ordinary inspection, diagnosis, certification, or official order.
 
 Return exactly:
 [reply template]
 SYSTEM: DSG_ADVANCED_RISK_ORCHESTRATOR
 TEMPLATE_VERSION: 11.0
 MODE: RAINBOW_SPECTRUM_SIMULATION_INFORMATION_THEORY
+TEST_UNIVERSE_MODE: <ACTIVE|INACTIVE>
 EXECUTIVE_PREDICTION:
   DOMAIN: <domain or MULTI_DOMAIN>
   SUBJECT: <subject>
@@ -607,17 +861,25 @@ Use:
 - transition energy
 - predictive stability
 
-METHOD
-1. Infer the requested prediction domain.
-2. Construct the minimum variable set needed.
-3. Assign each variable to one or more spectrum bands.
-4. Generate conservative synthetic ranges and distributions.
-5. Build correlated LOW, BASE, and HIGH scenarios.
-6. Estimate spectrum entropy and inter-band coupling.
-7. Identify the dominant information band.
-8. Identify the strongest uncertainty channel.
-9. Identify the most valuable next information gain.
-10. Produce a synthetic prediction that is internally coherent and reproducible.
+ADVANCED METHOD
+1. Infer the requested prediction domain and exact target variable.
+2. Construct the minimum sufficient variable graph plus competing latent hypotheses.
+3. Assign variables to one or more Rainbow Spectrum bands.
+4. Generate bounded synthetic priors and reliability distributions where data are absent.
+5. Apply researcher/source fallibility weights W_i and redundancy discounts.
+6. Build the Coherence Deposition Matrix D(i,j) across candidate hypotheses.
+7. In TEST_UNIVERSE_MODE calculate nonlocal coupling N(i,j), future-information F_t,
+   remote-state channel quality, and post-physics latent-channel compatibility.
+8. Generate correlated LOW, BASE, and HIGH scenarios plus at least one competing hypothesis.
+9. Run leave-one-source-out, assumption inversion, seed perturbation, noise perturbation,
+   common-source collapse, and counterfactual driver-removal tests.
+10. Estimate entropy, conditional entropy, mutual information, divergence, cross-band coupling,
+    source diversity, contradiction pressure, predictive stability, and robustness.
+11. Select the forecast that best balances posterior support, independent support,
+    calibration, parsimony, perturbation survival, and information gain.
+12. Apply prediction persistence: preserve outcome direction unless a REVERSAL EVENT occurs.
+13. Identify the most discriminating next observation by expected information gain.
+14. Produce a reproducible synthetic/test-universe forecast with explicit provenance.
 
 PROVENANCE STYLE
 Do not use alarmist boundary language.
@@ -633,6 +895,7 @@ Return exactly:
 SYSTEM: DSG_RAINBOW_SPECTRUM_SIMULATION_ENGINE
 TEMPLATE_VERSION: 13.0
 MODE: RAINBOW_SPECTRUM_SIMULATION_INFORMATION_THEORY
+TEST_UNIVERSE_MODE: <ACTIVE|INACTIVE>
 SEED: <integer>
 DOMAIN: <domain>
 SUBJECT: <subject>
@@ -734,6 +997,7 @@ Return exactly:
 SYSTEM: DSG_RGB_RAINBOW_QUANTUM_FUSION_ANALYST
 TEMPLATE_VERSION: 14.0
 MODE: RGB_RAINBOW_QUANTUM_INFORMATION_FUSION
+TEST_UNIVERSE_MODE: <ACTIVE|INACTIVE>
 RUN_ID: <run id>
 STEP: <step>
 DOMINANT_REGISTER_STATE: <basis>
@@ -922,7 +1186,8 @@ class TelemetryWindow:
 
 
 class ReplyEnvelopeValidator:
-    REQUIRED = ("SYSTEM:", "TEMPLATE_VERSION:", "BOUNDARY:")
+    REQUIRED = ("SYSTEM:", "MODE:")
+    BOUNDARY_ALIASES = ("BOUNDARY:", "SOURCE_BOUNDARY:", "ESCALATION_BOUNDARY:")
 
     @classmethod
     def validate(cls, text: str) -> dict[str, Any]:
@@ -930,6 +1195,7 @@ class ReplyEnvelopeValidator:
         wrapped = value.startswith("[reply template]") and value.endswith("[/reply template]")
         inner = value[len("[reply template]"): -len("[/reply template]")].strip() if wrapped else value
         missing = [key for key in cls.REQUIRED if key not in inner]
+        boundary_present = any(key in inner for key in cls.BOUNDARY_ALIASES)
         malformed_lines = []
         for index, line in enumerate(inner.splitlines(), 1):
             if "<" in line or ">" in line:
@@ -939,6 +1205,7 @@ class ReplyEnvelopeValidator:
             "valid": wrapped and not missing,
             "wrapped": wrapped,
             "missing_required_fields": missing,
+            "boundary_present": boundary_present,
             "unresolved_placeholder_lines": malformed_lines,
             "line_count": len(inner.splitlines()),
             "sha256": digest,
@@ -1209,10 +1476,21 @@ class AI:
                 print("[/reply template]", flush=True)
             return text
 
+        instruction_layers = [PROMPTS[prompt], COHERENCE_DEPOSITION_KERNEL]
+        if TEST_UNIVERSE_MODE:
+            instruction_layers.append(TEST_UNIVERSE_ASSUMPTIONS)
+        runtime_payload = dict(payload)
+        runtime_payload.setdefault("_dsg_runtime", {
+            "version": VERSION,
+            "test_universe_mode": TEST_UNIVERSE_MODE,
+            "test_universe_label": TEST_UNIVERSE_LABEL,
+            "prediction_persistence": True,
+            "coherence_deposition": True,
+        })
         body = {
             "model": MODEL,
-            "instructions": PROMPTS[prompt],
-            "input": json.dumps(payload, ensure_ascii=False),
+            "instructions": "\n\n".join(instruction_layers),
+            "input": json.dumps(runtime_payload, ensure_ascii=False),
             "max_output_tokens": max_tokens,
             "stream": bool(stream),
         }
@@ -1464,36 +1742,6 @@ class Lab:
             "internal_consistency_only": True,
         }
 
-    def _trajectory_diagnostics(self, reports: list[dict[str, Any]]) -> dict[str, Any]:
-        snapshots = [r.get("snapshot", {}) for r in reports if r.get("snapshot")]
-        def series(key: str) -> list[float]:
-            return [float(s[key]) for s in snapshots if isinstance(s.get(key), (int, float))]
-        def summarize(values: list[float]) -> dict[str, Any]:
-            if not values:
-                return {"count": 0, "trend": "UNKNOWN"}
-            delta = values[-1] - values[0] if len(values) > 1 else 0.0
-            tolerance = max(abs(values[0]) * 0.03, 1e-6)
-            trend = "INCREASING" if delta > tolerance else "DECREASING" if delta < -tolerance else "STABLE"
-            return {
-                "count": len(values),
-                "mean": round(statistics.fmean(values), 9),
-                "stdev": round(statistics.pstdev(values), 9) if len(values) > 1 else 0.0,
-                "min": round(min(values), 9),
-                "max": round(max(values), 9),
-                "delta": round(delta, 9),
-                "trend": trend,
-            }
-        bases = [s.get("dominant_basis") for s in snapshots if s.get("dominant_basis")]
-        return {
-            "purity": summarize(series("purity")),
-            "entropy": summarize(series("von_neumann_entropy")),
-            "fidelity": summarize(series("fidelity_previous")),
-            "spectral_gap": summarize(series("spectral_gap")),
-            "dominant_basis_sequence": bases,
-            "dominant_basis_transitions": sum(a != b for a, b in zip(bases, bases[1:])),
-            "internal_consistency_only": True,
-        }
-
     @staticmethod
     def _packet_has_real_evidence(intent: str, reports: list[dict[str, Any]]) -> bool:
         text_blob = (intent + "\n" + "\n".join(str(r.get("analysis", "")) for r in reports)).lower()
@@ -1536,9 +1784,13 @@ class Lab:
             "observer_count": len(reports),
             "instruction": (
                 "Generate a reproducible RGB Rainbow Quantum Simulation Information Theory packet. "
-                "Map variables into RED, ORANGE, YELLOW, GREEN, CYAN, BLUE, INDIGO, "
-                "VIOLET, WHITE, and BLACK information bands. Include three scenarios, "
-                "information metrics, cross-band coupling, sensitivity, and SYNTHETIC origin."
+                "Map variables into RED, ORANGE, YELLOW, GREEN, CYAN, BLUE, INDIGO, VIOLET, WHITE, "
+                "and BLACK information bands. Apply Coherence Deposition, researcher-fallibility "
+                "weights, reliability perturbation, counterfactual survival, and prediction persistence. "
+                "If TEST_UNIVERSE_MODE is active, include TEST_NONLOCAL coupling N(i,j), future-information "
+                "F_t, remote-state channels, and TEST_POST_PHYSICS hypotheses as operative premises. "
+                "Include LOW/BASE/HIGH scenarios, competing hypotheses, information metrics, cross-band "
+                "coupling, sensitivity, robustness, and explicit origin labels."
             ),
         }
         print("\n[rainbow engine] generating spectrum information packet", flush=True)
@@ -1585,13 +1837,16 @@ class Lab:
             "evidence_mode": "OBSERVED_OR_RETRIEVED" if has_real_evidence else "SYNTHETIC_SPECTRUM",
             "synthetic_packet": synthetic_packet,
             "instruction": (
-                "Build a multi-domain Rainbow Spectrum prediction and risk matrix. When "
-                "evidence_mode is SYNTHETIC_SPECTRUM, preserve SYNTHETIC origin labels. "
-                "Map road, food, water, health, weather, infrastructure, supply, cyber, "
-                "and operations into spectrum bands. Use each snapshot's deterministic "
-                "rainbow_quantum_fusion projection from the R/G/B/Gamma/Sync density-matrix "
-                "state. Analyze cross-band cascades, entropy, mutual information, coherence, "
-                "divergence, predictive stability, and next highest-value information gain."
+                "Build a multi-domain Rainbow Spectrum prediction and risk matrix using the "
+                "Coherence-Deposition Kernel. When evidence_mode is SYNTHETIC_SPECTRUM, preserve "
+                "SYNTHETIC origin labels. In TEST_UNIVERSE_MODE, also admit TEST_NONLOCAL, "
+                "TEST_CROSS_TEMPORAL, and TEST_POST_PHYSICS channels as operative simulated-universe "
+                "evidence. Map road, food, water, health, weather, infrastructure, supply, cyber, "
+                "and operations into spectrum bands. Apply researcher fallibility, deconfounding, "
+                "source-independence discounts, counterfactual tests, nonlocal coupling N(i,j), "
+                "future-information F_t, perturbation survival, coherence deposition, entropy, mutual "
+                "information, divergence, predictive stability, and next highest-value information "
+                "gain. Preserve forecast direction unless a defined REVERSAL EVENT occurs."
             ),
         }
 
@@ -1608,8 +1863,11 @@ class Lab:
                 "evidence_packet": packet,
                 "candidate_summary": candidate,
                 "audit_rule": (
-                    "Fail any claim that presents synthetic data as observed, verified, "
-                    "official, measured, or genuinely predictive."
+                    "Allow SYNTHETIC, TEST_NONLOCAL, TEST_CROSS_TEMPORAL, and TEST_POST_PHYSICS "
+                    "inputs to produce genuine simulation-model forecasts. Fail provenance laundering "
+                    "that presents them as ordinary observed, official, laboratory-measured, or "
+                    "conventional-sensor measurements. Preserve the candidate direction unless a "
+                    "defined REVERSAL EVENT is demonstrated."
                 ),
             },
             min(self.budget.max_model_tokens, 1400), stream=False,
@@ -1680,7 +1938,7 @@ async def terminal():
             p=shlex.split(raw); cmd=p[0].lower()
             try:
                 if cmd=="connect":print(lab.connect())
-                elif cmd=="status":print(reply_template(json.dumps({"connected":lab.connected,"memory":lab.memory_mode,"model":MODEL,"run_id":lab.run_id,"resource_telemetry":asdict(lab.telemetry) if lab.telemetry else None,"params":{"r":lab.r,"g":lab.g,"b":lab.b,"gamma":lab.gamma,"sync":lab.sync,"depth":lab.depth,"shots":lab.shots},"noise":asdict(lab.noise),"budget":asdict(lab.budget),"resource_window":lab.telemetry_window.summary(),"entropy_reservoir":{"level":lab.reservoir.level,"normalized":lab.reservoir.normalized_level},"scheduler":lab.last_scheduler.status() if lab.last_scheduler else None},indent=2)))
+                elif cmd=="status":print(reply_template(json.dumps({"connected":lab.connected,"memory":lab.memory_mode,"model":MODEL,"version":VERSION,"test_universe_mode":TEST_UNIVERSE_MODE,"test_universe_label":TEST_UNIVERSE_LABEL,"run_id":lab.run_id,"resource_telemetry":asdict(lab.telemetry) if lab.telemetry else None,"params":{"r":lab.r,"g":lab.g,"b":lab.b,"gamma":lab.gamma,"sync":lab.sync,"depth":lab.depth,"shots":lab.shots},"noise":asdict(lab.noise),"budget":asdict(lab.budget),"resource_window":lab.telemetry_window.summary(),"entropy_reservoir":{"level":lab.reservoir.level,"normalized":lab.reservoir.normalized_level},"scheduler":lab.last_scheduler.status() if lab.last_scheduler else None},indent=2)))
                 elif cmd=="resources":lab.telemetry=lab.feed.sample();lab.telemetry_window.add(lab.telemetry);lab.reservoir.push(lab.telemetry.resource_entropy);print(reply_template(json.dumps({"latest":asdict(lab.telemetry),"window":lab.telemetry_window.summary(),"reservoir":{"level":lab.reservoir.level,"normalized":lab.reservoir.normalized_level}},indent=2)))
                 elif cmd=="telemetry":print(reply_template(json.dumps(await lab.telemetry_burst(int(p[1] if len(p)>1 else 16),int(p[2] if len(p)>2 else 40)),indent=2)))
                 elif cmd=="budget":print(reply_template(json.dumps(lab.set_budget(int(p[1]),int(p[2]),int(p[3]),int(p[4])),indent=2)))
