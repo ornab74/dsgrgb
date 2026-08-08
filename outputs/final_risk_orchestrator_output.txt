@@ -1,0 +1,114 @@
+[reply template]
+SYSTEM: DSG_ADVANCED_RISK_ORCHESTRATOR
+TEMPLATE_VERSION: 11.0
+MODE: RAINBOW_SPECTRUM_SIMULATION_INFORMATION_THEORY
+EXECUTIVE_PREDICTION:
+  DOMAIN: OPERATIONS_EVENTS
+  SUBJECT: 2026 United States midterm voter turnout
+  LOCATION: United States
+  HORIZON: November 3, 2026
+  MOST_LIKELY_OUTCOME: SYNTHETIC BASE scenario of 46%-49% of the voting-eligible population, approximately 122-132 million voters, with a SYNTHETIC scenario weight of 55%; this is a planning range, not an empirically calibrated probability forecast
+  CONFIDENCE: LOW
+RISK_POSTURE:
+  CURRENT: UNKNOWN
+  FORECAST: UNKNOWN
+  TREND: UNKNOWN
+  TOP_DRIVER: SYNTHETIC registration-to-ballot conversion combined with enthusiasm, competitiveness, and early/mail ballot completion
+  TOP_UNCERTAINTY: Absence of current official VEP, registration, early-voting, mail-ballot, access, and turnout-intention data
+DOMAIN_SCORECARD:
+  ROAD_TRANSPORT: UNKNOWN | No current official road, transit, or polling-access conditions were supplied; localized weather or transport disruption is only a SYNTHETIC condition
+  FOOD_SAFETY: UNKNOWN | No inspection, advisory, testing, or incident evidence was supplied
+  WATER_SAFETY: UNKNOWN | No utility advisory, testing, or incident evidence was supplied
+  HEALTH_EXPOSURE: UNKNOWN | No public-health, environmental-exposure, worker-illness, or staffing evidence was supplied
+  WEATHER_ENVIRONMENT: UNKNOWN | A SYNTHETIC 0.2%-1.8% turnout-suppression prior is not a real forecast; election-period weather remains UNKNOWN
+  INFRASTRUCTURE_UTILITIES: UNKNOWN | No confirmed outage, polling-site closure, communications loss, or equipment-failure evidence was supplied
+  SUPPLY_LOGISTICS: UNKNOWN | No verified ballot, mail, equipment, vendor, processing-capacity, or staffing disruption was supplied
+  CYBER_INFORMATION: UNKNOWN | No operational cyber-threat evidence was supplied; recursive memory and conflicting synthetic ranges create information-quality concerns but do not establish a cyber incident
+  OPERATIONS_EVENTS: UNKNOWN | Turnout effects from access, staffing, ballot processing, weather, and late enthusiasm are modeled only through SYNTHETIC assumptions
+CROSS_DOMAIN_CASCADES:
+  - CHAIN: WEATHER_ENVIRONMENT -> ROAD_TRANSPORT -> reduced in-person voting access
+    LIKELIHOOD: UNKNOWN
+    SEVERITY: MODERATE
+    BREAKPOINT: Check current official forecasts, road and transit status, and polling-place accessibility; use verified early or mail options where applicable
+  - CHAIN: INFRASTRUCTURE_UTILITIES -> OPERATIONS_EVENTS -> polling or ballot-processing delay
+    LIKELIHOOD: UNKNOWN
+    SEVERITY: MODERATE
+    BREAKPOINT: Confirm outage status, backup-power readiness, communications continuity, and official contingency arrangements
+  - CHAIN: SUPPLY_LOGISTICS -> OPERATIONS_EVENTS -> delayed, rejected, or unprocessed ballots
+    LIKELIHOOD: UNKNOWN
+    SEVERITY: MODERATE
+    BREAKPOINT: Monitor official request, dispatch, return, rejection, backlog, staffing, and processing-capacity data
+  - CHAIN: CYBER_INFORMATION -> OPERATIONS_EVENTS -> public misuse of a synthetic estimate as an empirical forecast
+    LIKELIHOOD: MEDIUM
+    SEVERITY: MODERATE
+    BREAKPOINT: Preserve SYNTHETIC labels, publish assumptions, and replace generated inputs with timestamped official data
+  - CHAIN: HEALTH_EXPOSURE -> SUPPLY_LOGISTICS -> election-worker shortages or polling-site disruption
+    LIKELIHOOD: UNKNOWN
+    SEVERITY: MODERATE
+    BREAKPOINT: Obtain official public-health and election-staffing reports
+FAILURE_MODE_REGISTER:
+  - FAILURE_MODE: Synthetic estimate treated as observed turnout evidence
+    CAUSE: Scenario weights and generated values presented without prominent origin and calibration warnings
+    EFFECT: Overconfidence in the 46%-49% VEP planning range
+    DETECTABILITY: HIGH
+    PRIORITY: MODERATE
+    CONTROL: Label every generated election value SYNTHETIC and prohibit operational use without corroborating official data
+  - FAILURE_MODE: Scenario drift across simulator snapshots
+    CAUSE: Step 7 shifts the BASE range to 48%-52% VEP while steps 3-6 repeatedly use 46%-49%
+    EFFECT: Range selection becomes method-dependent
+    DETECTABILITY: HIGH
+    PRIORITY: MODERATE
+    CONTROL: Retain 46%-49% as the four-of-five consensus planning range, flag step 7 as a sensitivity case, and do not claim empirical validation
+  - FAILURE_MODE: Correlated turnout drivers counted independently
+    CAUSE: Registration conversion, enthusiasm, competitiveness, and early/mail participation influence one another
+    EFFECT: Exaggerated scenario movement or confidence
+    DETECTABILITY: MEDIUM
+    PRIORITY: MODERATE
+    CONTROL: Model joint driver packages and avoid summing overlapping effects
+  - FAILURE_MODE: Localized disruption hidden by a national estimate
+    CAUSE: National aggregation masks concentrated weather, access, mail, staffing, or infrastructure problems
+    EFFECT: Small national change despite substantial regional operational impact
+    DETECTABILITY: MEDIUM
+    PRIORITY: MODERATE
+    CONTROL: Add state and regional monitoring without converting localized effects directly into national totals
+  - FAILURE_MODE: Voter-count range becomes inconsistent with the VEP denominator
+    CAUSE: The assumed SYNTHETIC 265-270 million VEP envelope changes
+    EFFECT: Percentage and voter-count estimates no longer align
+    DETECTABILITY: HIGH
+    PRIORITY: MODERATE
+    CONTROL: Recalculate counts from the latest official VEP estimate and state the denominator definition
+SCENARIO_TREE:
+  BASE_CASE:
+    OUTCOME: SYNTHETIC 46%-49% VEP, approximately 122-132 million voters; SYNTHETIC weight 55%
+    TRIGGERS: [Moderate registration conversion, moderate enthusiasm and competitiveness, ordinary early/mail completion, manageable access constraints, broad but uneven demographic participation, no widespread disruption]
+  LOW_RISK_CASE:
+    OUTCOME: SYNTHETIC higher-turnout case of 49%-53% VEP, approximately 130-143 million voters; SYNTHETIC weight 20%
+    TRIGGERS: [Strong registration conversion, elevated enthusiasm and competitiveness, high early/mail ballot completion, broad demographic participation, limited access constraints, mild weather disruption]
+  HIGH_RISK_CASE:
+    OUTCOME: SYNTHETIC lower-turnout case of 43%-46% VEP, approximately 114-124 million voters; SYNTHETIC weight 25%
+    TRIGGERS: [Weak registration conversion, lower enthusiasm or competitiveness, reduced early/mail completion, greater access constraints, demographic participation declines, widespread weather or operational disruption]
+EVIDENCE_QUALITY:
+  FRESHNESS: UNKNOWN
+  COMPLETENESS: LOW
+  CONSISTENCY: MEDIUM
+  PROVENANCE: SYNTHETIC turnout assumptions and five deterministic simulator snapshots; OBSERVED user scope and packet labels; recursive retrieved memory is non-independent; no external official election telemetry was supplied
+  SIMULATOR_ROLE: internal consistency only
+DECISION_THRESHOLDS:
+  PROCEED: Use the 46%-49% VEP and 122-132 million range only for explicitly SYNTHETIC scenario planning with assumptions and denominator shown
+  CAUTION: Use when one or more official inputs remain unavailable, stale, definitionally inconsistent, or geographically incomplete
+  PAUSE_AND_VERIFY: Pause quantitative updating when VEP definitions conflict, observer ranges diverge materially, or registration and ballot data lack timestamps or provenance
+  ESCALATE: Seek specialist review when verified official data show large unexplained departures from the scenario envelope or confirmed operational disruptions affect multiple jurisdictions
+LOW_REGRET_ACTIONS:
+  - Preserve the turnout-only scope and all SYNTHETIC origin labels
+  - Replace the assumed VEP envelope with the latest official 2026 estimate
+  - Collect timestamped state registration, early-vote, mail-request, mail-return, rejection, and processing-backlog data
+  - Track access-law changes, polling-place inventories, staffing, equipment readiness, mail performance, and official weather forecasts
+  - Report national and regional effects separately to avoid masking concentrated disruptions
+  - Recalculate scenario ranges with a documented aggregation rule and joint treatment of correlated drivers
+ACTIONS_TO_AVOID:
+  - Treating simulator behavior or scenario weights as physical sensing, polling, or calibrated election probabilities
+  - Inferring operational cyber threats from information uncertainty alone
+  - Declaring food or water conditions acceptable without reliable inspection, advisories, or testing
+  - Making road-access decisions without current official conditions and direct observation
+
+[/reply template]

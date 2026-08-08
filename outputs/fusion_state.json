@@ -1,0 +1,37 @@
+{
+  "mapping_version": "RGB-RSIT-14.0",
+  "dominant_basis": "|10100>",
+  "dominant_band": "BLUE",
+  "bands": {
+    "RED": 0.512986146,
+    "ORANGE": 0.555597288,
+    "YELLOW": 0.248170726,
+    "GREEN": 0.623581741,
+    "CYAN": 0.441691118,
+    "BLUE": 0.797115794,
+    "INDIGO": 0.069450596,
+    "VIOLET": 0.323250291,
+    "WHITE": 0.49559417,
+    "BLACK": 0.285605967
+  },
+  "metrics": {
+    "spectrum_entropy": 0.935521574,
+    "spectrum_coherence": 0.49559417,
+    "band_divergence": 0.479930777,
+    "predictive_stability": 0.491504575,
+    "rgb_qfi_mean": 0.806536167,
+    "gamma_qfi": 0.28294286,
+    "sync_qfi": 0.83540823,
+    "rgb_mutual_information_mean": 0.11311413,
+    "gamma_sync_mutual_information": 0.00401945,
+    "negativity_mean": 0.030521607,
+    "bloch_coherence_mean": 0.844013476
+  },
+  "coupling": {
+    "rgb_to_spectrum": "MEDIUM",
+    "gamma_to_violet": "LOW",
+    "sync_to_cyan_blue": "MEDIUM",
+    "unknown_to_black": "LOW"
+  },
+  "origin": "DETERMINISTIC_SIMULATOR_PROJECTION"
+}

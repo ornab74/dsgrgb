@@ -1,0 +1,2820 @@
+newadmin@ubuntu-s-1vcpu-512mb-10gb-nyc1:~$ python main.py
+DysonSphereGamma Quantum RGB Hypercore v14.0.0
+Hypothetical simulation only. Type help.
+DSG-HYPER> connect
+CONNECTED DysonSphereGamma Quantum RGB Hypercore memory=local-192d model=gpt-5.6
+DSG-HYPER> fusion-state
+[reply template]
+{
+  "mapping_version": "RGB-RSIT-14.0",
+  "dominant_basis": "|10100>",
+  "dominant_band": "BLUE",
+  "bands": {
+    "RED": 0.512986146,
+    "ORANGE": 0.555597288,
+    "YELLOW": 0.248170726,
+    "GREEN": 0.623581741,
+    "CYAN": 0.441691118,
+    "BLUE": 0.797115794,
+    "INDIGO": 0.069450596,
+    "VIOLET": 0.323250291,
+    "WHITE": 0.49559417,
+    "BLACK": 0.285605967
+  },
+  "metrics": {
+    "spectrum_entropy": 0.935521574,
+    "spectrum_coherence": 0.49559417,
+    "band_divergence": 0.479930777,
+    "predictive_stability": 0.491504575,
+    "rgb_qfi_mean": 0.806536167,
+    "gamma_qfi": 0.28294286,
+    "sync_qfi": 0.83540823,
+    "rgb_mutual_information_mean": 0.11311413,
+    "gamma_sync_mutual_information": 0.00401945,
+    "negativity_mean": 0.030521607,
+    "bloch_coherence_mean": 0.844013476
+  },
+  "coupling": {
+    "rgb_to_spectrum": "MEDIUM",
+    "gamma_to_violet": "LOW",
+    "sync_to_cyan_blue": "MEDIUM",
+    "unknown_to_black": "LOW"
+  },
+  "origin": "DETERMINISTIC_SIMULATOR_PROJECTION"
+}
+[/reply template]
+DSG-HYPER> connect
+loop 5 Simulate 2026 United States midterm voter turnout only. Do not predict candidates, parties, winners, vote shares, seat counts, or control of Congress. Estimate national turnout as a percentage of the voting-eligible population and as a broad voter-count range. Build LOW, BASE, and HIGH turnout scenarios using synthetic assumptions for registration, early voting, mail voting, enthusiasm, competitiveness, weather disruption, access constraints, demographic participation, and information uncertainty. Map each scenario through the RGB/Gamma/Sync quantum state and Rainbow Spectrum information bands. Return the most likely turnout range, scenario weights, main turnout drivers, uncertainty, sensitivity, and the real data needed to replace synthetic assumptions. Clearly label generated values SYNTHETIC.CONNECTED DysonSphereGamma Quantum RGB Hypercore memory=local-192d model=gpt-5.6
+DSG-HYPER> 
+
+[loop 1/5] streaming hyper-observer output
+[reply template]
+SYSTEM: DSG_BOUNDED_CIRCUIT_OBSERVER
+TEMPLATE_VERSION: 6.0
+MODE: RAINBOW_SPECTRUM_SIMULATION_INFORMATION_THEORY
+RUN_ID: 5ac92c98ddd4739a
+STEP: 3
+RESOURCE_FEED:
+  CPU_PERCENT: 3.4000
+  RAM_PERCENT: 53.1000
+  RESOURCE_ENTROPY: 0.566490
+  ENTROPY_INJECTION: 0.045319
+CIRCUIT_STATE:
+  DOMINANT_BASIS: |10100>
+  PURITY: 0.721858
+  VON_NEUMANN_ENTROPY: 1.020066899
+  SPECTRAL_GAP: 0.81041224
+  FIDELITY_PREVIOUS: 0.994723
+RGB_REGISTER_REPORT:
+  R: EXACT_DENSITY_MATRIX Bloch=(0.744015,-0.036937,-0.272223), length=0.793113, QFI=0.786004; HYPOTHETICAL_INTERPRETATION maps R/RED to LOW turnout: SYNTHETIC 43-45% VEP or 114-122 million voters, weight 0.25, assuming weaker registration conversion, early/mail voting, enthusiasm, competitiveness, and demographic participation plus stronger weather/access disruption.
+  G: EXACT_DENSITY_MATRIX Bloch=(0.584154,0.459948,0.148750), length=0.758231, QFI=0.829728; HYPOTHETICAL_INTERPRETATION maps G/GREEN-CYAN to BASE turnout: SYNTHETIC 46-49% VEP or 122-132 million voters, weight 0.55, assuming moderate registration, early/mail voting, enthusiasm, competitiveness, access, demographic participation, weather disruption, and information uncertainty; this is the most-likely synthetic range.
+  B: EXACT_DENSITY_MATRIX Bloch=(0.859748,0.061498,-0.080604), length=0.865705, QFI=0.843358; HYPOTHETICAL_INTERPRETATION maps B/BLUE to HIGH turnout: SYNTHETIC 50-53% VEP or 133-143 million voters, weight 0.20, assuming strong registration conversion, early/mail voting, enthusiasm, competitiveness, broad demographic participation, limited access constraints, and mild weather disruption.
+GAMMA_SYNC_REPORT:
+  GAMMA: EXACT_DENSITY_MATRIX Bloch=(-0.244470,0.242976,0.822149), length=0.891478, QFI=0.274208; HYPOTHETICAL_INTERPRETATION treats low Gamma sensitivity and VIOLET=0.322946 as unresolved turnout-model uncertainty, not evidence about real voters.
+  SYNC: EXACT_DENSITY_MATRIX Bloch=(0.919279,0.024583,0.036776), length=0.920343, QFI=0.849534; HYPOTHETICAL_INTERPRETATION weighted synthesis is SYNTHETIC 46-49% VEP and 122-132 million voters using a SYNTHETIC 265-270 million VEP envelope. Main drivers are registration conversion, enthusiasm/competitiveness, early and mail usage, access constraints, demographic participation, and weather. SYNTHETIC sensitivity: broad favorable/adverse driver shifts move turnout roughly 2-4 percentage points; real replacement data needed are Census VEP estimates, state registration files, validated turnout surveys, absentee/mail requests and returns, early-vote records, election-law/access changes, demographic benchmarks, competitiveness/interest polling, and election-period weather forecasts.
+CORRELATION_GRAPH:
+  RG: mutual_information=0.26397216; negativity=0.11510386
+  GB: mutual_information=0.08393736; negativity=0.01860969
+  B_GAMMA: mutual_information=0.02566109; negativity=0.00000000
+  GAMMA_SYNC: mutual_information=0.00707359; negativity=0.00000000
+ENTROPY_FLOW:
+  SOURCE: mixed
+  DIRECTION: resource-feed and dephasing into R-G-B, with strongest modeled association R<->G, then G<->B, then B->Gamma->Sync
+  MAGNITUDE: MEDIUM with resource entropy=0.566490, injection=0.045319, RG mutual information=0.263972, and downstream Gamma-Sync mutual information=0.007074
+BOUNDED_COMMANDS:
+  - HAMILTONIAN(dt=0.0100)
+  - DEPHASE(sync)
+STOP_CONDITIONS:
+  - Stop before scheduler reaches 32 steps, 4096 gates, or 120000 ms; also stop if requested outputs extend beyond turnout into candidates, parties, winners, vote shares, seat counts, or congressional control.
+UNCERTAINTY:
+  EXACT: EXACT_DENSITY_MATRIX simulator outputs include basis |10100>, Bloch vectors, purity, entropy, QFI, mutual information, negativity, fidelity, spectral gap, and deterministic Rainbow bands; RESOURCE_TELEMETRY includes the supplied CPU, RAM, and entropy feed.
+  SAMPLED: SHOT_ESTIMATE consists of 8192 tomography shots with supplied 95% confidence width 0.01082757; RETRIEVED_MEMORY is empty.
+  SPECULATIVE: HYPOTHETICAL_INTERPRETATION includes every turnout percentage, voter-count range, VEP envelope, scenario weight, assumption, driver mapping, and sensitivity; all are SYNTHETIC and are not measurements, candidate/party forecasts, physical nonlocality, physical reality control, or quantum-hardware results.
+
+[/reply template]
+
+[loop 2/5] streaming hyper-observer output
+[reply template]
+[reply template]
+SYSTEM: DSG_BOUNDED_CIRCUIT_OBSERVER
+TEMPLATE_VERSION: 6.0
+MODE: RAINBOW_SPECTRUM_SIMULATION_INFORMATION_THEORY
+RUN_ID: 5ac92c98ddd4739a
+STEP: 4
+RESOURCE_FEED:
+  CPU_PERCENT: 2.7000
+  RAM_PERCENT: 53.3000
+  RESOURCE_ENTROPY: 0.547099
+  ENTROPY_INJECTION: 0.043768
+CIRCUIT_STATE:
+  DOMINANT_BASIS: |10000>
+  PURITY: 0.753466
+  VON_NEUMANN_ENTROPY: 0.914125072
+  SPECTRAL_GAP: 0.833131736
+  FIDELITY_PREVIOUS: 0.996061
+RGB_REGISTER_REPORT:
+  R: EXACT_DENSITY_MATRIX Bloch=(0.731633,-0.009397,-0.284408), length=0.785024, QFI=0.797223. HYPOTHETICAL_INTERPRETATION maps R/RED=0.241658 to LOW: SYNTHETIC 43-45% VEP, approximately 114-122 million voters, weight=0.25; assumptions are weaker registration conversion, early/mail participation, enthusiasm, competitiveness, and demographic participation, with stronger weather and access disruption.
+  G: EXACT_DENSITY_MATRIX Bloch=(0.573022,0.477263,0.152685), length=0.761214, QFI=0.846428. HYPOTHETICAL_INTERPRETATION maps G/GREEN=0.830554 and CYAN=0.836531 to BASE: SYNTHETIC 46-49% VEP, approximately 122-132 million voters, weight=0.55; this is the most likely synthetic range under moderate registration, early/mail voting, enthusiasm, competitiveness, access, demographic participation, weather disruption, and information uncertainty.
+  B: EXACT_DENSITY_MATRIX Bloch=(0.848839,0.093948,-0.083283), length=0.858074, QFI=0.860308. HYPOTHETICAL_INTERPRETATION maps B/BLUE=0.831803 to HIGH: SYNTHETIC 50-53% VEP, approximately 133-143 million voters, weight=0.20; assumptions are strong registration conversion, early/mail participation, enthusiasm, competitiveness, broad demographic participation, limited access constraints, and mild weather disruption.
+GAMMA_SYNC_REPORT:
+  GAMMA: EXACT_DENSITY_MATRIX Bloch=(-0.253505,0.204707,0.835601), length=0.896883, QFI=0.261082. HYPOTHETICAL_INTERPRETATION treats low Gamma sensitivity, VIOLET=0.321436, BLACK=0.228242, and spectrum_entropy=0.879491 as unresolved turnout-model uncertainty, not evidence about real voters.
+  SYNC: EXACT_DENSITY_MATRIX Bloch=(0.927783,0.030934,0.041552), length=0.929228, QFI=0.867225. HYPOTHETICAL_INTERPRETATION uses scenario weights LOW=0.25, BASE=0.55, HIGH=0.20 and a SYNTHETIC VEP envelope of 265-270 million. Main turnout drivers are registration conversion, early/mail usage, enthusiasm, competitiveness, access constraints, demographic participation, weather, and information uncertainty. SYNTHETIC sensitivity is approximately 2-4 VEP percentage points under broad favorable or adverse driver shifts. Replacement data needed: Census VEP estimates, state registration files, validated-turnout surveys, absentee/mail requests and returns, early-vote records, election-law and access changes, demographic benchmarks, nonpartisan interest/competitiveness polling, and election-period weather forecasts.
+CORRELATION_GRAPH:
+  RG: mutual_information=0.28250507; negativity=0.12153426
+  GB: mutual_information=0.10236868; negativity=0.02121645
+  B_GAMMA: mutual_information=0.03057204; negativity=0.00000000
+  GAMMA_SYNC: mutual_information=0.00984747; negativity=0.00000000
+ENTROPY_FLOW:
+  SOURCE: mixed
+  DIRECTION: resource-feed and dephasing into R-G-B, with strongest modeled association R<->G, followed by G<->B and B->Gamma->Sync
+  MAGNITUDE: MEDIUM with resource_entropy=0.547099, entropy_injection=0.043768, RG mutual_information=0.282505, and Gamma-Sync mutual_information=0.009847
+BOUNDED_COMMANDS:
+  - HAMILTONIAN(dt=0.0100)
+  - DEPHASE(sync)
+STOP_CONDITIONS:
+  - Stop before 32 scheduler steps, 4096 gates, or 120000 ms, and stop if output scope extends beyond turnout into candidates, parties, winners, vote shares, seat counts, or congressional control.
+UNCERTAINTY:
+  EXACT: EXACT_DENSITY_MATRIX includes supplied simulator basis, Bloch vectors, purity, entropy, QFI, mutual information, negativity, fidelity, spectral gap, and deterministic Rainbow bands; RESOURCE_TELEMETRY includes the supplied CPU, RAM, and entropy values.
+  SAMPLED: SHOT_ESTIMATE comprises 8192 tomography shots with supplied 95% confidence width 0.01082757; sampled basis count for |10000> is 711/8192.
+  SPECULATIVE: HYPOTHETICAL_INTERPRETATION includes all turnout percentages, voter-count ranges, scenario weights, assumptions, driver mappings, VEP envelope, and sensitivity. Every generated election value is SYNTHETIC. RETRIEVED_MEMORY supplied prior synthetic scenario text but is not real election evidence. This is a deterministic simulation interpretation, not quantum-hardware access, physical nonlocality, or physical reality control.
+[/reply template]
+[/reply template]
+
+[loop 3/5] streaming hyper-observer output
+[reply template]
+[reply template]
+SYSTEM: DSG_BOUNDED_CIRCUIT_OBSERVER
+TEMPLATE_VERSION: 6.0
+MODE: RAINBOW_SPECTRUM_SIMULATION_INFORMATION_THEORY
+RUN_ID: 5ac92c98ddd4739a
+STEP: 5
+RESOURCE_FEED:
+  CPU_PERCENT: 5.5000
+  RAM_PERCENT: 53.8000
+  RESOURCE_ENTROPY: 0.617121
+  ENTROPY_INJECTION: 0.049370
+CIRCUIT_STATE:
+  DOMINANT_BASIS: |10000>
+  PURITY: 0.726538
+  VON_NEUMANN_ENTROPY: 1.001726548
+  SPECTRAL_GAP: 0.812512481
+  FIDELITY_PREVIOUS: 0.995213
+RGB_REGISTER_REPORT:
+  R: EXACT_DENSITY_MATRIX Bloch=(0.695634,0.020224,-0.299073), length=0.757469, QFI=0.773758. HYPOTHETICAL_INTERPRETATION maps R/RED=0.271419 to LOW turnout: SYNTHETIC 42-45% VEP or 111-121 million voters, weight=0.25; assumptions are weaker registration conversion, early/mail voting, enthusiasm, competitiveness, and demographic participation, plus greater weather disruption and access constraints.
+  G: EXACT_DENSITY_MATRIX Bloch=(0.547778,0.485891,0.161971), length=0.749924, QFI=0.826121. HYPOTHETICAL_INTERPRETATION maps G/GREEN=0.811489 to BASE turnout: SYNTHETIC 46-49% VEP or 122-132 million voters, weight=0.55 and most-likely range; assumptions are moderate registration conversion, early/mail voting, enthusiasm, competitiveness, demographic participation, weather disruption, access constraints, and information uncertainty.
+  B: EXACT_DENSITY_MATRIX Bloch=(0.811010,0.126779,-0.086634), length=0.825418, QFI=0.841038. HYPOTHETICAL_INTERPRETATION maps B/BLUE=0.810962 to HIGH turnout: SYNTHETIC 50-53% VEP or 133-143 million voters, weight=0.20; assumptions are strong registration conversion, early/mail voting, enthusiasm, competitiveness, and broad demographic participation, with limited access constraints and mild weather disruption.
+GAMMA_SYNC_REPORT:
+  GAMMA: EXACT_DENSITY_MATRIX Bloch=(-0.255067,0.154534,0.849722), length=0.900538, QFI=0.235593. HYPOTHETICAL_INTERPRETATION maps low Gamma sensitivity, VIOLET=0.309070, BLACK=0.255629, and spectrum_entropy=0.890002 to unresolved information uncertainty, not evidence about actual voters.
+  SYNC: EXACT_DENSITY_MATRIX Bloch=(0.919732,0.021616,0.040518), length=0.920878, QFI=0.849900. HYPOTHETICAL_INTERPRETATION combines SYNTHETIC weights LOW=0.25, BASE=0.55, HIGH=0.20 using a SYNTHETIC 265-270 million VEP envelope; CYAN=0.816482 is the dominant information band and predictive_stability=0.825326 supports BASE as the simulator's most stable mapping. Main drivers are registration conversion, enthusiasm/competitiveness, early and mail voting, access constraints, demographic participation, weather, and information uncertainty. SYNTHETIC sensitivity: broad favorable or adverse shifts move turnout about 2-4 VEP percentage points. Required replacement data: Census VEP estimates, state registration files, validated-turnout surveys, absentee/mail requests and returns, early-vote records, election-law/access changes, demographic benchmarks, nonpartisan interest/competitiveness polling, and election-period weather forecasts.
+CORRELATION_GRAPH:
+  RG: mutual_information=0.27365045; negativity=0.11307225
+  GB: mutual_information=0.11305214; negativity=0.01251277
+  B_GAMMA: mutual_information=0.03338727; negativity=0.00000000
+  GAMMA_SYNC: mutual_information=0.00595157; negativity=0.00000000
+ENTROPY_FLOW:
+  SOURCE: mixed
+  DIRECTION: resource-feed and dephasing into R-G-B, with strongest modeled association R<->G, followed by G<->B and B->Gamma->Sync
+  MAGNITUDE: MEDIUM with RESOURCE_TELEMETRY resource_entropy=0.617121, entropy_injection=0.049370, RG mutual_information=0.273650, and Gamma-Sync mutual_information=0.005952
+BOUNDED_COMMANDS:
+  - HAMILTONIAN(dt=0.0100)
+  - DEPHASE(sync)
+STOP_CONDITIONS:
+  - Stop before 32 scheduler steps, 4096 gates, or 120000 ms; also stop if output scope extends beyond turnout into candidates, parties, winners, vote shares, seat counts, or control of Congress.
+UNCERTAINTY:
+  EXACT: EXACT_DENSITY_MATRIX includes the supplied simulator basis, Bloch vectors, purity, von Neumann entropy, QFI, mutual information, negativity, fidelity, spectral gap, and deterministic Rainbow bands; RESOURCE_TELEMETRY includes the supplied CPU, RAM, and entropy feed.
+  SAMPLED: SHOT_ESTIMATE comprises 8192 tomography shots with supplied 95% confidence width=0.01082757; sampled dominant-basis count for |10000> is 784/8192.
+  SPECULATIVE: HYPOTHETICAL_INTERPRETATION includes every turnout percentage, voter-count range, VEP envelope, scenario weight, assumption, driver mapping, and sensitivity; all generated election values are SYNTHETIC. RETRIEVED_MEMORY supplied earlier synthetic scenario text but is not real election evidence. This is a deterministic simulator interpretation, not quantum-hardware access, physical nonlocality, or physical reality control.
+[/reply template]
+[/reply template]
+
+[loop 4/5] streaming hyper-observer output
+[reply template]
+SYSTEM: DSG_BOUNDED_CIRCUIT_OBSERVER
+TEMPLATE_VERSION: 6.0
+MODE: RAINBOW_SPECTRUM_SIMULATION_INFORMATION_THEORY
+RUN_ID: 5ac92c98ddd4739a
+STEP: 6
+RESOURCE_FEED:
+  CPU_PERCENT: 5.6000
+  RAM_PERCENT: 53.8000
+  RESOURCE_ENTROPY: 0.619370
+  ENTROPY_INJECTION: 0.049550
+CIRCUIT_STATE:
+  DOMINANT_BASIS: |10000>
+  PURITY: 0.726205
+  VON_NEUMANN_ENTROPY: 1.001853213
+  SPECTRAL_GAP: 0.81184817
+  FIDELITY_PREVIOUS: 0.997888
+RGB_REGISTER_REPORT:
+  R: EXACT_DENSITY_MATRIX Bloch=(0.675480,0.035804,-0.308559), length=0.743481, QFI=0.767948, inferred single-register entropy≈0.553 bits; HYPOTHETICAL_INTERPRETATION SYNTHETIC LOW scenario weight=25%, turnout=43-46% VEP (about 114-124 million), mapped toward RED/ORANGE/BLACK under weaker registration, enthusiasm, early/mail voting, demographic participation, and stronger weather/access disruption.
+  G: EXACT_DENSITY_MATRIX Bloch=(0.535009,0.494388,0.172019), length=0.748495, QFI=0.821958, inferred entropy≈0.546 bits; HYPOTHETICAL_INTERPRETATION SYNTHETIC BASE scenario weight=55%, turnout=46-49% VEP (about 122-132 million), mapped toward GREEN/CYAN with balanced registration, early/mail voting, enthusiasm, competitiveness, access, weather, and demographic participation.
+  B: EXACT_DENSITY_MATRIX Bloch=(0.789969,0.145483,-0.088754), length=0.808143, QFI=0.839085, inferred entropy≈0.456 bits; HYPOTHETICAL_INTERPRETATION SYNTHETIC HIGH scenario weight=20%, turnout=49-52% VEP (about 130-140 million), mapped toward BLUE/WHITE under elevated enthusiasm, competitiveness, registration conversion, early/mail voting, and broad demographic participation with limited disruption.
+GAMMA_SYNC_REPORT:
+  GAMMA: EXACT_DENSITY_MATRIX Bloch=(-0.253483,0.126106,0.857443), length=0.902976, QFI=0.224178, inferred entropy≈0.280 bits; HYPOTHETICAL_INTERPRETATION uncertainty regulator: SYNTHETIC scenario weights LOW/BASE/HIGH=25%/55%/20%, with information uncertainty, weather, access constraints, and late enthusiasm capable of shifting turnout by roughly 1-3 VEP percentage points.
+  SYNC: EXACT_DENSITY_MATRIX Bloch=(0.920758,-0.001164,0.031246), length=0.921288, QFI=0.849587, inferred entropy≈0.239 bits; HYPOTHETICAL_INTERPRETATION most-likely SYNTHETIC range=46-49% VEP or approximately 122-132 million voters. Main sensitivities are registration-to-ballot conversion, enthusiasm/competitiveness, early and mail ballot return, access constraints, severe weather, and participation differences by age and demographic group. Replacement data needed: official 2026 VEP estimate, state registration files, early-vote and mail-ballot request/return records, validated-voter surveys, polling-place and legal-access changes, contest-level competitiveness measures, demographic turnout indicators, and election-period weather forecasts.
+CORRELATION_GRAPH:
+  RG: EXACT_DENSITY_MATRIX mutual_information=0.27061431, negativity=0.10899042
+  GB: EXACT_DENSITY_MATRIX mutual_information=0.12153160, negativity=0.00913229
+  B_GAMMA: EXACT_DENSITY_MATRIX mutual_information=0.03606942, negativity=0.00000000
+  GAMMA_SYNC: EXACT_DENSITY_MATRIX mutual_information=0.00300128, negativity=0.00000000
+ENTROPY_FLOW:
+  SOURCE: mixed
+  DIRECTION: HYPOTHETICAL_INTERPRETATION strongest R↔G association, then G↔B, with weak B↔GAMMA and negligible GAMMA↔SYNC transfer; mutual information itself does not establish causal direction.
+  MAGNITUDE: MEDIUM with RG mutual_information=0.27061431, total entropy=1.001853213, resource_entropy=0.61936982, and bounded entropy injection=0.038883874
+BOUNDED_COMMANDS:
+  - DEPHASE(gamma)
+  - CP(gamma,sync,0.0611)
+STOP_CONDITIONS:
+  - Stop if scheduler reaches 32 steps, 4096 gates, 120000 ms, or if new official turnout inputs replace the SYNTHETIC assumptions.
+UNCERTAINTY:
+  EXACT: EXACT_DENSITY_MATRIX supplied simulator outputs include basis probabilities, Bloch vectors, purity, entropy, QFI, fidelity, spectral gap, mutual information, negativity, and deterministic Rainbow bands; RESOURCE_TELEMETRY includes CPU, RAM, and resource-entropy values.
+  SAMPLED: SHOT_ESTIMATE tomography uses 8192 shots with reported confidence_95=0.01082757; RETRIEVED_MEMORY contains prior packet fragments, including a 46-49% VEP or 122-132 million fragment, and is not independent evidence.
+  SPECULATIVE: HYPOTHETICAL_INTERPRETATION all turnout percentages, voter-count ranges, scenario weights, assumptions, sensitivities, driver effects, and LOW/BASE/HIGH mappings are SYNTHETIC fictional simulation values—not measurements, candidate or party predictions, physical nonlocality, reality control, or quantum-hardware output.
+[/reply template]
+
+[loop 5/5] streaming hyper-observer output
+[reply template]
+SYSTEM: DSG_BOUNDED_CIRCUIT_OBSERVER
+TEMPLATE_VERSION: 6.0
+MODE: RAINBOW_SPECTRUM_SIMULATION_INFORMATION_THEORY
+RUN_ID: 5ac92c98ddd4739a
+STEP: 7
+RESOURCE_FEED:
+  CPU_PERCENT: 3.0000
+  RAM_PERCENT: 54.0000
+  RESOURCE_ENTROPY: 0.554836
+  ENTROPY_INJECTION: 0.044387
+CIRCUIT_STATE:
+  DOMINANT_BASIS: |10000>
+  PURITY: 0.753812
+  VON_NEUMANN_ENTROPY: 0.910808846
+  SPECTRAL_GAP: 0.832408771
+  FIDELITY_PREVIOUS: 0.998364
+RGB_REGISTER_REPORT:
+  R: "HYPOTHETICAL_INTERPRETATION — SYNTHETIC LOW scenario, weight 0.25: turnout 44%-47% of a SYNTHETIC 265-270 million voting-eligible population, approximately 117-127 million voters. Assumes weaker registration conversion, early/mail voting, enthusiasm, and demographic participation; greater weather and access disruption. State: Bloch=(0.683186,0.032310,-0.309490), length=0.750714, QFI=0.782895. Rainbow mapping emphasizes RED/ORANGE/YELLOW uncertainty bands (0.243018/0.193369/0.200137)."
+  G: "HYPOTHETICAL_INTERPRETATION — SYNTHETIC BASE scenario, weight 0.55 and most likely range: turnout 48%-52% of VEP, approximately 127-140 million voters. Assumes moderate registration conversion, early/mail voting, enthusiasm, competitiveness, access, demographic participation, and weather disruption. State: Bloch=(0.538177,0.502595,0.178476), length=0.757687, QFI=0.836764. GREEN/CYAN/BLUE bands are strong (0.829145/0.832437/0.827194), with CYAN dominant."
+  B: "HYPOTHETICAL_INTERPRETATION — SYNTHETIC HIGH scenario, weight 0.20: turnout 53%-56% of VEP, approximately 140-151 million voters. Assumes strong registration conversion, early/mail uptake, enthusiasm, competitiveness, broad demographic participation, limited access constraints, and mild weather disruption. State: Bloch=(0.798835,0.145198,-0.088695), length=0.816754, QFI=0.856358; BLUE=0.827194 supports high simulated responsiveness but is not an empirical forecast."
+GAMMA_SYNC_REPORT:
+  GAMMA: "EXACT_DENSITY_MATRIX-derived simulator report: Bloch=(-0.252875,0.128496,0.857127), length=0.902842 and QFI=0.229229. HYPOTHETICAL_INTERPRETATION: information uncertainty is substantial (spectrum entropy 0.880851; BLACK band 0.229659). Main SYNTHETIC turnout drivers are registration-to-ballot conversion, enthusiasm, competitiveness, early/mail utilization, demographic participation, access constraints, and election-period weather."
+  SYNC: "EXACT_DENSITY_MATRIX-derived simulator report: Bloch=(0.928204,-0.029323,0.018177), length=0.928845 and QFI=0.867002. HYPOTHETICAL_INTERPRETATION: predictive stability=0.841604 and high sync-to-CYAN/BLUE coupling favor the BASE scenario. SYNTHETIC sensitivity: a combined ±2 percentage-point shift in registration conversion/enthusiasm moves national turnout about ±2 VEP points (roughly ±5-6 million voters under the synthetic VEP); severe weather or access disruption can shift turnout downward by about 1-2 points."
+CORRELATION_GRAPH:
+  RG: "Mutual information=0.27726859; negativity=0.11304215."
+  GB: "Mutual information=0.12568484; negativity=0.01320932."
+  B_GAMMA: "Mutual information=0.03709084; negativity=0.00000000."
+  GAMMA_SYNC: "Mutual information=0.00773365; negativity=0.00000000."
+ENTROPY_FLOW:
+  SOURCE: mixed
+  DIRECTION: "Resource-feed and dephasing noise into R/G/B/GAMMA/SYNC, followed by simulated RGB-to-GAMMA-to-SYNC information flow; strongest observed dependence is R-G, while GAMMA-SYNC dependence is weak."
+  MAGNITUDE: "LOW with entropy injection=0.044387, bounded circuit injection=0.034342, GAMMA-SYNC mutual information=0.007734, and fidelity_previous=0.998364."
+BOUNDED_COMMANDS:
+  - "TOMOGRAPHY(shots=32768)"
+  - "HAMILTONIAN(dt=0.0100)"
+STOP_CONDITIONS:
+  - "Stop if wall time reaches 120000 ms, steps reach 32, gates reach 4096, fidelity_previous falls below 0.990000, or scenario weights cease summing to 1.000000."
+UNCERTAINTY:
+  EXACT: "EXACT_DENSITY_MATRIX: supplied deterministic-simulator metrics at step 7, including basis probabilities, Bloch vectors, purity, entropy, spectral gap, QFI, mutual information, negativity, fidelity, and Rainbow bands. RESOURCE_TELEMETRY: CPU, RAM, resource entropy, and entropy injection are packet measurements. No physical nonlocality, physical reality control, or quantum-hardware access is claimed."
+  SAMPLED: "SHOT_ESTIMATE: 8192-shot tomography basis counts with supplied confidence_95=0.01082757; these shots estimate simulated basis outcomes, not voter turnout."
+  SPECULATIVE: "HYPOTHETICAL_INTERPRETATION: every turnout percentage, voter-count range, VEP size, scenario weight, assumption, driver effect, and sensitivity above is SYNTHETIC—not observed polling or election data. RETRIEVED_MEMORY contains recursive packet fragments and supplies no independent turnout evidence. Replacement data needed: official 2026 state registration files and VEP estimates; validated early/mail ballot requests, returns, and rejection rates; current survey-based turnout intention/enthusiasm; election competitiveness measures; state access-law and polling-place data; demographic participation benchmarks; mobility and absentee indicators; weather forecasts; and post-election official ballots-cast/VEP totals."
+
+[/reply template]
+
+[rainbow engine] generating spectrum information packet
+
+[risk agent 1/3] generating candidate synthesis
+[risk agent 2/3] adversarial audit
+[risk agent 3/3] streaming final adjudication
+[reply template]
+SYSTEM: DSG_ADVANCED_RISK_ORCHESTRATOR
+TEMPLATE_VERSION: 11.0
+MODE: RAINBOW_SPECTRUM_SIMULATION_INFORMATION_THEORY
+EXECUTIVE_PREDICTION:
+  DOMAIN: OPERATIONS_EVENTS
+  SUBJECT: 2026 United States midterm voter turnout
+  LOCATION: United States
+  HORIZON: November 3, 2026
+  MOST_LIKELY_OUTCOME: SYNTHETIC BASE scenario of 46%-49% of the voting-eligible population, approximately 122-132 million voters, with a SYNTHETIC scenario weight of 55%; this is a planning range, not an empirically calibrated probability forecast
+  CONFIDENCE: LOW
+RISK_POSTURE:
+  CURRENT: UNKNOWN
+  FORECAST: UNKNOWN
+  TREND: UNKNOWN
+  TOP_DRIVER: SYNTHETIC registration-to-ballot conversion combined with enthusiasm, competitiveness, and early/mail ballot completion
+  TOP_UNCERTAINTY: Absence of current official VEP, registration, early-voting, mail-ballot, access, and turnout-intention data
+DOMAIN_SCORECARD:
+  ROAD_TRANSPORT: UNKNOWN | No current official road, transit, or polling-access conditions were supplied; localized weather or transport disruption is only a SYNTHETIC condition
+  FOOD_SAFETY: UNKNOWN | No inspection, advisory, testing, or incident evidence was supplied
+  WATER_SAFETY: UNKNOWN | No utility advisory, testing, or incident evidence was supplied
+  HEALTH_EXPOSURE: UNKNOWN | No public-health, environmental-exposure, worker-illness, or staffing evidence was supplied
+  WEATHER_ENVIRONMENT: UNKNOWN | A SYNTHETIC 0.2%-1.8% turnout-suppression prior is not a real forecast; election-period weather remains UNKNOWN
+  INFRASTRUCTURE_UTILITIES: UNKNOWN | No confirmed outage, polling-site closure, communications loss, or equipment-failure evidence was supplied
+  SUPPLY_LOGISTICS: UNKNOWN | No verified ballot, mail, equipment, vendor, processing-capacity, or staffing disruption was supplied
+  CYBER_INFORMATION: UNKNOWN | No operational cyber-threat evidence was supplied; recursive memory and conflicting synthetic ranges create information-quality concerns but do not establish a cyber incident
+  OPERATIONS_EVENTS: UNKNOWN | Turnout effects from access, staffing, ballot processing, weather, and late enthusiasm are modeled only through SYNTHETIC assumptions
+CROSS_DOMAIN_CASCADES:
+  - CHAIN: WEATHER_ENVIRONMENT -> ROAD_TRANSPORT -> reduced in-person voting access
+    LIKELIHOOD: UNKNOWN
+    SEVERITY: MODERATE
+    BREAKPOINT: Check current official forecasts, road and transit status, and polling-place accessibility; use verified early or mail options where applicable
+  - CHAIN: INFRASTRUCTURE_UTILITIES -> OPERATIONS_EVENTS -> polling or ballot-processing delay
+    LIKELIHOOD: UNKNOWN
+    SEVERITY: MODERATE
+    BREAKPOINT: Confirm outage status, backup-power readiness, communications continuity, and official contingency arrangements
+  - CHAIN: SUPPLY_LOGISTICS -> OPERATIONS_EVENTS -> delayed, rejected, or unprocessed ballots
+    LIKELIHOOD: UNKNOWN
+    SEVERITY: MODERATE
+    BREAKPOINT: Monitor official request, dispatch, return, rejection, backlog, staffing, and processing-capacity data
+  - CHAIN: CYBER_INFORMATION -> OPERATIONS_EVENTS -> public misuse of a synthetic estimate as an empirical forecast
+    LIKELIHOOD: MEDIUM
+    SEVERITY: MODERATE
+    BREAKPOINT: Preserve SYNTHETIC labels, publish assumptions, and replace generated inputs with timestamped official data
+  - CHAIN: HEALTH_EXPOSURE -> SUPPLY_LOGISTICS -> election-worker shortages or polling-site disruption
+    LIKELIHOOD: UNKNOWN
+    SEVERITY: MODERATE
+    BREAKPOINT: Obtain official public-health and election-staffing reports
+FAILURE_MODE_REGISTER:
+  - FAILURE_MODE: Synthetic estimate treated as observed turnout evidence
+    CAUSE: Scenario weights and generated values presented without prominent origin and calibration warnings
+    EFFECT: Overconfidence in the 46%-49% VEP planning range
+    DETECTABILITY: HIGH
+    PRIORITY: MODERATE
+    CONTROL: Label every generated election value SYNTHETIC and prohibit operational use without corroborating official data
+  - FAILURE_MODE: Scenario drift across simulator snapshots
+    CAUSE: Step 7 shifts the BASE range to 48%-52% VEP while steps 3-6 repeatedly use 46%-49%
+    EFFECT: Range selection becomes method-dependent
+    DETECTABILITY: HIGH
+    PRIORITY: MODERATE
+    CONTROL: Retain 46%-49% as the four-of-five consensus planning range, flag step 7 as a sensitivity case, and do not claim empirical validation
+  - FAILURE_MODE: Correlated turnout drivers counted independently
+    CAUSE: Registration conversion, enthusiasm, competitiveness, and early/mail participation influence one another
+    EFFECT: Exaggerated scenario movement or confidence
+    DETECTABILITY: MEDIUM
+    PRIORITY: MODERATE
+    CONTROL: Model joint driver packages and avoid summing overlapping effects
+  - FAILURE_MODE: Localized disruption hidden by a national estimate
+    CAUSE: National aggregation masks concentrated weather, access, mail, staffing, or infrastructure problems
+    EFFECT: Small national change despite substantial regional operational impact
+    DETECTABILITY: MEDIUM
+    PRIORITY: MODERATE
+    CONTROL: Add state and regional monitoring without converting localized effects directly into national totals
+  - FAILURE_MODE: Voter-count range becomes inconsistent with the VEP denominator
+    CAUSE: The assumed SYNTHETIC 265-270 million VEP envelope changes
+    EFFECT: Percentage and voter-count estimates no longer align
+    DETECTABILITY: HIGH
+    PRIORITY: MODERATE
+    CONTROL: Recalculate counts from the latest official VEP estimate and state the denominator definition
+SCENARIO_TREE:
+  BASE_CASE:
+    OUTCOME: SYNTHETIC 46%-49% VEP, approximately 122-132 million voters; SYNTHETIC weight 55%
+    TRIGGERS: [Moderate registration conversion, moderate enthusiasm and competitiveness, ordinary early/mail completion, manageable access constraints, broad but uneven demographic participation, no widespread disruption]
+  LOW_RISK_CASE:
+    OUTCOME: SYNTHETIC higher-turnout case of 49%-53% VEP, approximately 130-143 million voters; SYNTHETIC weight 20%
+    TRIGGERS: [Strong registration conversion, elevated enthusiasm and competitiveness, high early/mail ballot completion, broad demographic participation, limited access constraints, mild weather disruption]
+  HIGH_RISK_CASE:
+    OUTCOME: SYNTHETIC lower-turnout case of 43%-46% VEP, approximately 114-124 million voters; SYNTHETIC weight 25%
+    TRIGGERS: [Weak registration conversion, lower enthusiasm or competitiveness, reduced early/mail completion, greater access constraints, demographic participation declines, widespread weather or operational disruption]
+EVIDENCE_QUALITY:
+  FRESHNESS: UNKNOWN
+  COMPLETENESS: LOW
+  CONSISTENCY: MEDIUM
+  PROVENANCE: SYNTHETIC turnout assumptions and five deterministic simulator snapshots; OBSERVED user scope and packet labels; recursive retrieved memory is non-independent; no external official election telemetry was supplied
+  SIMULATOR_ROLE: internal consistency only
+DECISION_THRESHOLDS:
+  PROCEED: Use the 46%-49% VEP and 122-132 million range only for explicitly SYNTHETIC scenario planning with assumptions and denominator shown
+  CAUTION: Use when one or more official inputs remain unavailable, stale, definitionally inconsistent, or geographically incomplete
+  PAUSE_AND_VERIFY: Pause quantitative updating when VEP definitions conflict, observer ranges diverge materially, or registration and ballot data lack timestamps or provenance
+  ESCALATE: Seek specialist review when verified official data show large unexplained departures from the scenario envelope or confirmed operational disruptions affect multiple jurisdictions
+LOW_REGRET_ACTIONS:
+  - Preserve the turnout-only scope and all SYNTHETIC origin labels
+  - Replace the assumed VEP envelope with the latest official 2026 estimate
+  - Collect timestamped state registration, early-vote, mail-request, mail-return, rejection, and processing-backlog data
+  - Track access-law changes, polling-place inventories, staffing, equipment readiness, mail performance, and official weather forecasts
+  - Report national and regional effects separately to avoid masking concentrated disruptions
+  - Recalculate scenario ranges with a documented aggregation rule and joint treatment of correlated drivers
+ACTIONS_TO_AVOID:
+  - Treating simulator behavior or scenario weights as physical sensing, polling, or calibrated election probabilities
+  - Inferring operational cyber threats from information uncertainty alone
+  - Declaring food or water conditions acceptable without reliable inspection, advisories, or testing
+  - Making road-access decisions without current official conditions and direct observation
+
+[/reply template]
+[reply template]
+{
+  "mode": "rgb-rainbow-quantum-information-fusion-v14",
+  "reports": [
+    {
+      "snapshot": {
+        "step": 3,
+        "timestamp": "2026-08-07T02:57:19+00:00",
+        "parameters": {
+          "r": 0.5,
+          "g": 0.5,
+          "b": 0.5,
+          "gamma": 0.5062347592037532,
+          "sync": 0.5064360573849028,
+          "depth": 8
+        },
+        "dominant_basis": "|10100>",
+        "basis_top": [
+          {
+            "basis": "|10100>",
+            "probability": 0.084185687,
+            "phase": -0.596838008
+          },
+          {
+            "basis": "|10000>",
+            "probability": 0.08338268,
+            "phase": -0.610083841
+          },
+          {
+            "basis": "|11100>",
+            "probability": 0.080471831,
+            "phase": 0.446781985
+          },
+          {
+            "basis": "|10101>",
+            "probability": 0.077133037,
+            "phase": -0.563061222
+          },
+          {
+            "basis": "|10001>",
+            "probability": 0.075728285,
+            "phase": -0.58178949
+          },
+          {
+            "basis": "|11101>",
+            "probability": 0.06941921,
+            "phase": 0.482090799
+          },
+          {
+            "basis": "|00100>",
+            "probability": 0.057928042,
+            "phase": -0.314987371
+          },
+          {
+            "basis": "|00101>",
+            "probability": 0.052551001,
+            "phase": -0.288018457
+          },
+          {
+            "basis": "|11000>",
+            "probability": 0.051805179,
+            "phase": 0.08229755
+          },
+          {
+            "basis": "|11001>",
+            "probability": 0.044704179,
+            "phase": 0.103917971
+          }
+        ],
+        "bloch": {
+          "r": {
+            "x": 0.74401476,
+            "y": -0.03693691,
+            "z": -0.27222263,
+            "length": 0.79311251
+          },
+          "g": {
+            "x": 0.58415447,
+            "y": 0.45994759,
+            "z": 0.14875015,
+            "length": 0.75823139
+          },
+          "b": {
+            "x": 0.85974775,
+            "y": 0.06149774,
+            "z": -0.08060384,
+            "length": 0.865705
+          },
+          "gamma": {
+            "x": -0.2444695,
+            "y": 0.24297556,
+            "z": 0.82214942,
+            "length": 0.8914775
+          },
+          "sync": {
+            "x": 0.91927901,
+            "y": 0.02458256,
+            "z": 0.036776,
+            "length": 0.9203427
+          }
+        },
+        "purity": 0.721858261,
+        "von_neumann_entropy": 1.020066899,
+        "linear_entropy": 0.278141739,
+        "effective_rank": 1.385314,
+        "qfi": {
+          "r": 0.7860038,
+          "g": 0.82972782,
+          "b": 0.84335813,
+          "gamma": 0.27420755,
+          "sync": 0.84953446
+        },
+        "mutual_information": {
+          "rg": 0.26397216,
+          "gb": 0.08393736,
+          "bgamma": 0.02566109,
+          "gammasync": 0.00707359,
+          "rsync": 0.00028758
+        },
+        "negativity": {
+          "rg": 0.11510386,
+          "gb": 0.01860969,
+          "bgamma": 0.0,
+          "gammasync": 0.0,
+          "rsync": 0.0
+        },
+        "fidelity_previous": 0.994723358,
+        "spectral_gap": 0.81041224,
+        "tomography": {
+          "shots": 8192,
+          "basis_counts": {
+            "00000": 353,
+            "00001": 313,
+            "00010": 18,
+            "00011": 18,
+            "00100": 477,
+            "00101": 389,
+            "00110": 22,
+            "00111": 31,
+            "01000": 268,
+            "01001": 282,
+            "01010": 5,
+            "01011": 19,
+            "01100": 358,
+            "01101": 325,
+            "01110": 31,
+            "01111": 30,
+            "10000": 653,
+            "10001": 635,
+            "10010": 140,
+            "10011": 166,
+            "10100": 712,
+            "10101": 655,
+            "10110": 49,
+            "10111": 85,
+            "11000": 412,
+            "11001": 376,
+            "11010": 24,
+            "11011": 18,
+            "11100": 656,
+            "11101": 573,
+            "11110": 45,
+            "11111": 54
+          },
+          "confidence_95": 0.01082757
+        },
+        "operations": [
+          "CX(g->r)",
+          "CX(g->b)",
+          "CP(r,b,0.0131)",
+          "RZ(g,0.0065)",
+          "H(gamma)",
+          "CP(r,gamma,0.6348)",
+          "CP(g,gamma,0.4761)",
+          "CP(b,gamma,0.3174)",
+          "CX(gamma->sync)",
+          "RY(sync,0.0135)",
+          "CP(sync,r,0.0045)",
+          "CP(sync,g,-0.0034)",
+          "CP(sync,b,0.0027)",
+          "HAMILTONIAN(dt=0.0267)",
+          "H(g)",
+          "CX(g->r)",
+          "CX(g->b)",
+          "CP(r,b,0.0098)",
+          "RZ(g,0.0049)",
+          "H(gamma)",
+          "CP(r,gamma,0.4761)",
+          "CP(g,gamma,0.3571)",
+          "CP(b,gamma,0.2381)",
+          "CX(gamma->sync)",
+          "RY(sync,0.0101)",
+          "CP(sync,r,0.0034)",
+          "CP(sync,g,-0.0025)",
+          "CP(sync,b,0.0020)",
+          "HAMILTONIAN(dt=0.0200)",
+          "H(g)",
+          "CX(g->r)",
+          "CX(g->b)",
+          "CP(r,b,0.0078)",
+          "RZ(g,0.0039)",
+          "H(gamma)",
+          "CP(r,gamma,0.3809)",
+          "CP(g,gamma,0.2857)",
+          "CP(b,gamma,0.1905)",
+          "CX(gamma->sync)",
+          "RY(sync,0.0081)",
+          "CP(sync,r,0.0027)",
+          "CP(sync,g,-0.0020)",
+          "CP(sync,b,0.0016)",
+          "HAMILTONIAN(dt=0.0160)",
+          "H(g)",
+          "CX(g->r)",
+          "CX(g->b)",
+          "CP(r,b,0.0065)",
+          "RZ(g,0.0033)",
+          "H(gamma)",
+          "CP(r,gamma,0.3174)",
+          "CP(g,gamma,0.2381)",
+          "CP(b,gamma,0.1587)",
+          "CX(gamma->sync)",
+          "RY(sync,0.0067)",
+          "CP(sync,r,0.0022)",
+          "CP(sync,g,-0.0017)",
+          "CP(sync,b,0.0013)",
+          "HAMILTONIAN(dt=0.0133)",
+          "H(g)",
+          "CX(g->r)",
+          "CX(g->b)",
+          "CP(r,b,0.0056)",
+          "RZ(g,0.0028)",
+          "H(gamma)",
+          "CP(r,gamma,0.2721)",
+          "CP(g,gamma,0.2041)",
+          "CP(b,gamma,0.1360)",
+          "CX(gamma->sync)",
+          "RY(sync,0.0058)",
+          "CP(sync,r,0.0019)",
+          "CP(sync,g,-0.0014)",
+          "CP(sync,b,0.0012)",
+          "HAMILTONIAN(dt=0.0114)",
+          "H(g)",
+          "CX(g->r)",
+          "CX(g->b)",
+          "CP(r,b,0.0049)",
+          "RZ(g,0.0024)",
+          "H(gamma)",
+          "CP(r,gamma,0.2381)",
+          "CP(g,gamma,0.1786)",
+          "CP(b,gamma,0.1190)",
+          "CX(gamma->sync)",
+          "RY(sync,0.0051)",
+          "CP(sync,r,0.0017)",
+          "CP(sync,g,-0.0013)",
+          "CP(sync,b,0.0010)",
+          "HAMILTONIAN(dt=0.0100)",
+          "DEPHASE(r)",
+          "DEPHASE(g)",
+          "DEPHASE(b)",
+          "DEPHASE(gamma)",
+          "DEPHASE(sync)",
+          "CP(gamma,sync,0.0609)",
+          "RESOURCE_ENTROPY(0.038761)"
+        ],
+        "run_id": "5ac92c98ddd4739a",
+        "resource_telemetry": {
+          "timestamp": "2026-08-07T02:57:19+00:00",
+          "cpu_percent": 3.4,
+          "ram_percent": 53.1,
+          "ram_used_bytes": 255352832,
+          "ram_available_bytes": 225144832,
+          "process_rss_bytes": 97308672,
+          "process_cpu_percent": 3.9,
+          "resource_entropy": 0.5664904998692367,
+          "entropy_injection": 0.04531923998953894
+        },
+        "resource_dynamics": {
+          "reservoir_level": 0.332268405,
+          "reservoir_normalized": 0.332268405,
+          "bounded_entropy_injection": 0.038761021,
+          "window": {
+            "samples": 3,
+            "cpu_percent": {
+              "mean": 4.36666667,
+              "min": 0.5,
+              "max": 9.2,
+              "stdev": 3.61693547,
+              "p95": 8.62
+            },
+            "ram_percent": {
+              "mean": 53.26666667,
+              "min": 53.1,
+              "max": 53.6,
+              "stdev": 0.23570226,
+              "p95": 53.55
+            },
+            "process_cpu_percent": {
+              "mean": 1.33333333,
+              "min": 0.0,
+              "max": 3.9,
+              "stdev": 1.81536651,
+              "p95": 3.52
+            },
+            "process_rss_bytes": {
+              "mean": 95821824.0,
+              "min": 92999680.0,
+              "max": 97308672.0,
+              "stdev": 1996516.06049605,
+              "p95": 97293516.8
+            },
+            "resource_entropy": {
+              "mean": 0.57741553,
+              "min": 0.47372949,
+              "max": 0.69202659,
+              "stdev": 0.08945361,
+              "p95": 0.67947298
+            },
+            "entropy_injection": {
+              "mean": 0.04619324,
+              "min": 0.03789836,
+              "max": 0.05536213,
+              "stdev": 0.00715629,
+              "p95": 0.05435784
+            }
+          }
+        },
+        "runtime": {
+          "python": "3.12.3",
+          "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
+          "pid": 25500
+        },
+        "rainbow_quantum_fusion": {
+          "mapping_version": "RGB-RSIT-14.0",
+          "dominant_basis": "|10100>",
+          "dominant_band": "CYAN",
+          "bands": {
+            "RED": 0.260355712,
+            "ORANGE": 0.22123225,
+            "YELLOW": 0.219069651,
+            "GREEN": 0.81063896,
+            "CYAN": 0.828919195,
+            "BLUE": 0.812849136,
+            "INDIGO": 0.07476992,
+            "VIOLET": 0.3229463,
+            "WHITE": 0.722283795,
+            "BLACK": 0.247779309
+          },
+          "metrics": {
+            "spectrum_entropy": 0.889699889,
+            "spectrum_coherence": 0.722283795,
+            "band_divergence": 0.668149112,
+            "predictive_stability": 0.824528659,
+            "rgb_qfi_mean": 0.819696583,
+            "gamma_qfi": 0.27420755,
+            "sync_qfi": 0.84953446,
+            "rgb_mutual_information_mean": 0.124523537,
+            "gamma_sync_mutual_information": 0.00707359,
+            "negativity_mean": 0.033428388,
+            "bloch_coherence_mean": 0.84577382
+          },
+          "coupling": {
+            "rgb_to_spectrum": "MEDIUM",
+            "gamma_to_violet": "LOW",
+            "sync_to_cyan_blue": "HIGH",
+            "unknown_to_black": "LOW"
+          },
+          "origin": "DETERMINISTIC_SIMULATOR_PROJECTION"
+        }
+      },
+      "analysis": "[reply template]\nSYSTEM: DSG_BOUNDED_CIRCUIT_OBSERVER\nTEMPLATE_VERSION: 6.0\nMODE: RAINBOW_SPECTRUM_SIMULATION_INFORMATION_THEORY\nRUN_ID: 5ac92c98ddd4739a\nSTEP: 3\nRESOURCE_FEED:\n  CPU_PERCENT: 3.4000\n  RAM_PERCENT: 53.1000\n  RESOURCE_ENTROPY: 0.566490\n  ENTROPY_INJECTION: 0.045319\nCIRCUIT_STATE:\n  DOMINANT_BASIS: |10100>\n  PURITY: 0.721858\n  VON_NEUMANN_ENTROPY: 1.020066899\n  SPECTRAL_GAP: 0.81041224\n  FIDELITY_PREVIOUS: 0.994723\nRGB_REGISTER_REPORT:\n  R: EXACT_DENSITY_MATRIX Bloch=(0.744015,-0.036937,-0.272223), length=0.793113, QFI=0.786004; HYPOTHETICAL_INTERPRETATION maps R/RED to LOW turnout: SYNTHETIC 43-45% VEP or 114-122 million voters, weight 0.25, assuming weaker registration conversion, early/mail voting, enthusiasm, competitiveness, and demographic participation plus stronger weather/access disruption.\n  G: EXACT_DENSITY_MATRIX Bloch=(0.584154,0.459948,0.148750), length=0.758231, QFI=0.829728; HYPOTHETICAL_INTERPRETATION maps G/GREEN-CYAN to BASE turnout: SYNTHETIC 46-49% VEP or 122-132 million voters, weight 0.55, assuming moderate registration, early/mail voting, enthusiasm, competitiveness, access, demographic participation, weather disruption, and information uncertainty; this is the most-likely synthetic range.\n  B: EXACT_DENSITY_MATRIX Bloch=(0.859748,0.061498,-0.080604), length=0.865705, QFI=0.843358; HYPOTHETICAL_INTERPRETATION maps B/BLUE to HIGH turnout: SYNTHETIC 50-53% VEP or 133-143 million voters, weight 0.20, assuming strong registration conversion, early/mail voting, enthusiasm, competitiveness, broad demographic participation, limited access constraints, and mild weather disruption.\nGAMMA_SYNC_REPORT:\n  GAMMA: EXACT_DENSITY_MATRIX Bloch=(-0.244470,0.242976,0.822149), length=0.891478, QFI=0.274208; HYPOTHETICAL_INTERPRETATION treats low Gamma sensitivity and VIOLET=0.322946 as unresolved turnout-model uncertainty, not evidence about real voters.\n  SYNC: EXACT_DENSITY_MATRIX Bloch=(0.919279,0.024583,0.036776), length=0.920343, QFI=0.849534; HYPOTHETICAL_INTERPRETATION weighted synthesis is SYNTHETIC 46-49% VEP and 122-132 million voters using a SYNTHETIC 265-270 million VEP envelope. Main drivers are registration conversion, enthusiasm/competitiveness, early and mail usage, access constraints, demographic participation, and weather. SYNTHETIC sensitivity: broad favorable/adverse driver shifts move turnout roughly 2-4 percentage points; real replacement data needed are Census VEP estimates, state registration files, validated turnout surveys, absentee/mail requests and returns, early-vote records, election-law/access changes, demographic benchmarks, competitiveness/interest polling, and election-period weather forecasts.\nCORRELATION_GRAPH:\n  RG: mutual_information=0.26397216; negativity=0.11510386\n  GB: mutual_information=0.08393736; negativity=0.01860969\n  B_GAMMA: mutual_information=0.02566109; negativity=0.00000000\n  GAMMA_SYNC: mutual_information=0.00707359; negativity=0.00000000\nENTROPY_FLOW:\n  SOURCE: mixed\n  DIRECTION: resource-feed and dephasing into R-G-B, with strongest modeled association R<->G, then G<->B, then B->Gamma->Sync\n  MAGNITUDE: MEDIUM with resource entropy=0.566490, injection=0.045319, RG mutual information=0.263972, and downstream Gamma-Sync mutual information=0.007074\nBOUNDED_COMMANDS:\n  - HAMILTONIAN(dt=0.0100)\n  - DEPHASE(sync)\nSTOP_CONDITIONS:\n  - Stop before scheduler reaches 32 steps, 4096 gates, or 120000 ms; also stop if requested outputs extend beyond turnout into candidates, parties, winners, vote shares, seat counts, or congressional control.\nUNCERTAINTY:\n  EXACT: EXACT_DENSITY_MATRIX simulator outputs include basis |10100>, Bloch vectors, purity, entropy, QFI, mutual information, negativity, fidelity, spectral gap, and deterministic Rainbow bands; RESOURCE_TELEMETRY includes the supplied CPU, RAM, and entropy feed.\n  SAMPLED: SHOT_ESTIMATE consists of 8192 tomography shots with supplied 95% confidence width 0.01082757; RETRIEVED_MEMORY is empty.\n  SPECULATIVE: HYPOTHETICAL_INTERPRETATION includes every turnout percentage, voter-count range, VEP envelope, scenario weight, assumption, driver mapping, and sensitivity; all are SYNTHETIC and are not measurements, candidate/party forecasts, physical nonlocality, physical reality control, or quantum-hardware results.\n[/reply template]",
+      "validation": {
+        "valid": false,
+        "wrapped": true,
+        "missing_required_fields": [
+          "BOUNDARY:"
+        ],
+        "unresolved_placeholder_lines": [
+          12,
+          31,
+          39
+        ],
+        "line_count": 41,
+        "sha256": "183fb26f6e11277d60e33d08953439f7aabc2d86386d66b0fe9208124c215c6d"
+      },
+      "scheduler": {
+        "allowed": true,
+        "stop_reasons": [],
+        "steps": 1,
+        "gates": 96,
+        "elapsed_ms": 38808,
+        "budget": {
+          "max_gates": 4096,
+          "max_steps": 32,
+          "max_model_tokens": 2400,
+          "max_wall_ms": 120000
+        }
+      }
+    },
+    {
+      "snapshot": {
+        "step": 4,
+        "timestamp": "2026-08-07T02:57:57+00:00",
+        "parameters": {
+          "r": 0.5,
+          "g": 0.5,
+          "b": 0.5,
+          "gamma": 0.5149929867295318,
+          "sync": 0.5085703478553139,
+          "depth": 8
+        },
+        "dominant_basis": "|10000>",
+        "basis_top": [
+          {
+            "basis": "|10000>",
+            "probability": 0.08789347,
+            "phase": -0.668376758
+          },
+          {
+            "basis": "|10100>",
+            "probability": 0.085375278,
+            "phase": -0.563626762
+          },
+          {
+            "basis": "|11100>",
+            "probability": 0.084294323,
+            "phase": 0.517709672
+          },
+          {
+            "basis": "|10001>",
+            "probability": 0.079285514,
+            "phase": -0.63062823
+          },
+          {
+            "basis": "|10101>",
+            "probability": 0.077958245,
+            "phase": -0.523406337
+          },
+          {
+            "basis": "|11101>",
+            "probability": 0.071649645,
+            "phase": 0.56759052
+          },
+          {
+            "basis": "|00100>",
+            "probability": 0.059121907,
+            "phase": -0.382245207
+          },
+          {
+            "basis": "|00101>",
+            "probability": 0.053190765,
+            "phase": -0.343984684
+          },
+          {
+            "basis": "|11000>",
+            "probability": 0.050501784,
+            "phase": 0.050894686
+          },
+          {
+            "basis": "|11001>",
+            "probability": 0.042673996,
+            "phase": 0.085937837
+          }
+        ],
+        "bloch": {
+          "r": {
+            "x": 0.73163273,
+            "y": -0.00939655,
+            "z": -0.2844083,
+            "length": 0.78502409
+          },
+          "g": {
+            "x": 0.57302172,
+            "y": 0.47726263,
+            "z": 0.15268477,
+            "length": 0.7612136
+          },
+          "b": {
+            "x": 0.84883935,
+            "y": 0.09394826,
+            "z": -0.08328348,
+            "length": 0.8580738
+          },
+          "gamma": {
+            "x": -0.25350458,
+            "y": 0.20470655,
+            "z": 0.83560139,
+            "length": 0.89688295
+          },
+          "sync": {
+            "x": 0.92778255,
+            "y": 0.03093447,
+            "z": 0.04155192,
+            "length": 0.92922762
+          }
+        },
+        "purity": 0.753466268,
+        "von_neumann_entropy": 0.914125072,
+        "linear_entropy": 0.246533732,
+        "effective_rank": 1.327199,
+        "qfi": {
+          "r": 0.79722322,
+          "g": 0.84642798,
+          "b": 0.86030772,
+          "gamma": 0.2610821,
+          "sync": 0.86722524
+        },
+        "mutual_information": {
+          "rg": 0.28250507,
+          "gb": 0.10236868,
+          "bgamma": 0.03057204,
+          "gammasync": 0.00984747,
+          "rsync": 0.00037883
+        },
+        "negativity": {
+          "rg": 0.12153426,
+          "gb": 0.02121645,
+          "bgamma": 0.0,
+          "gammasync": 0.0,
+          "rsync": 0.0
+        },
+        "fidelity_previous": 0.99606139,
+        "spectral_gap": 0.833131736,
+        "tomography": {
+          "shots": 8192,
+          "basis_counts": {
+            "00000": 331,
+            "00001": 323,
+            "00010": 35,
+            "00011": 10,
+            "00100": 501,
+            "00101": 451,
+            "00110": 11,
+            "00111": 33,
+            "01000": 317,
+            "01001": 279,
+            "01010": 4,
+            "01011": 20,
+            "01100": 327,
+            "01101": 317,
+            "01110": 15,
+            "01111": 28,
+            "10000": 711,
+            "10001": 619,
+            "10010": 128,
+            "10011": 147,
+            "10100": 700,
+            "10101": 618,
+            "10110": 44,
+            "10111": 45,
+            "11000": 414,
+            "11001": 327,
+            "11010": 22,
+            "11011": 25,
+            "11100": 677,
+            "11101": 619,
+            "11110": 42,
+            "11111": 52
+          },
+          "confidence_95": 0.01082757
+        },
+        "operations": [
+          "CX(g->r)",
+          "CX(g->b)",
+          "CP(r,b,0.0314)",
+          "RZ(g,0.0157)",
+          "H(gamma)",
+          "CP(r,gamma,0.6440)",
+          "CP(g,gamma,0.4830)",
+          "CP(b,gamma,0.3220)",
+          "CX(gamma->sync)",
+          "RY(sync,0.0179)",
+          "CP(sync,r,0.0060)",
+          "CP(sync,g,-0.0045)",
+          "CP(sync,b,0.0036)",
+          "HAMILTONIAN(dt=0.0267)",
+          "H(g)",
+          "CX(g->r)",
+          "CX(g->b)",
+          "CP(r,b,0.0236)",
+          "RZ(g,0.0118)",
+          "H(gamma)",
+          "CP(r,gamma,0.4830)",
+          "CP(g,gamma,0.3623)",
+          "CP(b,gamma,0.2415)",
+          "CX(gamma->sync)",
+          "RY(sync,0.0135)",
+          "CP(sync,r,0.0045)",
+          "CP(sync,g,-0.0034)",
+          "CP(sync,b,0.0027)",
+          "HAMILTONIAN(dt=0.0200)",
+          "H(g)",
+          "CX(g->r)",
+          "CX(g->b)",
+          "CP(r,b,0.0188)",
+          "RZ(g,0.0094)",
+          "H(gamma)",
+          "CP(r,gamma,0.3864)",
+          "CP(g,gamma,0.2898)",
+          "CP(b,gamma,0.1932)",
+          "CX(gamma->sync)",
+          "RY(sync,0.0108)",
+          "CP(sync,r,0.0036)",
+          "CP(sync,g,-0.0027)",
+          "CP(sync,b,0.0022)",
+          "HAMILTONIAN(dt=0.0160)",
+          "H(g)",
+          "CX(g->r)",
+          "CX(g->b)",
+          "CP(r,b,0.0157)",
+          "RZ(g,0.0079)",
+          "H(gamma)",
+          "CP(r,gamma,0.3220)",
+          "CP(g,gamma,0.2415)",
+          "CP(b,gamma,0.1610)",
+          "CX(gamma->sync)",
+          "RY(sync,0.0090)",
+          "CP(sync,r,0.0030)",
+          "CP(sync,g,-0.0022)",
+          "CP(sync,b,0.0018)",
+          "HAMILTONIAN(dt=0.0133)",
+          "H(g)",
+          "CX(g->r)",
+          "CX(g->b)",
+          "CP(r,b,0.0135)",
+          "RZ(g,0.0067)",
+          "H(gamma)",
+          "CP(r,gamma,0.2760)",
+          "CP(g,gamma,0.2070)",
+          "CP(b,gamma,0.1380)",
+          "CX(gamma->sync)",
+          "RY(sync,0.0077)",
+          "CP(sync,r,0.0026)",
+          "CP(sync,g,-0.0019)",
+          "CP(sync,b,0.0015)",
+          "HAMILTONIAN(dt=0.0114)",
+          "H(g)",
+          "CX(g->r)",
+          "CX(g->b)",
+          "CP(r,b,0.0118)",
+          "RZ(g,0.0059)",
+          "H(gamma)",
+          "CP(r,gamma,0.2415)",
+          "CP(g,gamma,0.1811)",
+          "CP(b,gamma,0.1208)",
+          "CX(gamma->sync)",
+          "RY(sync,0.0067)",
+          "CP(sync,r,0.0022)",
+          "CP(sync,g,-0.0017)",
+          "CP(sync,b,0.0013)",
+          "HAMILTONIAN(dt=0.0100)",
+          "DEPHASE(r)",
+          "DEPHASE(g)",
+          "DEPHASE(b)",
+          "DEPHASE(gamma)",
+          "DEPHASE(sync)",
+          "CP(gamma,sync,0.0532)",
+          "RESOURCE_ENTROPY(0.033899)"
+        ],
+        "run_id": "5ac92c98ddd4739a",
+        "resource_telemetry": {
+          "timestamp": "2026-08-07T02:57:57+00:00",
+          "cpu_percent": 2.7,
+          "ram_percent": 53.3,
+          "ram_used_bytes": 256204800,
+          "ram_available_bytes": 224292864,
+          "process_rss_bytes": 101703680,
+          "process_cpu_percent": 2.2,
+          "resource_entropy": 0.547098961794074,
+          "entropy_injection": 0.04376791694352592
+        },
+        "resource_dynamics": {
+          "reservoir_level": 0.194639593,
+          "reservoir_normalized": 0.194639593,
+          "bounded_entropy_injection": 0.033899055,
+          "window": {
+            "samples": 4,
+            "cpu_percent": {
+              "mean": 3.95,
+              "min": 0.5,
+              "max": 9.2,
+              "stdev": 3.21442063,
+              "p95": 8.33
+            },
+            "ram_percent": {
+              "mean": 53.275,
+              "min": 53.1,
+              "max": 53.6,
+              "stdev": 0.20463382,
+              "p95": 53.555
+            },
+            "process_cpu_percent": {
+              "mean": 1.55,
+              "min": 0.0,
+              "max": 3.9,
+              "stdev": 1.61632299,
+              "p95": 3.645
+            },
+            "process_rss_bytes": {
+              "mean": 97292288.0,
+              "min": 92999680.0,
+              "max": 101703680.0,
+              "stdev": 3078368.14087464,
+              "p95": 101044428.8
+            },
+            "resource_entropy": {
+              "mean": 0.56983639,
+              "min": 0.47372949,
+              "max": 0.69202659,
+              "stdev": 0.07857348,
+              "p95": 0.67319618
+            },
+            "entropy_injection": {
+              "mean": 0.04558691,
+              "min": 0.03789836,
+              "max": 0.05536213,
+              "stdev": 0.00628588,
+              "p95": 0.05385569
+            }
+          }
+        },
+        "runtime": {
+          "python": "3.12.3",
+          "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
+          "pid": 25500
+        },
+        "rainbow_quantum_fusion": {
+          "mapping_version": "RGB-RSIT-14.0",
+          "dominant_basis": "|10000>",
+          "dominant_band": "CYAN",
+          "bands": {
+            "RED": 0.241657648,
+            "ORANGE": 0.187547952,
+            "YELLOW": 0.19941961,
+            "GREEN": 0.830553898,
+            "CYAN": 0.836530822,
+            "BLUE": 0.831802645,
+            "INDIGO": 0.080865787,
+            "VIOLET": 0.321436488,
+            "WHITE": 0.736575109,
+            "BLACK": 0.22824239
+          },
+          "metrics": {
+            "spectrum_entropy": 0.879490831,
+            "spectrum_coherence": 0.736575109,
+            "band_divergence": 0.701878571,
+            "predictive_stability": 0.841473359,
+            "rgb_qfi_mean": 0.834652973,
+            "gamma_qfi": 0.2610821,
+            "sync_qfi": 0.86722524,
+            "rgb_mutual_information_mean": 0.13848193,
+            "gamma_sync_mutual_information": 0.00984747,
+            "negativity_mean": 0.035687678,
+            "bloch_coherence_mean": 0.846084412
+          },
+          "coupling": {
+            "rgb_to_spectrum": "MEDIUM",
+            "gamma_to_violet": "LOW",
+            "sync_to_cyan_blue": "HIGH",
+            "unknown_to_black": "LOW"
+          },
+          "origin": "DETERMINISTIC_SIMULATOR_PROJECTION"
+        }
+      },
+      "analysis": "[reply template]\nSYSTEM: DSG_BOUNDED_CIRCUIT_OBSERVER\nTEMPLATE_VERSION: 6.0\nMODE: RAINBOW_SPECTRUM_SIMULATION_INFORMATION_THEORY\nRUN_ID: 5ac92c98ddd4739a\nSTEP: 4\nRESOURCE_FEED:\n  CPU_PERCENT: 2.7000\n  RAM_PERCENT: 53.3000\n  RESOURCE_ENTROPY: 0.547099\n  ENTROPY_INJECTION: 0.043768\nCIRCUIT_STATE:\n  DOMINANT_BASIS: |10000>\n  PURITY: 0.753466\n  VON_NEUMANN_ENTROPY: 0.914125072\n  SPECTRAL_GAP: 0.833131736\n  FIDELITY_PREVIOUS: 0.996061\nRGB_REGISTER_REPORT:\n  R: EXACT_DENSITY_MATRIX Bloch=(0.731633,-0.009397,-0.284408), length=0.785024, QFI=0.797223. HYPOTHETICAL_INTERPRETATION maps R/RED=0.241658 to LOW: SYNTHETIC 43-45% VEP, approximately 114-122 million voters, weight=0.25; assumptions are weaker registration conversion, early/mail participation, enthusiasm, competitiveness, and demographic participation, with stronger weather and access disruption.\n  G: EXACT_DENSITY_MATRIX Bloch=(0.573022,0.477263,0.152685), length=0.761214, QFI=0.846428. HYPOTHETICAL_INTERPRETATION maps G/GREEN=0.830554 and CYAN=0.836531 to BASE: SYNTHETIC 46-49% VEP, approximately 122-132 million voters, weight=0.55; this is the most likely synthetic range under moderate registration, early/mail voting, enthusiasm, competitiveness, access, demographic participation, weather disruption, and information uncertainty.\n  B: EXACT_DENSITY_MATRIX Bloch=(0.848839,0.093948,-0.083283), length=0.858074, QFI=0.860308. HYPOTHETICAL_INTERPRETATION maps B/BLUE=0.831803 to HIGH: SYNTHETIC 50-53% VEP, approximately 133-143 million voters, weight=0.20; assumptions are strong registration conversion, early/mail participation, enthusiasm, competitiveness, broad demographic participation, limited access constraints, and mild weather disruption.\nGAMMA_SYNC_REPORT:\n  GAMMA: EXACT_DENSITY_MATRIX Bloch=(-0.253505,0.204707,0.835601), length=0.896883, QFI=0.261082. HYPOTHETICAL_INTERPRETATION treats low Gamma sensitivity, VIOLET=0.321436, BLACK=0.228242, and spectrum_entropy=0.879491 as unresolved turnout-model uncertainty, not evidence about real voters.\n  SYNC: EXACT_DENSITY_MATRIX Bloch=(0.927783,0.030934,0.041552), length=0.929228, QFI=0.867225. HYPOTHETICAL_INTERPRETATION uses scenario weights LOW=0.25, BASE=0.55, HIGH=0.20 and a SYNTHETIC VEP envelope of 265-270 million. Main turnout drivers are registration conversion, early/mail usage, enthusiasm, competitiveness, access constraints, demographic participation, weather, and information uncertainty. SYNTHETIC sensitivity is approximately 2-4 VEP percentage points under broad favorable or adverse driver shifts. Replacement data needed: Census VEP estimates, state registration files, validated-turnout surveys, absentee/mail requests and returns, early-vote records, election-law and access changes, demographic benchmarks, nonpartisan interest/competitiveness polling, and election-period weather forecasts.\nCORRELATION_GRAPH:\n  RG: mutual_information=0.28250507; negativity=0.12153426\n  GB: mutual_information=0.10236868; negativity=0.02121645\n  B_GAMMA: mutual_information=0.03057204; negativity=0.00000000\n  GAMMA_SYNC: mutual_information=0.00984747; negativity=0.00000000\nENTROPY_FLOW:\n  SOURCE: mixed\n  DIRECTION: resource-feed and dephasing into R-G-B, with strongest modeled association R<->G, followed by G<->B and B->Gamma->Sync\n  MAGNITUDE: MEDIUM with resource_entropy=0.547099, entropy_injection=0.043768, RG mutual_information=0.282505, and Gamma-Sync mutual_information=0.009847\nBOUNDED_COMMANDS:\n  - HAMILTONIAN(dt=0.0100)\n  - DEPHASE(sync)\nSTOP_CONDITIONS:\n  - Stop before 32 scheduler steps, 4096 gates, or 120000 ms, and stop if output scope extends beyond turnout into candidates, parties, winners, vote shares, seat counts, or congressional control.\nUNCERTAINTY:\n  EXACT: EXACT_DENSITY_MATRIX includes supplied simulator basis, Bloch vectors, purity, entropy, QFI, mutual information, negativity, fidelity, spectral gap, and deterministic Rainbow bands; RESOURCE_TELEMETRY includes the supplied CPU, RAM, and entropy values.\n  SAMPLED: SHOT_ESTIMATE comprises 8192 tomography shots with supplied 95% confidence width 0.01082757; sampled basis count for |10000> is 711/8192.\n  SPECULATIVE: HYPOTHETICAL_INTERPRETATION includes all turnout percentages, voter-count ranges, scenario weights, assumptions, driver mappings, VEP envelope, and sensitivity. Every generated election value is SYNTHETIC. RETRIEVED_MEMORY supplied prior synthetic scenario text but is not real election evidence. This is a deterministic simulation interpretation, not quantum-hardware access, physical nonlocality, or physical reality control.\n[/reply template]",
+      "validation": {
+        "valid": false,
+        "wrapped": true,
+        "missing_required_fields": [
+          "BOUNDARY:"
+        ],
+        "unresolved_placeholder_lines": [
+          12,
+          31,
+          40
+        ],
+        "line_count": 41,
+        "sha256": "3fabea6625e97376b6ba3b9c6f4709791633b9da203122fb646dd16b82109755"
+      },
+      "scheduler": {
+        "allowed": true,
+        "stop_reasons": [],
+        "steps": 2,
+        "gates": 192,
+        "elapsed_ms": 59079,
+        "budget": {
+          "max_gates": 4096,
+          "max_steps": 32,
+          "max_model_tokens": 2400,
+          "max_wall_ms": 120000
+        }
+      }
+    },
+    {
+      "snapshot": {
+        "step": 5,
+        "timestamp": "2026-08-07T02:58:18+00:00",
+        "parameters": {
+          "r": 0.5,
+          "g": 0.5,
+          "b": 0.5,
+          "gamma": 0.5248507135947413,
+          "sync": 0.5061681206413707,
+          "depth": 8
+        },
+        "dominant_basis": "|10000>",
+        "basis_top": [
+          {
+            "basis": "|10000>",
+            "probability": 0.092750648,
+            "phase": -0.738546815
+          },
+          {
+            "basis": "|11100>",
+            "probability": 0.086639263,
+            "phase": 0.594455352
+          },
+          {
+            "basis": "|10100>",
+            "probability": 0.08640478,
+            "phase": -0.532547619
+          },
+          {
+            "basis": "|10001>",
+            "probability": 0.084234634,
+            "phase": -0.712941479
+          },
+          {
+            "basis": "|10101>",
+            "probability": 0.07931289,
+            "phase": -0.504243027
+          },
+          {
+            "basis": "|11101>",
+            "probability": 0.075362486,
+            "phase": 0.625734805
+          },
+          {
+            "basis": "|00100>",
+            "probability": 0.060142223,
+            "phase": -0.462851986
+          },
+          {
+            "basis": "|00101>",
+            "probability": 0.054424248,
+            "phase": -0.437563376
+          },
+          {
+            "basis": "|11000>",
+            "probability": 0.047779415,
+            "phase": 0.01295831
+          },
+          {
+            "basis": "|11001>",
+            "probability": 0.041121699,
+            "phase": 0.033152676
+          }
+        ],
+        "bloch": {
+          "r": {
+            "x": 0.69563389,
+            "y": 0.02022419,
+            "z": -0.29907267,
+            "length": 0.75746946
+          },
+          "g": {
+            "x": 0.54777798,
+            "y": 0.48589103,
+            "z": 0.16197094,
+            "length": 0.74992359
+          },
+          "b": {
+            "x": 0.81100985,
+            "y": 0.12677909,
+            "z": -0.08663443,
+            "length": 0.82541834
+          },
+          "gamma": {
+            "x": -0.25506678,
+            "y": 0.15453422,
+            "z": 0.84972237,
+            "length": 0.90053761
+          },
+          "sync": {
+            "x": 0.91973223,
+            "y": 0.02161635,
+            "z": 0.04051832,
+            "length": 0.92087805
+          }
+        },
+        "purity": 0.726538185,
+        "von_neumann_entropy": 1.001726548,
+        "linear_entropy": 0.273461815,
+        "effective_rank": 1.37639,
+        "qfi": {
+          "r": 0.77375795,
+          "g": 0.82612088,
+          "b": 0.84103845,
+          "gamma": 0.23559339,
+          "sync": 0.84990039
+        },
+        "mutual_information": {
+          "rg": 0.27365045,
+          "gb": 0.11305214,
+          "bgamma": 0.03338727,
+          "gammasync": 0.00595157,
+          "rsync": 0.00023234
+        },
+        "negativity": {
+          "rg": 0.11307225,
+          "gb": 0.01251277,
+          "bgamma": 0.0,
+          "gammasync": 0.0,
+          "rsync": 0.0
+        },
+        "fidelity_previous": 0.99521337,
+        "spectral_gap": 0.812512481,
+        "tomography": {
+          "shots": 8192,
+          "basis_counts": {
+            "00000": 325,
+            "00001": 272,
+            "00010": 45,
+            "00011": 21,
+            "00100": 454,
+            "00101": 446,
+            "00110": 11,
+            "00111": 28,
+            "01000": 303,
+            "01001": 268,
+            "01010": 3,
+            "01011": 11,
+            "01100": 287,
+            "01101": 312,
+            "01110": 21,
+            "01111": 23,
+            "10000": 784,
+            "10001": 666,
+            "10010": 119,
+            "10011": 136,
+            "10100": 739,
+            "10101": 646,
+            "10110": 20,
+            "10111": 34,
+            "11000": 389,
+            "11001": 330,
+            "11010": 24,
+            "11011": 21,
+            "11100": 709,
+            "11101": 640,
+            "11110": 55,
+            "11111": 50
+          },
+          "confidence_95": 0.01082757
+        },
+        "operations": [
+          "CX(g->r)",
+          "CX(g->b)",
+          "CP(r,b,0.0520)",
+          "RZ(g,0.0260)",
+          "H(gamma)",
+          "CP(r,gamma,0.6543)",
+          "CP(g,gamma,0.4908)",
+          "CP(b,gamma,0.3272)",
+          "CX(gamma->sync)",
+          "RY(sync,0.0129)",
+          "CP(sync,r,0.0043)",
+          "CP(sync,g,-0.0032)",
+          "CP(sync,b,0.0026)",
+          "HAMILTONIAN(dt=0.0267)",
+          "H(g)",
+          "CX(g->r)",
+          "CX(g->b)",
+          "CP(r,b,0.0390)",
+          "RZ(g,0.0195)",
+          "H(gamma)",
+          "CP(r,gamma,0.4908)",
+          "CP(g,gamma,0.3681)",
+          "CP(b,gamma,0.2454)",
+          "CX(gamma->sync)",
+          "RY(sync,0.0097)",
+          "CP(sync,r,0.0032)",
+          "CP(sync,g,-0.0024)",
+          "CP(sync,b,0.0019)",
+          "HAMILTONIAN(dt=0.0200)",
+          "H(g)",
+          "CX(g->r)",
+          "CX(g->b)",
+          "CP(r,b,0.0312)",
+          "RZ(g,0.0156)",
+          "H(gamma)",
+          "CP(r,gamma,0.3926)",
+          "CP(g,gamma,0.2945)",
+          "CP(b,gamma,0.1963)",
+          "CX(gamma->sync)",
+          "RY(sync,0.0078)",
+          "CP(sync,r,0.0026)",
+          "CP(sync,g,-0.0019)",
+          "CP(sync,b,0.0016)",
+          "HAMILTONIAN(dt=0.0160)",
+          "H(g)",
+          "CX(g->r)",
+          "CX(g->b)",
+          "CP(r,b,0.0260)",
+          "RZ(g,0.0130)",
+          "H(gamma)",
+          "CP(r,gamma,0.3272)",
+          "CP(g,gamma,0.2454)",
+          "CP(b,gamma,0.1636)",
+          "CX(gamma->sync)",
+          "RY(sync,0.0065)",
+          "CP(sync,r,0.0022)",
+          "CP(sync,g,-0.0016)",
+          "CP(sync,b,0.0013)",
+          "HAMILTONIAN(dt=0.0133)",
+          "H(g)",
+          "CX(g->r)",
+          "CX(g->b)",
+          "CP(r,b,0.0223)",
+          "RZ(g,0.0112)",
+          "H(gamma)",
+          "CP(r,gamma,0.2804)",
+          "CP(g,gamma,0.2103)",
+          "CP(b,gamma,0.1402)",
+          "CX(gamma->sync)",
+          "RY(sync,0.0055)",
+          "CP(sync,r,0.0018)",
+          "CP(sync,g,-0.0014)",
+          "CP(sync,b,0.0011)",
+          "HAMILTONIAN(dt=0.0114)",
+          "H(g)",
+          "CX(g->r)",
+          "CX(g->b)",
+          "CP(r,b,0.0195)",
+          "RZ(g,0.0098)",
+          "H(gamma)",
+          "CP(r,gamma,0.2454)",
+          "CP(g,gamma,0.1840)",
+          "CP(b,gamma,0.1227)",
+          "CX(gamma->sync)",
+          "RY(sync,0.0048)",
+          "CP(sync,r,0.0016)",
+          "CP(sync,g,-0.0012)",
+          "CP(sync,b,0.0010)",
+          "HAMILTONIAN(dt=0.0100)",
+          "DEPHASE(r)",
+          "DEPHASE(g)",
+          "DEPHASE(b)",
+          "DEPHASE(gamma)",
+          "DEPHASE(sync)",
+          "CP(gamma,sync,0.0607)",
+          "RESOURCE_ENTROPY(0.038617)"
+        ],
+        "run_id": "5ac92c98ddd4739a",
+        "resource_telemetry": {
+          "timestamp": "2026-08-07T02:58:18+00:00",
+          "cpu_percent": 5.5,
+          "ram_percent": 53.8,
+          "ram_used_bytes": 258359296,
+          "ram_available_bytes": 222138368,
+          "process_rss_bytes": 102342656,
+          "process_cpu_percent": 4.3,
+          "resource_entropy": 0.617120862336,
+          "entropy_injection": 0.04936966898688001
+        },
+        "resource_dynamics": {
+          "reservoir_level": 0.233084294,
+          "reservoir_normalized": 0.233084294,
+          "bounded_entropy_injection": 0.038616645,
+          "window": {
+            "samples": 5,
+            "cpu_percent": {
+              "mean": 4.26,
+              "min": 0.5,
+              "max": 9.2,
+              "stdev": 2.94115624,
+              "p95": 8.46
+            },
+            "ram_percent": {
+              "mean": 53.38,
+              "min": 53.1,
+              "max": 53.8,
+              "stdev": 0.27856777,
+              "p95": 53.76
+            },
+            "process_cpu_percent": {
+              "mean": 2.1,
+              "min": 0.0,
+              "max": 4.3,
+              "stdev": 1.81659021,
+              "p95": 4.22
+            },
+            "process_rss_bytes": {
+              "mean": 98302361.6,
+              "min": 92999680.0,
+              "max": 102342656.0,
+              "stdev": 3414978.04359991,
+              "p95": 102214860.8
+            },
+            "resource_entropy": {
+              "mean": 0.57929328,
+              "min": 0.47372949,
+              "max": 0.69202659,
+              "stdev": 0.07277888,
+              "p95": 0.67704544
+            },
+            "entropy_injection": {
+              "mean": 0.04634346,
+              "min": 0.03789836,
+              "max": 0.05536213,
+              "stdev": 0.00582231,
+              "p95": 0.05416364
+            }
+          }
+        },
+        "runtime": {
+          "python": "3.12.3",
+          "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
+          "pid": 25500
+        },
+        "rainbow_quantum_fusion": {
+          "mapping_version": "RGB-RSIT-14.0",
+          "dominant_basis": "|10000>",
+          "dominant_band": "CYAN",
+          "bands": {
+            "RED": 0.27141905,
+            "ORANGE": 0.201727704,
+            "YELLOW": 0.222544499,
+            "GREEN": 0.811489388,
+            "CYAN": 0.816482302,
+            "BLUE": 0.810961679,
+            "INDIGO": 0.081022263,
+            "VIOLET": 0.309070242,
+            "WHITE": 0.721250945,
+            "BLACK": 0.255629388
+          },
+          "metrics": {
+            "spectrum_entropy": 0.890002156,
+            "spectrum_coherence": 0.721250945,
+            "band_divergence": 0.669384533,
+            "predictive_stability": 0.825325756,
+            "rgb_qfi_mean": 0.813639093,
+            "gamma_qfi": 0.23559339,
+            "sync_qfi": 0.84990039,
+            "rgb_mutual_information_mean": 0.140029953,
+            "gamma_sync_mutual_information": 0.00595157,
+            "negativity_mean": 0.031396255,
+            "bloch_coherence_mean": 0.83084541
+          },
+          "coupling": {
+            "rgb_to_spectrum": "MEDIUM",
+            "gamma_to_violet": "LOW",
+            "sync_to_cyan_blue": "HIGH",
+            "unknown_to_black": "LOW"
+          },
+          "origin": "DETERMINISTIC_SIMULATOR_PROJECTION"
+        }
+      },
+      "analysis": "[reply template]\nSYSTEM: DSG_BOUNDED_CIRCUIT_OBSERVER\nTEMPLATE_VERSION: 6.0\nMODE: RAINBOW_SPECTRUM_SIMULATION_INFORMATION_THEORY\nRUN_ID: 5ac92c98ddd4739a\nSTEP: 5\nRESOURCE_FEED:\n  CPU_PERCENT: 5.5000\n  RAM_PERCENT: 53.8000\n  RESOURCE_ENTROPY: 0.617121\n  ENTROPY_INJECTION: 0.049370\nCIRCUIT_STATE:\n  DOMINANT_BASIS: |10000>\n  PURITY: 0.726538\n  VON_NEUMANN_ENTROPY: 1.001726548\n  SPECTRAL_GAP: 0.812512481\n  FIDELITY_PREVIOUS: 0.995213\nRGB_REGISTER_REPORT:\n  R: EXACT_DENSITY_MATRIX Bloch=(0.695634,0.020224,-0.299073), length=0.757469, QFI=0.773758. HYPOTHETICAL_INTERPRETATION maps R/RED=0.271419 to LOW turnout: SYNTHETIC 42-45% VEP or 111-121 million voters, weight=0.25; assumptions are weaker registration conversion, early/mail voting, enthusiasm, competitiveness, and demographic participation, plus greater weather disruption and access constraints.\n  G: EXACT_DENSITY_MATRIX Bloch=(0.547778,0.485891,0.161971), length=0.749924, QFI=0.826121. HYPOTHETICAL_INTERPRETATION maps G/GREEN=0.811489 to BASE turnout: SYNTHETIC 46-49% VEP or 122-132 million voters, weight=0.55 and most-likely range; assumptions are moderate registration conversion, early/mail voting, enthusiasm, competitiveness, demographic participation, weather disruption, access constraints, and information uncertainty.\n  B: EXACT_DENSITY_MATRIX Bloch=(0.811010,0.126779,-0.086634), length=0.825418, QFI=0.841038. HYPOTHETICAL_INTERPRETATION maps B/BLUE=0.810962 to HIGH turnout: SYNTHETIC 50-53% VEP or 133-143 million voters, weight=0.20; assumptions are strong registration conversion, early/mail voting, enthusiasm, competitiveness, and broad demographic participation, with limited access constraints and mild weather disruption.\nGAMMA_SYNC_REPORT:\n  GAMMA: EXACT_DENSITY_MATRIX Bloch=(-0.255067,0.154534,0.849722), length=0.900538, QFI=0.235593. HYPOTHETICAL_INTERPRETATION maps low Gamma sensitivity, VIOLET=0.309070, BLACK=0.255629, and spectrum_entropy=0.890002 to unresolved information uncertainty, not evidence about actual voters.\n  SYNC: EXACT_DENSITY_MATRIX Bloch=(0.919732,0.021616,0.040518), length=0.920878, QFI=0.849900. HYPOTHETICAL_INTERPRETATION combines SYNTHETIC weights LOW=0.25, BASE=0.55, HIGH=0.20 using a SYNTHETIC 265-270 million VEP envelope; CYAN=0.816482 is the dominant information band and predictive_stability=0.825326 supports BASE as the simulator's most stable mapping. Main drivers are registration conversion, enthusiasm/competitiveness, early and mail voting, access constraints, demographic participation, weather, and information uncertainty. SYNTHETIC sensitivity: broad favorable or adverse shifts move turnout about 2-4 VEP percentage points. Required replacement data: Census VEP estimates, state registration files, validated-turnout surveys, absentee/mail requests and returns, early-vote records, election-law/access changes, demographic benchmarks, nonpartisan interest/competitiveness polling, and election-period weather forecasts.\nCORRELATION_GRAPH:\n  RG: mutual_information=0.27365045; negativity=0.11307225\n  GB: mutual_information=0.11305214; negativity=0.01251277\n  B_GAMMA: mutual_information=0.03338727; negativity=0.00000000\n  GAMMA_SYNC: mutual_information=0.00595157; negativity=0.00000000\nENTROPY_FLOW:\n  SOURCE: mixed\n  DIRECTION: resource-feed and dephasing into R-G-B, with strongest modeled association R<->G, followed by G<->B and B->Gamma->Sync\n  MAGNITUDE: MEDIUM with RESOURCE_TELEMETRY resource_entropy=0.617121, entropy_injection=0.049370, RG mutual_information=0.273650, and Gamma-Sync mutual_information=0.005952\nBOUNDED_COMMANDS:\n  - HAMILTONIAN(dt=0.0100)\n  - DEPHASE(sync)\nSTOP_CONDITIONS:\n  - Stop before 32 scheduler steps, 4096 gates, or 120000 ms; also stop if output scope extends beyond turnout into candidates, parties, winners, vote shares, seat counts, or control of Congress.\nUNCERTAINTY:\n  EXACT: EXACT_DENSITY_MATRIX includes the supplied simulator basis, Bloch vectors, purity, von Neumann entropy, QFI, mutual information, negativity, fidelity, spectral gap, and deterministic Rainbow bands; RESOURCE_TELEMETRY includes the supplied CPU, RAM, and entropy feed.\n  SAMPLED: SHOT_ESTIMATE comprises 8192 tomography shots with supplied 95% confidence width=0.01082757; sampled dominant-basis count for |10000> is 784/8192.\n  SPECULATIVE: HYPOTHETICAL_INTERPRETATION includes every turnout percentage, voter-count range, VEP envelope, scenario weight, assumption, driver mapping, and sensitivity; all generated election values are SYNTHETIC. RETRIEVED_MEMORY supplied earlier synthetic scenario text but is not real election evidence. This is a deterministic simulator interpretation, not quantum-hardware access, physical nonlocality, or physical reality control.\n[/reply template]",
+      "validation": {
+        "valid": false,
+        "wrapped": true,
+        "missing_required_fields": [
+          "BOUNDARY:"
+        ],
+        "unresolved_placeholder_lines": [
+          12,
+          31,
+          40
+        ],
+        "line_count": 41,
+        "sha256": "3b7a3629aa10d50c0b96c7499aa603651e679080ea26a33d26b291171a764bf5"
+      },
+      "scheduler": {
+        "allowed": true,
+        "stop_reasons": [],
+        "steps": 3,
+        "gates": 288,
+        "elapsed_ms": 78873,
+        "budget": {
+          "max_gates": 4096,
+          "max_steps": 32,
+          "max_model_tokens": 2400,
+          "max_wall_ms": 120000
+        }
+      }
+    },
+    {
+      "snapshot": {
+        "step": 6,
+        "timestamp": "2026-08-07T02:58:38+00:00",
+        "parameters": {
+          "r": 0.5,
+          "g": 0.5,
+          "b": 0.5,
+          "gamma": 0.5307533071358121,
+          "sync": 0.5000749533660059,
+          "depth": 8
+        },
+        "dominant_basis": "|10000>",
+        "basis_top": [
+          {
+            "basis": "|10000>",
+            "probability": 0.095216095,
+            "phase": -0.788735927
+          },
+          {
+            "basis": "|10001>",
+            "probability": 0.088197627,
+            "phase": -0.79216841
+          },
+          {
+            "basis": "|10100>",
+            "probability": 0.086891936,
+            "phase": -0.524912012
+          },
+          {
+            "basis": "|11100>",
+            "probability": 0.085983355,
+            "phase": 0.635794639
+          },
+          {
+            "basis": "|10101>",
+            "probability": 0.080879773,
+            "phase": -0.520751576
+          },
+          {
+            "basis": "|11101>",
+            "probability": 0.078758785,
+            "phase": 0.62401842
+          },
+          {
+            "basis": "|00100>",
+            "probability": 0.06029991,
+            "phase": -0.518970171
+          },
+          {
+            "basis": "|00101>",
+            "probability": 0.055724166,
+            "phase": -0.526560475
+          },
+          {
+            "basis": "|11000>",
+            "probability": 0.045019718,
+            "phase": -0.014232682
+          },
+          {
+            "basis": "|11001>",
+            "probability": 0.040912888,
+            "phase": -0.032421715
+          }
+        ],
+        "bloch": {
+          "r": {
+            "x": 0.67547977,
+            "y": 0.03580394,
+            "z": -0.30855899,
+            "length": 0.74348066
+          },
+          "g": {
+            "x": 0.53500861,
+            "y": 0.49438839,
+            "z": 0.17201934,
+            "length": 0.74849499
+          },
+          "b": {
+            "x": 0.78996941,
+            "y": 0.14548322,
+            "z": -0.08875397,
+            "length": 0.8081425
+          },
+          "gamma": {
+            "x": -0.25348345,
+            "y": 0.12610558,
+            "z": 0.85744335,
+            "length": 0.90297596
+          },
+          "sync": {
+            "x": 0.92075751,
+            "y": -0.00116426,
+            "z": 0.03124629,
+            "length": 0.92128827
+          }
+        },
+        "purity": 0.726204517,
+        "von_neumann_entropy": 1.001853213,
+        "linear_entropy": 0.273795483,
+        "effective_rank": 1.377023,
+        "qfi": {
+          "r": 0.76794754,
+          "g": 0.82195751,
+          "b": 0.83908518,
+          "gamma": 0.22417842,
+          "sync": 0.8495869
+        },
+        "mutual_information": {
+          "rg": 0.27061431,
+          "gb": 0.1215316,
+          "bgamma": 0.03606942,
+          "gammasync": 0.00300128,
+          "rsync": 0.00011588
+        },
+        "negativity": {
+          "rg": 0.10899042,
+          "gb": 0.00913229,
+          "bgamma": 0.0,
+          "gammasync": 0.0,
+          "rsync": 0.0
+        },
+        "fidelity_previous": 0.997887563,
+        "spectral_gap": 0.81184817,
+        "tomography": {
+          "shots": 8192,
+          "basis_counts": {
+            "00000": 323,
+            "00001": 263,
+            "00010": 37,
+            "00011": 30,
+            "00100": 484,
+            "00101": 454,
+            "00110": 10,
+            "00111": 13,
+            "01000": 269,
+            "01001": 276,
+            "01010": 11,
+            "01011": 12,
+            "01100": 281,
+            "01101": 283,
+            "01110": 18,
+            "01111": 29,
+            "10000": 782,
+            "10001": 695,
+            "10010": 114,
+            "10011": 142,
+            "10100": 728,
+            "10101": 675,
+            "10110": 12,
+            "10111": 22,
+            "11000": 339,
+            "11001": 342,
+            "11010": 30,
+            "11011": 30,
+            "11100": 671,
+            "11101": 714,
+            "11110": 44,
+            "11111": 59
+          },
+          "confidence_95": 0.01082757
+        },
+        "operations": [
+          "CX(g->r)",
+          "CX(g->b)",
+          "CP(r,b,0.0644)",
+          "RZ(g,0.0322)",
+          "H(gamma)",
+          "CP(r,gamma,0.6605)",
+          "CP(g,gamma,0.4954)",
+          "CP(b,gamma,0.3303)",
+          "CX(gamma->sync)",
+          "RY(sync,0.0002)",
+          "CP(sync,r,0.0001)",
+          "CP(sync,g,-0.0000)",
+          "CP(sync,b,0.0000)",
+          "HAMILTONIAN(dt=0.0267)",
+          "H(g)",
+          "CX(g->r)",
+          "CX(g->b)",
+          "CP(r,b,0.0483)",
+          "RZ(g,0.0242)",
+          "H(gamma)",
+          "CP(r,gamma,0.4954)",
+          "CP(g,gamma,0.3715)",
+          "CP(b,gamma,0.2477)",
+          "CX(gamma->sync)",
+          "RY(sync,0.0001)",
+          "CP(sync,r,0.0000)",
+          "CP(sync,g,-0.0000)",
+          "CP(sync,b,0.0000)",
+          "HAMILTONIAN(dt=0.0200)",
+          "H(g)",
+          "CX(g->r)",
+          "CX(g->b)",
+          "CP(r,b,0.0386)",
+          "RZ(g,0.0193)",
+          "H(gamma)",
+          "CP(r,gamma,0.3963)",
+          "CP(g,gamma,0.2972)",
+          "CP(b,gamma,0.1982)",
+          "CX(gamma->sync)",
+          "RY(sync,0.0001)",
+          "CP(sync,r,0.0000)",
+          "CP(sync,g,-0.0000)",
+          "CP(sync,b,0.0000)",
+          "HAMILTONIAN(dt=0.0160)",
+          "H(g)",
+          "CX(g->r)",
+          "CX(g->b)",
+          "CP(r,b,0.0322)",
+          "RZ(g,0.0161)",
+          "H(gamma)",
+          "CP(r,gamma,0.3303)",
+          "CP(g,gamma,0.2477)",
+          "CP(b,gamma,0.1651)",
+          "CX(gamma->sync)",
+          "RY(sync,0.0001)",
+          "CP(sync,r,0.0000)",
+          "CP(sync,g,-0.0000)",
+          "CP(sync,b,0.0000)",
+          "HAMILTONIAN(dt=0.0133)",
+          "H(g)",
+          "CX(g->r)",
+          "CX(g->b)",
+          "CP(r,b,0.0276)",
+          "RZ(g,0.0138)",
+          "H(gamma)",
+          "CP(r,gamma,0.2831)",
+          "CP(g,gamma,0.2123)",
+          "CP(b,gamma,0.1415)",
+          "CX(gamma->sync)",
+          "RY(sync,0.0001)",
+          "CP(sync,r,0.0000)",
+          "CP(sync,g,-0.0000)",
+          "CP(sync,b,0.0000)",
+          "HAMILTONIAN(dt=0.0114)",
+          "H(g)",
+          "CX(g->r)",
+          "CX(g->b)",
+          "CP(r,b,0.0242)",
+          "RZ(g,0.0121)",
+          "H(gamma)",
+          "CP(r,gamma,0.2477)",
+          "CP(g,gamma,0.1858)",
+          "CP(b,gamma,0.1238)",
+          "CX(gamma->sync)",
+          "RY(sync,0.0001)",
+          "CP(sync,r,0.0000)",
+          "CP(sync,g,-0.0000)",
+          "CP(sync,b,0.0000)",
+          "HAMILTONIAN(dt=0.0100)",
+          "DEPHASE(r)",
+          "DEPHASE(g)",
+          "DEPHASE(b)",
+          "DEPHASE(gamma)",
+          "DEPHASE(sync)",
+          "CP(gamma,sync,0.0611)",
+          "RESOURCE_ENTROPY(0.038884)"
+        ],
+        "run_id": "5ac92c98ddd4739a",
+        "resource_telemetry": {
+          "timestamp": "2026-08-07T02:58:37+00:00",
+          "cpu_percent": 5.6,
+          "ram_percent": 53.8,
+          "ram_used_bytes": 258359296,
+          "ram_available_bytes": 222138368,
+          "process_rss_bytes": 103628800,
+          "process_cpu_percent": 4.5,
+          "resource_entropy": 0.6193698181486879,
+          "entropy_injection": 0.04954958545189503
+        },
+        "resource_dynamics": {
+          "reservoir_level": 0.238451545,
+          "reservoir_normalized": 0.238451545,
+          "bounded_entropy_injection": 0.038883874,
+          "window": {
+            "samples": 6,
+            "cpu_percent": {
+              "mean": 4.48333333,
+              "min": 0.5,
+              "max": 9.2,
+              "stdev": 2.73094408,
+              "p95": 8.3
+            },
+            "ram_percent": {
+              "mean": 53.45,
+              "min": 53.1,
+              "max": 53.8,
+              "stdev": 0.29860788,
+              "p95": 53.8
+            },
+            "process_cpu_percent": {
+              "mean": 2.5,
+              "min": 0.0,
+              "max": 4.5,
+              "stdev": 1.88414437,
+              "p95": 4.45
+            },
+            "process_rss_bytes": {
+              "mean": 99190101.33333333,
+              "min": 92999680.0,
+              "max": 103628800.0,
+              "stdev": 3695782.06012181,
+              "p95": 103307264.0
+            },
+            "resource_entropy": {
+              "mean": 0.5859727,
+              "min": 0.47372949,
+              "max": 0.69202659,
+              "stdev": 0.06809584,
+              "p95": 0.6738624
+            },
+            "entropy_injection": {
+              "mean": 0.04687782,
+              "min": 0.03789836,
+              "max": 0.05536213,
+              "stdev": 0.00544767,
+              "p95": 0.05390899
+            }
+          }
+        },
+        "runtime": {
+          "python": "3.12.3",
+          "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
+          "pid": 25500
+        },
+        "rainbow_quantum_fusion": {
+          "mapping_version": "RGB-RSIT-14.0",
+          "dominant_basis": "|10000>",
+          "dominant_band": "CYAN",
+          "bands": {
+            "RED": 0.271557388,
+            "ORANGE": 0.204404702,
+            "YELLOW": 0.222983583,
+            "GREEN": 0.810928323,
+            "CYAN": 0.815598441,
+            "BLUE": 0.808824767,
+            "INDIGO": 0.081181114,
+            "VIOLET": 0.30430252,
+            "WHITE": 0.720513846,
+            "BLACK": 0.256259141
+          },
+          "metrics": {
+            "spectrum_entropy": 0.890281429,
+            "spectrum_coherence": 0.720513846,
+            "band_divergence": 0.668872834,
+            "predictive_stability": 0.825738195,
+            "rgb_qfi_mean": 0.80966341,
+            "gamma_qfi": 0.22417842,
+            "sync_qfi": 0.8495869,
+            "rgb_mutual_information_mean": 0.142738443,
+            "gamma_sync_mutual_information": 0.00300128,
+            "negativity_mean": 0.029530678,
+            "bloch_coherence_mean": 0.824876476
+          },
+          "coupling": {
+            "rgb_to_spectrum": "MEDIUM",
+            "gamma_to_violet": "LOW",
+            "sync_to_cyan_blue": "HIGH",
+            "unknown_to_black": "LOW"
+          },
+          "origin": "DETERMINISTIC_SIMULATOR_PROJECTION"
+        }
+      },
+      "analysis": "[reply template]\nSYSTEM: DSG_BOUNDED_CIRCUIT_OBSERVER\nTEMPLATE_VERSION: 6.0\nMODE: RAINBOW_SPECTRUM_SIMULATION_INFORMATION_THEORY\nRUN_ID: 5ac92c98ddd4739a\nSTEP: 6\nRESOURCE_FEED:\n  CPU_PERCENT: 5.6000\n  RAM_PERCENT: 53.8000\n  RESOURCE_ENTROPY: 0.619370\n  ENTROPY_INJECTION: 0.049550\nCIRCUIT_STATE:\n  DOMINANT_BASIS: |10000>\n  PURITY: 0.726205\n  VON_NEUMANN_ENTROPY: 1.001853213\n  SPECTRAL_GAP: 0.81184817\n  FIDELITY_PREVIOUS: 0.997888\nRGB_REGISTER_REPORT:\n  R: EXACT_DENSITY_MATRIX Bloch=(0.675480,0.035804,-0.308559), length=0.743481, QFI=0.767948, inferred single-register entropy≈0.553 bits; HYPOTHETICAL_INTERPRETATION SYNTHETIC LOW scenario weight=25%, turnout=43-46% VEP (about 114-124 million), mapped toward RED/ORANGE/BLACK under weaker registration, enthusiasm, early/mail voting, demographic participation, and stronger weather/access disruption.\n  G: EXACT_DENSITY_MATRIX Bloch=(0.535009,0.494388,0.172019), length=0.748495, QFI=0.821958, inferred entropy≈0.546 bits; HYPOTHETICAL_INTERPRETATION SYNTHETIC BASE scenario weight=55%, turnout=46-49% VEP (about 122-132 million), mapped toward GREEN/CYAN with balanced registration, early/mail voting, enthusiasm, competitiveness, access, weather, and demographic participation.\n  B: EXACT_DENSITY_MATRIX Bloch=(0.789969,0.145483,-0.088754), length=0.808143, QFI=0.839085, inferred entropy≈0.456 bits; HYPOTHETICAL_INTERPRETATION SYNTHETIC HIGH scenario weight=20%, turnout=49-52% VEP (about 130-140 million), mapped toward BLUE/WHITE under elevated enthusiasm, competitiveness, registration conversion, early/mail voting, and broad demographic participation with limited disruption.\nGAMMA_SYNC_REPORT:\n  GAMMA: EXACT_DENSITY_MATRIX Bloch=(-0.253483,0.126106,0.857443), length=0.902976, QFI=0.224178, inferred entropy≈0.280 bits; HYPOTHETICAL_INTERPRETATION uncertainty regulator: SYNTHETIC scenario weights LOW/BASE/HIGH=25%/55%/20%, with information uncertainty, weather, access constraints, and late enthusiasm capable of shifting turnout by roughly 1-3 VEP percentage points.\n  SYNC: EXACT_DENSITY_MATRIX Bloch=(0.920758,-0.001164,0.031246), length=0.921288, QFI=0.849587, inferred entropy≈0.239 bits; HYPOTHETICAL_INTERPRETATION most-likely SYNTHETIC range=46-49% VEP or approximately 122-132 million voters. Main sensitivities are registration-to-ballot conversion, enthusiasm/competitiveness, early and mail ballot return, access constraints, severe weather, and participation differences by age and demographic group. Replacement data needed: official 2026 VEP estimate, state registration files, early-vote and mail-ballot request/return records, validated-voter surveys, polling-place and legal-access changes, contest-level competitiveness measures, demographic turnout indicators, and election-period weather forecasts.\nCORRELATION_GRAPH:\n  RG: EXACT_DENSITY_MATRIX mutual_information=0.27061431, negativity=0.10899042\n  GB: EXACT_DENSITY_MATRIX mutual_information=0.12153160, negativity=0.00913229\n  B_GAMMA: EXACT_DENSITY_MATRIX mutual_information=0.03606942, negativity=0.00000000\n  GAMMA_SYNC: EXACT_DENSITY_MATRIX mutual_information=0.00300128, negativity=0.00000000\nENTROPY_FLOW:\n  SOURCE: mixed\n  DIRECTION: HYPOTHETICAL_INTERPRETATION strongest R↔G association, then G↔B, with weak B↔GAMMA and negligible GAMMA↔SYNC transfer; mutual information itself does not establish causal direction.\n  MAGNITUDE: MEDIUM with RG mutual_information=0.27061431, total entropy=1.001853213, resource_entropy=0.61936982, and bounded entropy injection=0.038883874\nBOUNDED_COMMANDS:\n  - DEPHASE(gamma)\n  - CP(gamma,sync,0.0611)\nSTOP_CONDITIONS:\n  - Stop if scheduler reaches 32 steps, 4096 gates, 120000 ms, or if new official turnout inputs replace the SYNTHETIC assumptions.\nUNCERTAINTY:\n  EXACT: EXACT_DENSITY_MATRIX supplied simulator outputs include basis probabilities, Bloch vectors, purity, entropy, QFI, fidelity, spectral gap, mutual information, negativity, and deterministic Rainbow bands; RESOURCE_TELEMETRY includes CPU, RAM, and resource-entropy values.\n  SAMPLED: SHOT_ESTIMATE tomography uses 8192 shots with reported confidence_95=0.01082757; RETRIEVED_MEMORY contains prior packet fragments, including a 46-49% VEP or 122-132 million fragment, and is not independent evidence.\n  SPECULATIVE: HYPOTHETICAL_INTERPRETATION all turnout percentages, voter-count ranges, scenario weights, assumptions, sensitivities, driver effects, and LOW/BASE/HIGH mappings are SYNTHETIC fictional simulation values—not measurements, candidate or party predictions, physical nonlocality, reality control, or quantum-hardware output.\n[/reply template]",
+      "validation": {
+        "valid": false,
+        "wrapped": true,
+        "missing_required_fields": [
+          "BOUNDARY:"
+        ],
+        "unresolved_placeholder_lines": [
+          12
+        ],
+        "line_count": 41,
+        "sha256": "8cc5b77a98997a9ff0c6a8dcfc2354bba9ff7aa3a4848dc21f9ef25a1f7fd139"
+      },
+      "scheduler": {
+        "allowed": true,
+        "stop_reasons": [],
+        "steps": 4,
+        "gates": 384,
+        "elapsed_ms": 119137,
+        "budget": {
+          "max_gates": 4096,
+          "max_steps": 32,
+          "max_model_tokens": 2400,
+          "max_wall_ms": 120000
+        }
+      }
+    },
+    {
+      "snapshot": {
+        "step": 7,
+        "timestamp": "2026-08-07T02:59:18+00:00",
+        "parameters": {
+          "r": 0.5,
+          "g": 0.5,
+          "b": 0.5,
+          "gamma": 0.5307533071358121,
+          "sync": 0.4925771980992958,
+          "depth": 8
+        },
+        "dominant_basis": "|10000>",
+        "basis_top": [
+          {
+            "basis": "|10000>",
+            "probability": 0.094432998,
+            "phase": -0.802611739
+          },
+          {
+            "basis": "|10001>",
+            "probability": 0.089681371,
+            "phase": -0.841316612
+          },
+          {
+            "basis": "|10100>",
+            "probability": 0.087074193,
+            "phase": -0.543286536
+          },
+          {
+            "basis": "|11100>",
+            "probability": 0.082703408,
+            "phase": 0.632095652
+          },
+          {
+            "basis": "|10101>",
+            "probability": 0.082411748,
+            "phase": -0.567741223
+          },
+          {
+            "basis": "|11101>",
+            "probability": 0.08054365,
+            "phase": 0.568222409
+          },
+          {
+            "basis": "|00100>",
+            "probability": 0.059557233,
+            "phase": -0.531796739
+          },
+          {
+            "basis": "|00101>",
+            "probability": 0.056574258,
+            "phase": -0.579619307
+          },
+          {
+            "basis": "|11000>",
+            "probability": 0.043299938,
+            "phase": -0.019455315
+          },
+          {
+            "basis": "|11001>",
+            "probability": 0.042180947,
+            "phase": -0.084650845
+          }
+        ],
+        "bloch": {
+          "r": {
+            "x": 0.68318624,
+            "y": 0.03230956,
+            "z": -0.30949001,
+            "length": 0.75071394
+          },
+          "g": {
+            "x": 0.53817712,
+            "y": 0.50259451,
+            "z": 0.17847643,
+            "length": 0.75768707
+          },
+          "b": {
+            "x": 0.79883513,
+            "y": 0.14519792,
+            "z": -0.08869525,
+            "length": 0.81675385
+          },
+          "gamma": {
+            "x": -0.25287467,
+            "y": 0.12849645,
+            "z": 0.85712748,
+            "length": 0.90284242
+          },
+          "sync": {
+            "x": 0.92820423,
+            "y": -0.02932285,
+            "z": 0.01817696,
+            "length": 0.92884515
+          }
+        },
+        "purity": 0.753811502,
+        "von_neumann_entropy": 0.910808846,
+        "linear_entropy": 0.246188498,
+        "effective_rank": 1.326592,
+        "qfi": {
+          "r": 0.78289493,
+          "g": 0.83676374,
+          "b": 0.85635753,
+          "gamma": 0.22922873,
+          "sync": 0.86700214
+        },
+        "mutual_information": {
+          "rg": 0.27726859,
+          "gb": 0.12568484,
+          "bgamma": 0.03709084,
+          "gammasync": 0.00773365,
+          "rsync": 0.00024609
+        },
+        "negativity": {
+          "rg": 0.11304215,
+          "gb": 0.01320932,
+          "bgamma": 0.0,
+          "gammasync": 0.0,
+          "rsync": 0.0
+        },
+        "fidelity_previous": 0.998364037,
+        "spectral_gap": 0.832408771,
+        "tomography": {
+          "shots": 8192,
+          "basis_counts": {
+            "00000": 311,
+            "00001": 273,
+            "00010": 26,
+            "00011": 38,
+            "00100": 510,
+            "00101": 469,
+            "00110": 16,
+            "00111": 16,
+            "01000": 299,
+            "01001": 267,
+            "01010": 12,
+            "01011": 10,
+            "01100": 270,
+            "01101": 286,
+            "01110": 13,
+            "01111": 30,
+            "10000": 751,
+            "10001": 763,
+            "10010": 121,
+            "10011": 125,
+            "10100": 721,
+            "10101": 659,
+            "10110": 15,
+            "10111": 18,
+            "11000": 356,
+            "11001": 326,
+            "11010": 17,
+            "11011": 17,
+            "11100": 680,
+            "11101": 667,
+            "11110": 56,
+            "11111": 54
+          },
+          "confidence_95": 0.01082757
+        },
+        "operations": [
+          "CX(g->r)",
+          "CX(g->b)",
+          "CP(r,b,0.0644)",
+          "RZ(g,0.0322)",
+          "H(gamma)",
+          "CP(r,gamma,0.6605)",
+          "CP(g,gamma,0.4954)",
+          "CP(b,gamma,0.3303)",
+          "CX(gamma->sync)",
+          "RY(sync,-0.0155)",
+          "CP(sync,r,-0.0052)",
+          "CP(sync,g,0.0039)",
+          "CP(sync,b,-0.0031)",
+          "HAMILTONIAN(dt=0.0267)",
+          "H(g)",
+          "CX(g->r)",
+          "CX(g->b)",
+          "CP(r,b,0.0483)",
+          "RZ(g,0.0242)",
+          "H(gamma)",
+          "CP(r,gamma,0.4954)",
+          "CP(g,gamma,0.3715)",
+          "CP(b,gamma,0.2477)",
+          "CX(gamma->sync)",
+          "RY(sync,-0.0117)",
+          "CP(sync,r,-0.0039)",
+          "CP(sync,g,0.0029)",
+          "CP(sync,b,-0.0023)",
+          "HAMILTONIAN(dt=0.0200)",
+          "H(g)",
+          "CX(g->r)",
+          "CX(g->b)",
+          "CP(r,b,0.0386)",
+          "RZ(g,0.0193)",
+          "H(gamma)",
+          "CP(r,gamma,0.3963)",
+          "CP(g,gamma,0.2972)",
+          "CP(b,gamma,0.1982)",
+          "CX(gamma->sync)",
+          "RY(sync,-0.0093)",
+          "CP(sync,r,-0.0031)",
+          "CP(sync,g,0.0023)",
+          "CP(sync,b,-0.0019)",
+          "HAMILTONIAN(dt=0.0160)",
+          "H(g)",
+          "CX(g->r)",
+          "CX(g->b)",
+          "CP(r,b,0.0322)",
+          "RZ(g,0.0161)",
+          "H(gamma)",
+          "CP(r,gamma,0.3303)",
+          "CP(g,gamma,0.2477)",
+          "CP(b,gamma,0.1651)",
+          "CX(gamma->sync)",
+          "RY(sync,-0.0078)",
+          "CP(sync,r,-0.0026)",
+          "CP(sync,g,0.0019)",
+          "CP(sync,b,-0.0016)",
+          "HAMILTONIAN(dt=0.0133)",
+          "H(g)",
+          "CX(g->r)",
+          "CX(g->b)",
+          "CP(r,b,0.0276)",
+          "RZ(g,0.0138)",
+          "H(gamma)",
+          "CP(r,gamma,0.2831)",
+          "CP(g,gamma,0.2123)",
+          "CP(b,gamma,0.1415)",
+          "CX(gamma->sync)",
+          "RY(sync,-0.0067)",
+          "CP(sync,r,-0.0022)",
+          "CP(sync,g,0.0017)",
+          "CP(sync,b,-0.0013)",
+          "HAMILTONIAN(dt=0.0114)",
+          "H(g)",
+          "CX(g->r)",
+          "CX(g->b)",
+          "CP(r,b,0.0242)",
+          "RZ(g,0.0121)",
+          "H(gamma)",
+          "CP(r,gamma,0.2477)",
+          "CP(g,gamma,0.1858)",
+          "CP(b,gamma,0.1238)",
+          "CX(gamma->sync)",
+          "RY(sync,-0.0058)",
+          "CP(sync,r,-0.0019)",
+          "CP(sync,g,0.0015)",
+          "CP(sync,b,-0.0012)",
+          "HAMILTONIAN(dt=0.0100)",
+          "DEPHASE(r)",
+          "DEPHASE(g)",
+          "DEPHASE(b)",
+          "DEPHASE(gamma)",
+          "DEPHASE(sync)",
+          "CP(gamma,sync,0.0539)",
+          "RESOURCE_ENTROPY(0.034342)"
+        ],
+        "run_id": "5ac92c98ddd4739a",
+        "resource_telemetry": {
+          "timestamp": "2026-08-07T02:59:18+00:00",
+          "cpu_percent": 3.0,
+          "ram_percent": 54.0,
+          "ram_used_bytes": 259239936,
+          "ram_available_bytes": 221257728,
+          "process_rss_bytes": 104824832,
+          "process_cpu_percent": 2.3,
+          "resource_entropy": 0.5548358192764685,
+          "entropy_injection": 0.04438686554211748
+        },
+        "resource_dynamics": {
+          "reservoir_level": 0.196093962,
+          "reservoir_normalized": 0.196093962,
+          "bounded_entropy_injection": 0.034342094,
+          "window": {
+            "samples": 7,
+            "cpu_percent": {
+              "mean": 4.27142857,
+              "min": 0.5,
+              "max": 9.2,
+              "stdev": 2.58109295,
+              "p95": 8.12
+            },
+            "ram_percent": {
+              "mean": 53.52857143,
+              "min": 53.1,
+              "max": 54.0,
+              "stdev": 0.33685217,
+              "p95": 53.94
+            },
+            "process_cpu_percent": {
+              "mean": 2.47142857,
+              "min": 0.0,
+              "max": 4.5,
+              "stdev": 1.74578209,
+              "p95": 4.44
+            },
+            "process_rss_bytes": {
+              "mean": 99995062.85714285,
+              "min": 92999680.0,
+              "max": 104824832.0,
+              "stdev": 3949091.73133857,
+              "p95": 104466022.4
+            },
+            "resource_entropy": {
+              "mean": 0.58152458,
+              "min": 0.47372949,
+              "max": 0.69202659,
+              "stdev": 0.06397909,
+              "p95": 0.67022956
+            },
+            "entropy_injection": {
+              "mean": 0.04652197,
+              "min": 0.03789836,
+              "max": 0.05536213,
+              "stdev": 0.00511833,
+              "p95": 0.05361836
+            }
+          }
+        },
+        "runtime": {
+          "python": "3.12.3",
+          "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
+          "pid": 25500
+        },
+        "rainbow_quantum_fusion": {
+          "mapping_version": "RGB-RSIT-14.0",
+          "dominant_basis": "|10000>",
+          "dominant_band": "CYAN",
+          "bands": {
+            "RED": 0.243017954,
+            "ORANGE": 0.193368918,
+            "YELLOW": 0.200136653,
+            "GREEN": 0.829145032,
+            "CYAN": 0.832436751,
+            "BLUE": 0.827194022,
+            "INDIGO": 0.08333032,
+            "VIOLET": 0.309568733,
+            "WHITE": 0.734174763,
+            "BLACK": 0.229659167
+          },
+          "metrics": {
+            "spectrum_entropy": 0.880851386,
+            "spectrum_coherence": 0.734174763,
+            "band_divergence": 0.699359266,
+            "predictive_stability": 0.841604139,
+            "rgb_qfi_mean": 0.825338733,
+            "gamma_qfi": 0.22922873,
+            "sync_qfi": 0.86700214,
+            "rgb_mutual_information_mean": 0.146681423,
+            "gamma_sync_mutual_information": 0.00773365,
+            "negativity_mean": 0.031562868,
+            "bloch_coherence_mean": 0.831368486
+          },
+          "coupling": {
+            "rgb_to_spectrum": "MEDIUM",
+            "gamma_to_violet": "LOW",
+            "sync_to_cyan_blue": "HIGH",
+            "unknown_to_black": "LOW"
+          },
+          "origin": "DETERMINISTIC_SIMULATOR_PROJECTION"
+        }
+      },
+      "analysis": "[reply template]\nSYSTEM: DSG_BOUNDED_CIRCUIT_OBSERVER\nTEMPLATE_VERSION: 6.0\nMODE: RAINBOW_SPECTRUM_SIMULATION_INFORMATION_THEORY\nRUN_ID: 5ac92c98ddd4739a\nSTEP: 7\nRESOURCE_FEED:\n  CPU_PERCENT: 3.0000\n  RAM_PERCENT: 54.0000\n  RESOURCE_ENTROPY: 0.554836\n  ENTROPY_INJECTION: 0.044387\nCIRCUIT_STATE:\n  DOMINANT_BASIS: |10000>\n  PURITY: 0.753812\n  VON_NEUMANN_ENTROPY: 0.910808846\n  SPECTRAL_GAP: 0.832408771\n  FIDELITY_PREVIOUS: 0.998364\nRGB_REGISTER_REPORT:\n  R: \"HYPOTHETICAL_INTERPRETATION — SYNTHETIC LOW scenario, weight 0.25: turnout 44%-47% of a SYNTHETIC 265-270 million voting-eligible population, approximately 117-127 million voters. Assumes weaker registration conversion, early/mail voting, enthusiasm, and demographic participation; greater weather and access disruption. State: Bloch=(0.683186,0.032310,-0.309490), length=0.750714, QFI=0.782895. Rainbow mapping emphasizes RED/ORANGE/YELLOW uncertainty bands (0.243018/0.193369/0.200137).\"\n  G: \"HYPOTHETICAL_INTERPRETATION — SYNTHETIC BASE scenario, weight 0.55 and most likely range: turnout 48%-52% of VEP, approximately 127-140 million voters. Assumes moderate registration conversion, early/mail voting, enthusiasm, competitiveness, access, demographic participation, and weather disruption. State: Bloch=(0.538177,0.502595,0.178476), length=0.757687, QFI=0.836764. GREEN/CYAN/BLUE bands are strong (0.829145/0.832437/0.827194), with CYAN dominant.\"\n  B: \"HYPOTHETICAL_INTERPRETATION — SYNTHETIC HIGH scenario, weight 0.20: turnout 53%-56% of VEP, approximately 140-151 million voters. Assumes strong registration conversion, early/mail uptake, enthusiasm, competitiveness, broad demographic participation, limited access constraints, and mild weather disruption. State: Bloch=(0.798835,0.145198,-0.088695), length=0.816754, QFI=0.856358; BLUE=0.827194 supports high simulated responsiveness but is not an empirical forecast.\"\nGAMMA_SYNC_REPORT:\n  GAMMA: \"EXACT_DENSITY_MATRIX-derived simulator report: Bloch=(-0.252875,0.128496,0.857127), length=0.902842 and QFI=0.229229. HYPOTHETICAL_INTERPRETATION: information uncertainty is substantial (spectrum entropy 0.880851; BLACK band 0.229659). Main SYNTHETIC turnout drivers are registration-to-ballot conversion, enthusiasm, competitiveness, early/mail utilization, demographic participation, access constraints, and election-period weather.\"\n  SYNC: \"EXACT_DENSITY_MATRIX-derived simulator report: Bloch=(0.928204,-0.029323,0.018177), length=0.928845 and QFI=0.867002. HYPOTHETICAL_INTERPRETATION: predictive stability=0.841604 and high sync-to-CYAN/BLUE coupling favor the BASE scenario. SYNTHETIC sensitivity: a combined ±2 percentage-point shift in registration conversion/enthusiasm moves national turnout about ±2 VEP points (roughly ±5-6 million voters under the synthetic VEP); severe weather or access disruption can shift turnout downward by about 1-2 points.\"\nCORRELATION_GRAPH:\n  RG: \"Mutual information=0.27726859; negativity=0.11304215.\"\n  GB: \"Mutual information=0.12568484; negativity=0.01320932.\"\n  B_GAMMA: \"Mutual information=0.03709084; negativity=0.00000000.\"\n  GAMMA_SYNC: \"Mutual information=0.00773365; negativity=0.00000000.\"\nENTROPY_FLOW:\n  SOURCE: mixed\n  DIRECTION: \"Resource-feed and dephasing noise into R/G/B/GAMMA/SYNC, followed by simulated RGB-to-GAMMA-to-SYNC information flow; strongest observed dependence is R-G, while GAMMA-SYNC dependence is weak.\"\n  MAGNITUDE: \"LOW with entropy injection=0.044387, bounded circuit injection=0.034342, GAMMA-SYNC mutual information=0.007734, and fidelity_previous=0.998364.\"\nBOUNDED_COMMANDS:\n  - \"TOMOGRAPHY(shots=32768)\"\n  - \"HAMILTONIAN(dt=0.0100)\"\nSTOP_CONDITIONS:\n  - \"Stop if wall time reaches 120000 ms, steps reach 32, gates reach 4096, fidelity_previous falls below 0.990000, or scenario weights cease summing to 1.000000.\"\nUNCERTAINTY:\n  EXACT: \"EXACT_DENSITY_MATRIX: supplied deterministic-simulator metrics at step 7, including basis probabilities, Bloch vectors, purity, entropy, spectral gap, QFI, mutual information, negativity, fidelity, and Rainbow bands. RESOURCE_TELEMETRY: CPU, RAM, resource entropy, and entropy injection are packet measurements. No physical nonlocality, physical reality control, or quantum-hardware access is claimed.\"\n  SAMPLED: \"SHOT_ESTIMATE: 8192-shot tomography basis counts with supplied confidence_95=0.01082757; these shots estimate simulated basis outcomes, not voter turnout.\"\n  SPECULATIVE: \"HYPOTHETICAL_INTERPRETATION: every turnout percentage, voter-count range, VEP size, scenario weight, assumption, driver effect, and sensitivity above is SYNTHETIC—not observed polling or election data. RETRIEVED_MEMORY contains recursive packet fragments and supplies no independent turnout evidence. Replacement data needed: official 2026 state registration files and VEP estimates; validated early/mail ballot requests, returns, and rejection rates; current survey-based turnout intention/enthusiasm; election competitiveness measures; state access-law and polling-place data; demographic participation benchmarks; mobility and absentee indicators; weather forecasts; and post-election official ballots-cast/VEP totals.\"\n[/reply template]",
+      "validation": {
+        "valid": false,
+        "wrapped": true,
+        "missing_required_fields": [
+          "BOUNDARY:"
+        ],
+        "unresolved_placeholder_lines": [
+          12
+        ],
+        "line_count": 41,
+        "sha256": "ceb89ab114a5dfbc378853824acca8b365596152b4b4eab4b714903ebd292661"
+      },
+      "scheduler": {
+        "allowed": false,
+        "stop_reasons": [
+          "MAX_WALL_MS"
+        ],
+        "steps": 5,
+        "gates": 480,
+        "elapsed_ms": 154442,
+        "budget": {
+          "max_gates": 4096,
+          "max_steps": 32,
+          "max_model_tokens": 2400,
+          "max_wall_ms": 120000
+        }
+      }
+    }
+  ],
+  "multi_domain_risk_summary": "[reply template]\nSYSTEM: DSG_ADVANCED_RISK_ORCHESTRATOR\nTEMPLATE_VERSION: 11.0\nMODE: RAINBOW_SPECTRUM_SIMULATION_INFORMATION_THEORY\nEXECUTIVE_PREDICTION:\n  DOMAIN: OPERATIONS_EVENTS\n  SUBJECT: 2026 United States midterm voter turnout\n  LOCATION: United States\n  HORIZON: November 3, 2026\n  MOST_LIKELY_OUTCOME: SYNTHETIC BASE scenario of 46%-49% of the voting-eligible population, approximately 122-132 million voters, with a SYNTHETIC scenario weight of 55%; this is a planning range, not an empirically calibrated probability forecast\n  CONFIDENCE: LOW\nRISK_POSTURE:\n  CURRENT: UNKNOWN\n  FORECAST: UNKNOWN\n  TREND: UNKNOWN\n  TOP_DRIVER: SYNTHETIC registration-to-ballot conversion combined with enthusiasm, competitiveness, and early/mail ballot completion\n  TOP_UNCERTAINTY: Absence of current official VEP, registration, early-voting, mail-ballot, access, and turnout-intention data\nDOMAIN_SCORECARD:\n  ROAD_TRANSPORT: UNKNOWN | No current official road, transit, or polling-access conditions were supplied; localized weather or transport disruption is only a SYNTHETIC condition\n  FOOD_SAFETY: UNKNOWN | No inspection, advisory, testing, or incident evidence was supplied\n  WATER_SAFETY: UNKNOWN | No utility advisory, testing, or incident evidence was supplied\n  HEALTH_EXPOSURE: UNKNOWN | No public-health, environmental-exposure, worker-illness, or staffing evidence was supplied\n  WEATHER_ENVIRONMENT: UNKNOWN | A SYNTHETIC 0.2%-1.8% turnout-suppression prior is not a real forecast; election-period weather remains UNKNOWN\n  INFRASTRUCTURE_UTILITIES: UNKNOWN | No confirmed outage, polling-site closure, communications loss, or equipment-failure evidence was supplied\n  SUPPLY_LOGISTICS: UNKNOWN | No verified ballot, mail, equipment, vendor, processing-capacity, or staffing disruption was supplied\n  CYBER_INFORMATION: UNKNOWN | No operational cyber-threat evidence was supplied; recursive memory and conflicting synthetic ranges create information-quality concerns but do not establish a cyber incident\n  OPERATIONS_EVENTS: UNKNOWN | Turnout effects from access, staffing, ballot processing, weather, and late enthusiasm are modeled only through SYNTHETIC assumptions\nCROSS_DOMAIN_CASCADES:\n  - CHAIN: WEATHER_ENVIRONMENT -> ROAD_TRANSPORT -> reduced in-person voting access\n    LIKELIHOOD: UNKNOWN\n    SEVERITY: MODERATE\n    BREAKPOINT: Check current official forecasts, road and transit status, and polling-place accessibility; use verified early or mail options where applicable\n  - CHAIN: INFRASTRUCTURE_UTILITIES -> OPERATIONS_EVENTS -> polling or ballot-processing delay\n    LIKELIHOOD: UNKNOWN\n    SEVERITY: MODERATE\n    BREAKPOINT: Confirm outage status, backup-power readiness, communications continuity, and official contingency arrangements\n  - CHAIN: SUPPLY_LOGISTICS -> OPERATIONS_EVENTS -> delayed, rejected, or unprocessed ballots\n    LIKELIHOOD: UNKNOWN\n    SEVERITY: MODERATE\n    BREAKPOINT: Monitor official request, dispatch, return, rejection, backlog, staffing, and processing-capacity data\n  - CHAIN: CYBER_INFORMATION -> OPERATIONS_EVENTS -> public misuse of a synthetic estimate as an empirical forecast\n    LIKELIHOOD: MEDIUM\n    SEVERITY: MODERATE\n    BREAKPOINT: Preserve SYNTHETIC labels, publish assumptions, and replace generated inputs with timestamped official data\n  - CHAIN: HEALTH_EXPOSURE -> SUPPLY_LOGISTICS -> election-worker shortages or polling-site disruption\n    LIKELIHOOD: UNKNOWN\n    SEVERITY: MODERATE\n    BREAKPOINT: Obtain official public-health and election-staffing reports\nFAILURE_MODE_REGISTER:\n  - FAILURE_MODE: Synthetic estimate treated as observed turnout evidence\n    CAUSE: Scenario weights and generated values presented without prominent origin and calibration warnings\n    EFFECT: Overconfidence in the 46%-49% VEP planning range\n    DETECTABILITY: HIGH\n    PRIORITY: MODERATE\n    CONTROL: Label every generated election value SYNTHETIC and prohibit operational use without corroborating official data\n  - FAILURE_MODE: Scenario drift across simulator snapshots\n    CAUSE: Step 7 shifts the BASE range to 48%-52% VEP while steps 3-6 repeatedly use 46%-49%\n    EFFECT: Range selection becomes method-dependent\n    DETECTABILITY: HIGH\n    PRIORITY: MODERATE\n    CONTROL: Retain 46%-49% as the four-of-five consensus planning range, flag step 7 as a sensitivity case, and do not claim empirical validation\n  - FAILURE_MODE: Correlated turnout drivers counted independently\n    CAUSE: Registration conversion, enthusiasm, competitiveness, and early/mail participation influence one another\n    EFFECT: Exaggerated scenario movement or confidence\n    DETECTABILITY: MEDIUM\n    PRIORITY: MODERATE\n    CONTROL: Model joint driver packages and avoid summing overlapping effects\n  - FAILURE_MODE: Localized disruption hidden by a national estimate\n    CAUSE: National aggregation masks concentrated weather, access, mail, staffing, or infrastructure problems\n    EFFECT: Small national change despite substantial regional operational impact\n    DETECTABILITY: MEDIUM\n    PRIORITY: MODERATE\n    CONTROL: Add state and regional monitoring without converting localized effects directly into national totals\n  - FAILURE_MODE: Voter-count range becomes inconsistent with the VEP denominator\n    CAUSE: The assumed SYNTHETIC 265-270 million VEP envelope changes\n    EFFECT: Percentage and voter-count estimates no longer align\n    DETECTABILITY: HIGH\n    PRIORITY: MODERATE\n    CONTROL: Recalculate counts from the latest official VEP estimate and state the denominator definition\nSCENARIO_TREE:\n  BASE_CASE:\n    OUTCOME: SYNTHETIC 46%-49% VEP, approximately 122-132 million voters; SYNTHETIC weight 55%\n    TRIGGERS: [Moderate registration conversion, moderate enthusiasm and competitiveness, ordinary early/mail completion, manageable access constraints, broad but uneven demographic participation, no widespread disruption]\n  LOW_RISK_CASE:\n    OUTCOME: SYNTHETIC higher-turnout case of 49%-53% VEP, approximately 130-143 million voters; SYNTHETIC weight 20%\n    TRIGGERS: [Strong registration conversion, elevated enthusiasm and competitiveness, high early/mail ballot completion, broad demographic participation, limited access constraints, mild weather disruption]\n  HIGH_RISK_CASE:\n    OUTCOME: SYNTHETIC lower-turnout case of 43%-46% VEP, approximately 114-124 million voters; SYNTHETIC weight 25%\n    TRIGGERS: [Weak registration conversion, lower enthusiasm or competitiveness, reduced early/mail completion, greater access constraints, demographic participation declines, widespread weather or operational disruption]\nEVIDENCE_QUALITY:\n  FRESHNESS: UNKNOWN\n  COMPLETENESS: LOW\n  CONSISTENCY: MEDIUM\n  PROVENANCE: SYNTHETIC turnout assumptions and five deterministic simulator snapshots; OBSERVED user scope and packet labels; recursive retrieved memory is non-independent; no external official election telemetry was supplied\n  SIMULATOR_ROLE: internal consistency only\nDECISION_THRESHOLDS:\n  PROCEED: Use the 46%-49% VEP and 122-132 million range only for explicitly SYNTHETIC scenario planning with assumptions and denominator shown\n  CAUTION: Use when one or more official inputs remain unavailable, stale, definitionally inconsistent, or geographically incomplete\n  PAUSE_AND_VERIFY: Pause quantitative updating when VEP definitions conflict, observer ranges diverge materially, or registration and ballot data lack timestamps or provenance\n  ESCALATE: Seek specialist review when verified official data show large unexplained departures from the scenario envelope or confirmed operational disruptions affect multiple jurisdictions\nLOW_REGRET_ACTIONS:\n  - Preserve the turnout-only scope and all SYNTHETIC origin labels\n  - Replace the assumed VEP envelope with the latest official 2026 estimate\n  - Collect timestamped state registration, early-vote, mail-request, mail-return, rejection, and processing-backlog data\n  - Track access-law changes, polling-place inventories, staffing, equipment readiness, mail performance, and official weather forecasts\n  - Report national and regional effects separately to avoid masking concentrated disruptions\n  - Recalculate scenario ranges with a documented aggregation rule and joint treatment of correlated drivers\nACTIONS_TO_AVOID:\n  - Treating simulator behavior or scenario weights as physical sensing, polling, or calibrated election probabilities\n  - Inferring operational cyber threats from information uncertainty alone\n  - Declaring food or water conditions acceptable without reliable inspection, advisories, or testing\n  - Making road-access decisions without current official conditions and direct observation\n[/reply template]",
+  "scheduler": {
+    "allowed": false,
+    "stop_reasons": [
+      "MAX_WALL_MS"
+    ],
+    "steps": 5,
+    "gates": 480,
+    "elapsed_ms": 288320,
+    "budget": {
+      "max_gates": 4096,
+      "max_steps": 32,
+      "max_model_tokens": 2400,
+      "max_wall_ms": 120000
+    }
+  },
+  "resource_window": {
+    "samples": 7,
+    "cpu_percent": {
+      "mean": 4.27142857,
+      "min": 0.5,
+      "max": 9.2,
+      "stdev": 2.58109295,
+      "p95": 8.12
+    },
+    "ram_percent": {
+      "mean": 53.52857143,
+      "min": 53.1,
+      "max": 54.0,
+      "stdev": 0.33685217,
+      "p95": 53.94
+    },
+    "process_cpu_percent": {
+      "mean": 2.47142857,
+      "min": 0.0,
+      "max": 4.5,
+      "stdev": 1.74578209,
+      "p95": 4.44
+    },
+    "process_rss_bytes": {
+      "mean": 99995062.85714285,
+      "min": 92999680.0,
+      "max": 104824832.0,
+      "stdev": 3949091.73133857,
+      "p95": 104466022.4
+    },
+    "resource_entropy": {
+      "mean": 0.58152458,
+      "min": 0.47372949,
+      "max": 0.69202659,
+      "stdev": 0.06397909,
+      "p95": 0.67022956
+    },
+    "entropy_injection": {
+      "mean": 0.04652197,
+      "min": 0.03789836,
+      "max": 0.05536213,
+      "stdev": 0.00511833,
+      "p95": 0.05361836
+    }
+  }
+}
+[/reply template]
+DSG-HYPER> risk-summary Produce a complete synthetic 2026 U.S. midterm turnout-only forecast. Do not stop because packet data is missing. Construct a reproducible synthetic dataset for every missing variable required by the turnout model. Use conservative ranges, explicit priors, correlated variables, and LOW/BASE/HIGH scenarios. Clearly distinguish supplied inputs from simulated inputs.
+
+Simulate, at minimum:
+- national voting-eligible population
+- voting-age population where needed for comparison
+- registration rate
+- historical midterm turnout baseline
+- state-level turnout dispersion
+- age-group participation
+- education-group participation
+- urban, suburban, and rural participation
+- early-voting share
+- mail-voting share
+- Election Day voting share
+- voter enthusiasm
+- perceived election competitiveness
+- campaign mobilization intensity
+- ballot-access and administrative friction
+- polling-place availability
+- wait-time effects
+- weather and transportation disruption
+- major-event disruption
+- information environment and awareness
+- population growth and eligibility changes
+- absentee-ballot rejection assumptions
+- provisional-ballot assumptions
+- scenario correlation structure
+
+For every simulated variable, return:
+- variable name
+- SYNTHETIC origin label
+- assumed range
+- central estimate
+- distribution or prior
+- correlation with turnout
+- sensitivity level
+- reason for inclusion
+
+Then return:
+- turnout denominator: voting-eligible population
+- national turnout percentage range
+- estimated national voter-count range
+- most likely turnout band
+- LOW, BASE, and HIGH scenarios
+- scenario weights totaling 1.0
+- principal turnout drivers
+- uncertainty decomposition
+- sensitivity analysis
+- RGB/Gamma/Sync state
+- Rainbow Spectrum vector
+- spectrum entropy
+- mutual information
+- divergence
+- coherence
+- predictive stability
+- next real data needed to replace synthetic assumptions
+
+Exclude:
+- winners
+- candidates
+- parties
+- partisan vote shares
+- seat counts
+- control of Congress
+
+Treat the result as a synthetic turnout simulation, not as verified election data.
+[rainbow engine] generating spectrum information packet
+
+
+[risk agent 1/3] generating candidate synthesis
+[risk agent 2/3] adversarial audit
+[risk agent 3/3] streaming final adjudication
+[reply template]
+SYSTEM: DSG_ADVANCED_RISK_ORCHESTRATOR
+TEMPLATE_VERSION: 11.0
+MODE: RAINBOW_SPECTRUM_SIMULATION_INFORMATION_THEORY
+EXECUTIVE_PREDICTION:
+  DOMAIN: OPERATIONS_EVENTS
+  SUBJECT: 2026 United States midterm voter turnout
+  LOCATION: United States
+  HORIZON: Through November 3, 2026
+  MOST_LIKELY_OUTCOME: UNKNOWN; the supplied SYNTHETIC 47.5% base case and 45.5%–49.5% range are illustrative assumptions, not reproducibly derived or empirically calibrated forecasts.
+  CONFIDENCE: UNKNOWN
+RISK_POSTURE:
+  CURRENT: UNKNOWN
+  FORECAST: UNKNOWN
+  TREND: UNKNOWN
+  TOP_DRIVER: UNKNOWN real-world levels of voter interest, competitiveness, mobilization, registration conversion, and access
+  TOP_UNCERTAINTY: Absence of a reproducible turnout dataset, equations, priors, covariance structure, regional weighting, and current observed indicators
+DOMAIN_SCORECARD:
+  ROAD_TRANSPORT: UNKNOWN | No current official transport, route-access, transit, fuel, paratransit, or polling-site observations were supplied.
+  FOOD_SAFETY: UNKNOWN | No inspection, advisory, outbreak, or facility information was supplied; any turnout effect would be conditional on a verified incident affecting communities, staff, or polling facilities.
+  WATER_SAFETY: UNKNOWN | No testing, utility advisory, or service-disruption information was supplied; any effect would be conditional on a verified incident.
+  HEALTH_EXPOSURE: UNKNOWN | No current public-health advisories, exposure measurements, or election-worker absenteeism data were supplied.
+  WEATHER_ENVIRONMENT: UNKNOWN | Weather disruption values in the candidate are SYNTHETIC assumptions; no location-specific official forecast supports a physical-risk rating.
+  INFRASTRUCTURE_UTILITIES: UNKNOWN | No observed power, telecommunications, facility, equipment, backup-power, accessibility, or vendor-readiness status was supplied.
+  SUPPLY_LOGISTICS: UNKNOWN | Ballot production, postal delivery, equipment, supplier concentration, staffing, and last-mile transport status are unverified.
+  CYBER_INFORMATION: UNKNOWN | No observed incident, threat reporting, system outage, vendor compromise, credential theft, or official assessment supports a current or forecast rating.
+  OPERATIONS_EVENTS: UNKNOWN | Poll-worker readiness, training, polling-place changes, queue capacity, provisional-ballot demand, processing capacity, and contingency status are unverified.
+CROSS_DOMAIN_CASCADES:
+  - CHAIN: WEATHER_ENVIRONMENT -> ROAD_TRANSPORT -> reduced or delayed in-person participation
+    LIKELIHOOD: UNKNOWN
+    SEVERITY: UNKNOWN
+    BREAKPOINT: Check official forecasts, route conditions, transit status, polling-place changes, and verified early-voting alternatives.
+  - CHAIN: CYBER_INFORMATION -> OPERATIONS_EVENTS -> voter confusion, verification demand, queues, or participation disruption
+    LIKELIHOOD: UNKNOWN
+    SEVERITY: UNKNOWN
+    BREAKPOINT: Verify voting instructions through official election authorities and monitor confirmed system incidents and recovery status.
+  - CHAIN: INFRASTRUCTURE_UTILITIES -> OPERATIONS_EVENTS -> polling-site closure or reduced processing capacity
+    LIKELIHOOD: UNKNOWN
+    SEVERITY: UNKNOWN
+    BREAKPOINT: Confirm backup power, communications, alternate facilities, equipment availability, and tested continuity plans.
+  - CHAIN: SUPPLY_LOGISTICS -> OPERATIONS_EVENTS -> ballot, equipment, staffing, or processing constraints
+    LIKELIHOOD: UNKNOWN
+    SEVERITY: UNKNOWN
+    BREAKPOINT: Obtain official production, delivery, inventory, staffing, and contingency reports.
+  - CHAIN: HEALTH_EXPOSURE -> OPERATIONS_EVENTS -> worker absenteeism, site constraints, and longer queues
+    LIKELIHOOD: UNKNOWN
+    SEVERITY: UNKNOWN
+    BREAKPOINT: Monitor public-health advisories, staffing levels, replacement-worker capacity, and verified voting alternatives.
+  - CHAIN: WATER_SAFETY or FOOD_SAFETY -> INFRASTRUCTURE_UTILITIES -> facility closure, displacement, or staffing disruption
+    LIKELIHOOD: UNKNOWN
+    SEVERITY: UNKNOWN
+    BREAKPOINT: Use reliable advisories, inspections, testing, and official polling-location updates.
+FAILURE_MODE_REGISTER:
+  - FAILURE_MODE: Unsupported national turnout estimate
+    CAUSE: Candidate values lack documented equations, priors, correlations, regional weights, and seed-based calculations.
+    EFFECT: Illustrative numbers may be mistaken for a calibrated prediction.
+    DETECTABILITY: HIGH
+    PRIORITY: MODERATE
+    CONTROL: Label all such values SYNTHETIC and withhold a most-likely estimate until the model is reproducible.
+  - FAILURE_MODE: Correlated-driver double counting
+    CAUSE: Interest, salience, competitiveness, mobilization, and early voting may represent overlapping effects.
+    EFFECT: Artificially widened scenarios or overstated turnout changes.
+    DETECTABILITY: MEDIUM
+    PRIORITY: MODERATE
+    CONTROL: Use an explicit latent-factor covariance structure and audit marginal contributions before aggregation.
+  - FAILURE_MODE: National averaging conceals regional disruption
+    CAUSE: No population-weighted state or regional exposure model was supplied.
+    EFFECT: Localized access or operational failures may be understated or misallocated.
+    DETECTABILITY: MEDIUM
+    PRIORITY: MODERATE
+    CONTROL: Model states or regions separately and aggregate using documented voting-eligible-population weights.
+  - FAILURE_MODE: Remote-voting protection fails
+    CAUSE: Postal, infrastructure, administrative, or information disruption may coincide with increased remote-voting demand.
+    EFFECT: Early or mail voting may not offset election-day disruption.
+    DETECTABILITY: MEDIUM
+    PRIORITY: MODERATE
+    CONTROL: Verify jurisdiction-specific eligibility, ballot issuance, return deadlines, postal performance, and processing capacity.
+  - FAILURE_MODE: Operational capacity shortfall
+    CAUSE: Staffing, training, equipment, facility, or contingency-plan deficiencies.
+    EFFECT: Relocations, queues, provisional ballots, or processing backlogs.
+    DETECTABILITY: MEDIUM
+    PRIORITY: MODERATE
+    CONTROL: Obtain official readiness indicators and conduct bounded scenario tests around verified capacity.
+SCENARIO_TREE:
+  BASE_CASE:
+    OUTCOME: UNKNOWN; the candidate’s SYNTHETIC 47.5% turnout assumption is retained only as an unvalidated illustration.
+    TRIGGERS: [Documented synthetic dataset and equations reproduce the value, current registration and survey indicators align, regional weighting is completed]
+  LOW_RISK_CASE:
+    OUTCOME: Participation proceeds without material verified access or operational disruption; national turnout remains UNKNOWN pending a calibrated turnout model.
+    TRIGGERS: [Stable official election operations, adequate staffing and supplies, no consequential outages, manageable weather and health conditions, reliable voting information]
+  HIGH_RISK_CASE:
+    OUTCOME: Turnout is disrupted or redistributed across voting methods in affected regions; national magnitude remains UNKNOWN.
+    TRIGGERS: [Verified widespread access disruption, consequential system or utility outages, severe regional weather, major staffing losses, ballot or postal failures, persistent false procedural information]
+EVIDENCE_QUALITY:
+  FRESHNESS: UNKNOWN
+  COMPLETENESS: LOW
+  CONSISTENCY: MEDIUM
+  PROVENANCE: SYNTHETIC turnout scenarios and assumptions; SYNTHETIC deterministic simulator projections; RETRIEVED prior packet fragments; no usable OBSERVED current-cycle turnout, hazard, readiness, or regional exposure data
+  SIMULATOR_ROLE: internal consistency only
+DECISION_THRESHOLDS:
+  PROCEED: Use the packet only for illustrative scenario design when every generated value is labeled SYNTHETIC and no calibrated forecast claim is made.
+  CAUTION: Compare synthetic scenarios when formulas, priors, correlations, sensitivity tests, and geographic weights are documented but current observed inputs remain limited.
+  PAUSE_AND_VERIFY: Pause quantitative forecasting when outputs cannot be reproduced or when official registration, early-vote, access, weather, infrastructure, cyber, logistics, or operations data conflict with assumptions.
+  ESCALATE: Seek specialist review when verified multi-state disruptions, consequential election-system incidents, widespread outages, major operational failures, or conflicting official instructions could materially affect participation.
+LOW_REGRET_ACTIONS:
+  - Publish a variable-level origin table distinguishing OBSERVED, RETRIEVED, INFERRED, SYNTHETIC, and UNKNOWN inputs.
+  - Release the seed, equations, parameter priors, ranges, covariance construction, geographic weights, and turnout conversion method.
+  - Replace scenario probabilities and interval coverage with non-probabilistic illustrative labels until a documented distribution and calibration process exists.
+  - Track official registration, early-voting, mail-ballot, polling-place, staffing, weather, outage, postal, and incident data by state.
+  - Use official election authorities for voting procedures and official local sources for current disruptions.
+ACTIONS_TO_AVOID:
+  - Treating the candidate’s 47.5% estimate, scenario weights, voter-count figures, or interval coverage as empirically calibrated.
+  - Using simulator behavior as physical sensing, forecast validation, or evidence of election conditions.
+  - Assigning LOW, MODERATE, HIGH, or CRITICAL physical-risk levels without current domain evidence or explicit conditional criteria.
+  - Double-counting correlated participation and disruption variables.
+  - Assuming that missing food, water, transport, health, infrastructure, logistics, cyber, or operations evidence means no hazard exists.
+NEXT_BEST_DATA:
+  - A reproducible model package containing every synthetic variable, seed, equation, prior, range, covariance or latent-factor specification, scenario rule, and turnout conversion.
+  - Current state-level registration files, voting-eligible-population estimates, validated turnout-intent surveys, and historical midterm baselines.
+  - Population-weighted state or regional competitiveness, mobilization, access, and voting-method indicators.
+  - Official early-voting and mail-ballot request, issuance, return, rejection, and processing data.
+  - Official polling-place, staffing, equipment, utility, postal, transportation, cybersecurity, and contingency-readiness reports.
+INVALIDATION_TESTS:
+  - Reproduction from the disclosed seed and equations fails to yield the published synthetic turnout scenarios.
+  - Observed state
+[/reply template]
+[reply template]
+SYSTEM: DSG_ADVANCED_RISK_ORCHESTRATOR
+TEMPLATE_VERSION: 11.0
+MODE: RAINBOW_SPECTRUM_SIMULATION_INFORMATION_THEORY
+EXECUTIVE_PREDICTION:
+  DOMAIN: OPERATIONS_EVENTS
+  SUBJECT: 2026 United States midterm voter turnout
+  LOCATION: United States
+  HORIZON: Through November 3, 2026
+  MOST_LIKELY_OUTCOME: UNKNOWN; the supplied SYNTHETIC 47.5% base case and 45.5%–49.5% range are illustrative assumptions, not reproducibly derived or empirically calibrated forecasts.
+  CONFIDENCE: UNKNOWN
+RISK_POSTURE:
+  CURRENT: UNKNOWN
+  FORECAST: UNKNOWN
+  TREND: UNKNOWN
+  TOP_DRIVER: UNKNOWN real-world levels of voter interest, competitiveness, mobilization, registration conversion, and access
+  TOP_UNCERTAINTY: Absence of a reproducible turnout dataset, equations, priors, covariance structure, regional weighting, and current observed indicators
+DOMAIN_SCORECARD:
+  ROAD_TRANSPORT: UNKNOWN | No current official transport, route-access, transit, fuel, paratransit, or polling-site observations were supplied.
+  FOOD_SAFETY: UNKNOWN | No inspection, advisory, outbreak, or facility information was supplied; any turnout effect would be conditional on a verified incident affecting communities, staff, or polling facilities.
+  WATER_SAFETY: UNKNOWN | No testing, utility advisory, or service-disruption information was supplied; any effect would be conditional on a verified incident.
+  HEALTH_EXPOSURE: UNKNOWN | No current public-health advisories, exposure measurements, or election-worker absenteeism data were supplied.
+  WEATHER_ENVIRONMENT: UNKNOWN | Weather disruption values in the candidate are SYNTHETIC assumptions; no location-specific official forecast supports a physical-risk rating.
+  INFRASTRUCTURE_UTILITIES: UNKNOWN | No observed power, telecommunications, facility, equipment, backup-power, accessibility, or vendor-readiness status was supplied.
+  SUPPLY_LOGISTICS: UNKNOWN | Ballot production, postal delivery, equipment, supplier concentration, staffing, and last-mile transport status are unverified.
+  CYBER_INFORMATION: UNKNOWN | No observed incident, threat reporting, system outage, vendor compromise, credential theft, or official assessment supports a current or forecast rating.
+  OPERATIONS_EVENTS: UNKNOWN | Poll-worker readiness, training, polling-place changes, queue capacity, provisional-ballot demand, processing capacity, and contingency status are unverified.
+CROSS_DOMAIN_CASCADES:
+  - CHAIN: WEATHER_ENVIRONMENT -> ROAD_TRANSPORT -> reduced or delayed in-person participation
+    LIKELIHOOD: UNKNOWN
+    SEVERITY: UNKNOWN
+    BREAKPOINT: Check official forecasts, route conditions, transit status, polling-place changes, and verified early-voting alternatives.
+  - CHAIN: CYBER_INFORMATION -> OPERATIONS_EVENTS -> voter confusion, verification demand, queues, or participation disruption
+    LIKELIHOOD: UNKNOWN
+    SEVERITY: UNKNOWN
+    BREAKPOINT: Verify voting instructions through official election authorities and monitor confirmed system incidents and recovery status.
+  - CHAIN: INFRASTRUCTURE_UTILITIES -> OPERATIONS_EVENTS -> polling-site closure or reduced processing capacity
+    LIKELIHOOD: UNKNOWN
+    SEVERITY: UNKNOWN
+    BREAKPOINT: Confirm backup power, communications, alternate facilities, equipment availability, and tested continuity plans.
+  - CHAIN: SUPPLY_LOGISTICS -> OPERATIONS_EVENTS -> ballot, equipment, staffing, or processing constraints
+    LIKELIHOOD: UNKNOWN
+    SEVERITY: UNKNOWN
+    BREAKPOINT: Obtain official production, delivery, inventory, staffing, and contingency reports.
+  - CHAIN: HEALTH_EXPOSURE -> OPERATIONS_EVENTS -> worker absenteeism, site constraints, and longer queues
+    LIKELIHOOD: UNKNOWN
+    SEVERITY: UNKNOWN
+    BREAKPOINT: Monitor public-health advisories, staffing levels, replacement-worker capacity, and verified voting alternatives.
+  - CHAIN: WATER_SAFETY or FOOD_SAFETY -> INFRASTRUCTURE_UTILITIES -> facility closure, displacement, or staffing disruption
+    LIKELIHOOD: UNKNOWN
+    SEVERITY: UNKNOWN
+    BREAKPOINT: Use reliable advisories, inspections, testing, and official polling-location updates.
+FAILURE_MODE_REGISTER:
+  - FAILURE_MODE: Unsupported national turnout estimate
+    CAUSE: Candidate values lack documented equations, priors, correlations, regional weights, and seed-based calculations.
+    EFFECT: Illustrative numbers may be mistaken for a calibrated prediction.
+    DETECTABILITY: HIGH
+    PRIORITY: MODERATE
+    CONTROL: Label all such values SYNTHETIC and withhold a most-likely estimate until the model is reproducible.
+  - FAILURE_MODE: Correlated-driver double counting
+    CAUSE: Interest, salience, competitiveness, mobilization, and early voting may represent overlapping effects.
+    EFFECT: Artificially widened scenarios or overstated turnout changes.
+    DETECTABILITY: MEDIUM
+    PRIORITY: MODERATE
+    CONTROL: Use an explicit latent-factor covariance structure and audit marginal contributions before aggregation.
+  - FAILURE_MODE: National averaging conceals regional disruption
+    CAUSE: No population-weighted state or regional exposure model was supplied.
+    EFFECT: Localized access or operational failures may be understated or misallocated.
+    DETECTABILITY: MEDIUM
+    PRIORITY: MODERATE
+    CONTROL: Model states or regions separately and aggregate using documented voting-eligible-population weights.
+  - FAILURE_MODE: Remote-voting protection fails
+    CAUSE: Postal, infrastructure, administrative, or information disruption may coincide with increased remote-voting demand.
+    EFFECT: Early or mail voting may not offset election-day disruption.
+    DETECTABILITY: MEDIUM
+    PRIORITY: MODERATE
+    CONTROL: Verify jurisdiction-specific eligibility, ballot issuance, return deadlines, postal performance, and processing capacity.
+  - FAILURE_MODE: Operational capacity shortfall
+    CAUSE: Staffing, training, equipment, facility, or contingency-plan deficiencies.
+    EFFECT: Relocations, queues, provisional ballots, or processing backlogs.
+    DETECTABILITY: MEDIUM
+    PRIORITY: MODERATE
+    CONTROL: Obtain official readiness indicators and conduct bounded scenario tests around verified capacity.
+SCENARIO_TREE:
+  BASE_CASE:
+    OUTCOME: UNKNOWN; the candidate’s SYNTHETIC 47.5% turnout assumption is retained only as an unvalidated illustration.
+    TRIGGERS: [Documented synthetic dataset and equations reproduce the value, current registration and survey indicators align, regional weighting is completed]
+  LOW_RISK_CASE:
+    OUTCOME: Participation proceeds without material verified access or operational disruption; national turnout remains UNKNOWN pending a calibrated turnout model.
+    TRIGGERS: [Stable official election operations, adequate staffing and supplies, no consequential outages, manageable weather and health conditions, reliable voting information]
+  HIGH_RISK_CASE:
+    OUTCOME: Turnout is disrupted or redistributed across voting methods in affected regions; national magnitude remains UNKNOWN.
+    TRIGGERS: [Verified widespread access disruption, consequential system or utility outages, severe regional weather, major staffing losses, ballot or postal failures, persistent false procedural information]
+EVIDENCE_QUALITY:
+  FRESHNESS: UNKNOWN
+  COMPLETENESS: LOW
+  CONSISTENCY: MEDIUM
+  PROVENANCE: SYNTHETIC turnout scenarios and assumptions; SYNTHETIC deterministic simulator projections; RETRIEVED prior packet fragments; no usable OBSERVED current-cycle turnout, hazard, readiness, or regional exposure data
+  SIMULATOR_ROLE: internal consistency only
+DECISION_THRESHOLDS:
+  PROCEED: Use the packet only for illustrative scenario design when every generated value is labeled SYNTHETIC and no calibrated forecast claim is made.
+  CAUTION: Compare synthetic scenarios when formulas, priors, correlations, sensitivity tests, and geographic weights are documented but current observed inputs remain limited.
+  PAUSE_AND_VERIFY: Pause quantitative forecasting when outputs cannot be reproduced or when official registration, early-vote, access, weather, infrastructure, cyber, logistics, or operations data conflict with assumptions.
+  ESCALATE: Seek specialist review when verified multi-state disruptions, consequential election-system incidents, widespread outages, major operational failures, or conflicting official instructions could materially affect participation.
+LOW_REGRET_ACTIONS:
+  - Publish a variable-level origin table distinguishing OBSERVED, RETRIEVED, INFERRED, SYNTHETIC, and UNKNOWN inputs.
+  - Release the seed, equations, parameter priors, ranges, covariance construction, geographic weights, and turnout conversion method.
+  - Replace scenario probabilities and interval coverage with non-probabilistic illustrative labels until a documented distribution and calibration process exists.
+  - Track official registration, early-voting, mail-ballot, polling-place, staffing, weather, outage, postal, and incident data by state.
+  - Use official election authorities for voting procedures and official local sources for current disruptions.
+ACTIONS_TO_AVOID:
+  - Treating the candidate’s 47.5% estimate, scenario weights, voter-count figures, or interval coverage as empirically calibrated.
+  - Using simulator behavior as physical sensing, forecast validation, or evidence of election conditions.
+  - Assigning LOW, MODERATE, HIGH, or CRITICAL physical-risk levels without current domain evidence or explicit conditional criteria.
+  - Double-counting correlated participation and disruption variables.
+  - Assuming that missing food, water, transport, health, infrastructure, logistics, cyber, or operations evidence means no hazard exists.
+NEXT_BEST_DATA:
+  - A reproducible model package containing every synthetic variable, seed, equation, prior, range, covariance or latent-factor specification, scenario rule, and turnout conversion.
+  - Current state-level registration files, voting-eligible-population estimates, validated turnout-intent surveys, and historical midterm baselines.
+  - Population-weighted state or regional competitiveness, mobilization, access, and voting-method indicators.
+  - Official early-voting and mail-ballot request, issuance, return, rejection, and processing data.
+  - Official polling-place, staffing, equipment, utility, postal, transportation, cybersecurity, and contingency-readiness reports.
+INVALIDATION_TESTS:
+  - Reproduction from the disclosed seed and equations fails to yield the published synthetic turnout scenarios.
+  - Observed state
+[/reply template]
+DSG-HYPER> DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> UNKNOWN
+DSG-HYPER> DSG-HYPER> UNKNOWN
+DSG-HYPER> 

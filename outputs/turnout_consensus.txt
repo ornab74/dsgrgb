@@ -1,0 +1,17 @@
+2026 U.S. MIDTERM TURNOUT — SYNTHETIC CONSENSUS OUTPUT
+
+Most likely scenario: BASE
+Turnout: 46%–49% of the voting-eligible population
+Estimated voter count: 122–132 million
+Scenario weights: LOW 25%, BASE 55%, HIGH 20%
+
+Scenario envelope:
+- LOW: 43%–46% VEP; approximately 114–124 million voters
+- BASE: 46%–49% VEP; approximately 122–132 million voters
+- HIGH: 49%–53% VEP; approximately 130–143 million voters
+
+Step-7 sensitivity case:
+- BASE: 48%–52% VEP; approximately 127–140 million voters
+
+Data origin: SYNTHETIC
+This is a simulator output, not observed polling or empirical election evidence.

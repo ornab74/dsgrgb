@@ -1,0 +1,230 @@
+[loop 1/5] streaming hyper-observer output
+[reply template]
+SYSTEM: DSG_BOUNDED_CIRCUIT_OBSERVER
+TEMPLATE_VERSION: 6.0
+MODE: RAINBOW_SPECTRUM_SIMULATION_INFORMATION_THEORY
+RUN_ID: 5ac92c98ddd4739a
+STEP: 3
+RESOURCE_FEED:
+  CPU_PERCENT: 3.4000
+  RAM_PERCENT: 53.1000
+  RESOURCE_ENTROPY: 0.566490
+  ENTROPY_INJECTION: 0.045319
+CIRCUIT_STATE:
+  DOMINANT_BASIS: |10100>
+  PURITY: 0.721858
+  VON_NEUMANN_ENTROPY: 1.020066899
+  SPECTRAL_GAP: 0.81041224
+  FIDELITY_PREVIOUS: 0.994723
+RGB_REGISTER_REPORT:
+  R: EXACT_DENSITY_MATRIX Bloch=(0.744015,-0.036937,-0.272223), length=0.793113, QFI=0.786004; HYPOTHETICAL_INTERPRETATION maps R/RED to LOW turnout: SYNTHETIC 43-45% VEP or 114-122 million voters, weight 0.25, assuming weaker registration conversion, early/mail voting, enthusiasm, competitiveness, and demographic participation plus stronger weather/access disruption.
+  G: EXACT_DENSITY_MATRIX Bloch=(0.584154,0.459948,0.148750), length=0.758231, QFI=0.829728; HYPOTHETICAL_INTERPRETATION maps G/GREEN-CYAN to BASE turnout: SYNTHETIC 46-49% VEP or 122-132 million voters, weight 0.55, assuming moderate registration, early/mail voting, enthusiasm, competitiveness, access, demographic participation, weather disruption, and information uncertainty; this is the most-likely synthetic range.
+  B: EXACT_DENSITY_MATRIX Bloch=(0.859748,0.061498,-0.080604), length=0.865705, QFI=0.843358; HYPOTHETICAL_INTERPRETATION maps B/BLUE to HIGH turnout: SYNTHETIC 50-53% VEP or 133-143 million voters, weight 0.20, assuming strong registration conversion, early/mail voting, enthusiasm, competitiveness, broad demographic participation, limited access constraints, and mild weather disruption.
+GAMMA_SYNC_REPORT:
+  GAMMA: EXACT_DENSITY_MATRIX Bloch=(-0.244470,0.242976,0.822149), length=0.891478, QFI=0.274208; HYPOTHETICAL_INTERPRETATION treats low Gamma sensitivity and VIOLET=0.322946 as unresolved turnout-model uncertainty, not evidence about real voters.
+  SYNC: EXACT_DENSITY_MATRIX Bloch=(0.919279,0.024583,0.036776), length=0.920343, QFI=0.849534; HYPOTHETICAL_INTERPRETATION weighted synthesis is SYNTHETIC 46-49% VEP and 122-132 million voters using a SYNTHETIC 265-270 million VEP envelope. Main drivers are registration conversion, enthusiasm/competitiveness, early and mail usage, access constraints, demographic participation, and weather. SYNTHETIC sensitivity: broad favorable/adverse driver shifts move turnout roughly 2-4 percentage points; real replacement data needed are Census VEP estimates, state registration files, validated turnout surveys, absentee/mail requests and returns, early-vote records, election-law/access changes, demographic benchmarks, competitiveness/interest polling, and election-period weather forecasts.
+CORRELATION_GRAPH:
+  RG: mutual_information=0.26397216; negativity=0.11510386
+  GB: mutual_information=0.08393736; negativity=0.01860969
+  B_GAMMA: mutual_information=0.02566109; negativity=0.00000000
+  GAMMA_SYNC: mutual_information=0.00707359; negativity=0.00000000
+ENTROPY_FLOW:
+  SOURCE: mixed
+  DIRECTION: resource-feed and dephasing into R-G-B, with strongest modeled association R<->G, then G<->B, then B->Gamma->Sync
+  MAGNITUDE: MEDIUM with resource entropy=0.566490, injection=0.045319, RG mutual information=0.263972, and downstream Gamma-Sync mutual information=0.007074
+BOUNDED_COMMANDS:
+  - HAMILTONIAN(dt=0.0100)
+  - DEPHASE(sync)
+STOP_CONDITIONS:
+  - Stop before scheduler reaches 32 steps, 4096 gates, or 120000 ms; also stop if requested outputs extend beyond turnout into candidates, parties, winners, vote shares, seat counts, or congressional control.
+UNCERTAINTY:
+  EXACT: EXACT_DENSITY_MATRIX simulator outputs include basis |10100>, Bloch vectors, purity, entropy, QFI, mutual information, negativity, fidelity, spectral gap, and deterministic Rainbow bands; RESOURCE_TELEMETRY includes the supplied CPU, RAM, and entropy feed.
+  SAMPLED: SHOT_ESTIMATE consists of 8192 tomography shots with supplied 95% confidence width 0.01082757; RETRIEVED_MEMORY is empty.
+  SPECULATIVE: HYPOTHETICAL_INTERPRETATION includes every turnout percentage, voter-count range, VEP envelope, scenario weight, assumption, driver mapping, and sensitivity; all are SYNTHETIC and are not measurements, candidate/party forecasts, physical nonlocality, physical reality control, or quantum-hardware results.
+
+[/reply template]
+
+[loop 2/5] streaming hyper-observer output
+[reply template]
+[reply template]
+SYSTEM: DSG_BOUNDED_CIRCUIT_OBSERVER
+TEMPLATE_VERSION: 6.0
+MODE: RAINBOW_SPECTRUM_SIMULATION_INFORMATION_THEORY
+RUN_ID: 5ac92c98ddd4739a
+STEP: 4
+RESOURCE_FEED:
+  CPU_PERCENT: 2.7000
+  RAM_PERCENT: 53.3000
+  RESOURCE_ENTROPY: 0.547099
+  ENTROPY_INJECTION: 0.043768
+CIRCUIT_STATE:
+  DOMINANT_BASIS: |10000>
+  PURITY: 0.753466
+  VON_NEUMANN_ENTROPY: 0.914125072
+  SPECTRAL_GAP: 0.833131736
+  FIDELITY_PREVIOUS: 0.996061
+RGB_REGISTER_REPORT:
+  R: EXACT_DENSITY_MATRIX Bloch=(0.731633,-0.009397,-0.284408), length=0.785024, QFI=0.797223. HYPOTHETICAL_INTERPRETATION maps R/RED=0.241658 to LOW: SYNTHETIC 43-45% VEP, approximately 114-122 million voters, weight=0.25; assumptions are weaker registration conversion, early/mail participation, enthusiasm, competitiveness, and demographic participation, with stronger weather and access disruption.
+  G: EXACT_DENSITY_MATRIX Bloch=(0.573022,0.477263,0.152685), length=0.761214, QFI=0.846428. HYPOTHETICAL_INTERPRETATION maps G/GREEN=0.830554 and CYAN=0.836531 to BASE: SYNTHETIC 46-49% VEP, approximately 122-132 million voters, weight=0.55; this is the most likely synthetic range under moderate registration, early/mail voting, enthusiasm, competitiveness, access, demographic participation, weather disruption, and information uncertainty.
+  B: EXACT_DENSITY_MATRIX Bloch=(0.848839,0.093948,-0.083283), length=0.858074, QFI=0.860308. HYPOTHETICAL_INTERPRETATION maps B/BLUE=0.831803 to HIGH: SYNTHETIC 50-53% VEP, approximately 133-143 million voters, weight=0.20; assumptions are strong registration conversion, early/mail participation, enthusiasm, competitiveness, broad demographic participation, limited access constraints, and mild weather disruption.
+GAMMA_SYNC_REPORT:
+  GAMMA: EXACT_DENSITY_MATRIX Bloch=(-0.253505,0.204707,0.835601), length=0.896883, QFI=0.261082. HYPOTHETICAL_INTERPRETATION treats low Gamma sensitivity, VIOLET=0.321436, BLACK=0.228242, and spectrum_entropy=0.879491 as unresolved turnout-model uncertainty, not evidence about real voters.
+  SYNC: EXACT_DENSITY_MATRIX Bloch=(0.927783,0.030934,0.041552), length=0.929228, QFI=0.867225. HYPOTHETICAL_INTERPRETATION uses scenario weights LOW=0.25, BASE=0.55, HIGH=0.20 and a SYNTHETIC VEP envelope of 265-270 million. Main turnout drivers are registration conversion, early/mail usage, enthusiasm, competitiveness, access constraints, demographic participation, weather, and information uncertainty. SYNTHETIC sensitivity is approximately 2-4 VEP percentage points under broad favorable or adverse driver shifts. Replacement data needed: Census VEP estimates, state registration files, validated-turnout surveys, absentee/mail requests and returns, early-vote records, election-law and access changes, demographic benchmarks, nonpartisan interest/competitiveness polling, and election-period weather forecasts.
+CORRELATION_GRAPH:
+  RG: mutual_information=0.28250507; negativity=0.12153426
+  GB: mutual_information=0.10236868; negativity=0.02121645
+  B_GAMMA: mutual_information=0.03057204; negativity=0.00000000
+  GAMMA_SYNC: mutual_information=0.00984747; negativity=0.00000000
+ENTROPY_FLOW:
+  SOURCE: mixed
+  DIRECTION: resource-feed and dephasing into R-G-B, with strongest modeled association R<->G, followed by G<->B and B->Gamma->Sync
+  MAGNITUDE: MEDIUM with resource_entropy=0.547099, entropy_injection=0.043768, RG mutual_information=0.282505, and Gamma-Sync mutual_information=0.009847
+BOUNDED_COMMANDS:
+  - HAMILTONIAN(dt=0.0100)
+  - DEPHASE(sync)
+STOP_CONDITIONS:
+  - Stop before 32 scheduler steps, 4096 gates, or 120000 ms, and stop if output scope extends beyond turnout into candidates, parties, winners, vote shares, seat counts, or congressional control.
+UNCERTAINTY:
+  EXACT: EXACT_DENSITY_MATRIX includes supplied simulator basis, Bloch vectors, purity, entropy, QFI, mutual information, negativity, fidelity, spectral gap, and deterministic Rainbow bands; RESOURCE_TELEMETRY includes the supplied CPU, RAM, and entropy values.
+  SAMPLED: SHOT_ESTIMATE comprises 8192 tomography shots with supplied 95% confidence width 0.01082757; sampled basis count for |10000> is 711/8192.
+  SPECULATIVE: HYPOTHETICAL_INTERPRETATION includes all turnout percentages, voter-count ranges, scenario weights, assumptions, driver mappings, VEP envelope, and sensitivity. Every generated election value is SYNTHETIC. RETRIEVED_MEMORY supplied prior synthetic scenario text but is not real election evidence. This is a deterministic simulation interpretation, not quantum-hardware access, physical nonlocality, or physical reality control.
+[/reply template]
+[/reply template]
+
+[loop 3/5] streaming hyper-observer output
+[reply template]
+[reply template]
+SYSTEM: DSG_BOUNDED_CIRCUIT_OBSERVER
+TEMPLATE_VERSION: 6.0
+MODE: RAINBOW_SPECTRUM_SIMULATION_INFORMATION_THEORY
+RUN_ID: 5ac92c98ddd4739a
+STEP: 5
+RESOURCE_FEED:
+  CPU_PERCENT: 5.5000
+  RAM_PERCENT: 53.8000
+  RESOURCE_ENTROPY: 0.617121
+  ENTROPY_INJECTION: 0.049370
+CIRCUIT_STATE:
+  DOMINANT_BASIS: |10000>
+  PURITY: 0.726538
+  VON_NEUMANN_ENTROPY: 1.001726548
+  SPECTRAL_GAP: 0.812512481
+  FIDELITY_PREVIOUS: 0.995213
+RGB_REGISTER_REPORT:
+  R: EXACT_DENSITY_MATRIX Bloch=(0.695634,0.020224,-0.299073), length=0.757469, QFI=0.773758. HYPOTHETICAL_INTERPRETATION maps R/RED=0.271419 to LOW turnout: SYNTHETIC 42-45% VEP or 111-121 million voters, weight=0.25; assumptions are weaker registration conversion, early/mail voting, enthusiasm, competitiveness, and demographic participation, plus greater weather disruption and access constraints.
+  G: EXACT_DENSITY_MATRIX Bloch=(0.547778,0.485891,0.161971), length=0.749924, QFI=0.826121. HYPOTHETICAL_INTERPRETATION maps G/GREEN=0.811489 to BASE turnout: SYNTHETIC 46-49% VEP or 122-132 million voters, weight=0.55 and most-likely range; assumptions are moderate registration conversion, early/mail voting, enthusiasm, competitiveness, demographic participation, weather disruption, access constraints, and information uncertainty.
+  B: EXACT_DENSITY_MATRIX Bloch=(0.811010,0.126779,-0.086634), length=0.825418, QFI=0.841038. HYPOTHETICAL_INTERPRETATION maps B/BLUE=0.810962 to HIGH turnout: SYNTHETIC 50-53% VEP or 133-143 million voters, weight=0.20; assumptions are strong registration conversion, early/mail voting, enthusiasm, competitiveness, and broad demographic participation, with limited access constraints and mild weather disruption.
+GAMMA_SYNC_REPORT:
+  GAMMA: EXACT_DENSITY_MATRIX Bloch=(-0.255067,0.154534,0.849722), length=0.900538, QFI=0.235593. HYPOTHETICAL_INTERPRETATION maps low Gamma sensitivity, VIOLET=0.309070, BLACK=0.255629, and spectrum_entropy=0.890002 to unresolved information uncertainty, not evidence about actual voters.
+  SYNC: EXACT_DENSITY_MATRIX Bloch=(0.919732,0.021616,0.040518), length=0.920878, QFI=0.849900. HYPOTHETICAL_INTERPRETATION combines SYNTHETIC weights LOW=0.25, BASE=0.55, HIGH=0.20 using a SYNTHETIC 265-270 million VEP envelope; CYAN=0.816482 is the dominant information band and predictive_stability=0.825326 supports BASE as the simulator's most stable mapping. Main drivers are registration conversion, enthusiasm/competitiveness, early and mail voting, access constraints, demographic participation, weather, and information uncertainty. SYNTHETIC sensitivity: broad favorable or adverse shifts move turnout about 2-4 VEP percentage points. Required replacement data: Census VEP estimates, state registration files, validated-turnout surveys, absentee/mail requests and returns, early-vote records, election-law/access changes, demographic benchmarks, nonpartisan interest/competitiveness polling, and election-period weather forecasts.
+CORRELATION_GRAPH:
+  RG: mutual_information=0.27365045; negativity=0.11307225
+  GB: mutual_information=0.11305214; negativity=0.01251277
+  B_GAMMA: mutual_information=0.03338727; negativity=0.00000000
+  GAMMA_SYNC: mutual_information=0.00595157; negativity=0.00000000
+ENTROPY_FLOW:
+  SOURCE: mixed
+  DIRECTION: resource-feed and dephasing into R-G-B, with strongest modeled association R<->G, followed by G<->B and B->Gamma->Sync
+  MAGNITUDE: MEDIUM with RESOURCE_TELEMETRY resource_entropy=0.617121, entropy_injection=0.049370, RG mutual_information=0.273650, and Gamma-Sync mutual_information=0.005952
+BOUNDED_COMMANDS:
+  - HAMILTONIAN(dt=0.0100)
+  - DEPHASE(sync)
+STOP_CONDITIONS:
+  - Stop before 32 scheduler steps, 4096 gates, or 120000 ms; also stop if output scope extends beyond turnout into candidates, parties, winners, vote shares, seat counts, or control of Congress.
+UNCERTAINTY:
+  EXACT: EXACT_DENSITY_MATRIX includes the supplied simulator basis, Bloch vectors, purity, von Neumann entropy, QFI, mutual information, negativity, fidelity, spectral gap, and deterministic Rainbow bands; RESOURCE_TELEMETRY includes the supplied CPU, RAM, and entropy feed.
+  SAMPLED: SHOT_ESTIMATE comprises 8192 tomography shots with supplied 95% confidence width=0.01082757; sampled dominant-basis count for |10000> is 784/8192.
+  SPECULATIVE: HYPOTHETICAL_INTERPRETATION includes every turnout percentage, voter-count range, VEP envelope, scenario weight, assumption, driver mapping, and sensitivity; all generated election values are SYNTHETIC. RETRIEVED_MEMORY supplied earlier synthetic scenario text but is not real election evidence. This is a deterministic simulator interpretation, not quantum-hardware access, physical nonlocality, or physical reality control.
+[/reply template]
+[/reply template]
+
+[loop 4/5] streaming hyper-observer output
+[reply template]
+SYSTEM: DSG_BOUNDED_CIRCUIT_OBSERVER
+TEMPLATE_VERSION: 6.0
+MODE: RAINBOW_SPECTRUM_SIMULATION_INFORMATION_THEORY
+RUN_ID: 5ac92c98ddd4739a
+STEP: 6
+RESOURCE_FEED:
+  CPU_PERCENT: 5.6000
+  RAM_PERCENT: 53.8000
+  RESOURCE_ENTROPY: 0.619370
+  ENTROPY_INJECTION: 0.049550
+CIRCUIT_STATE:
+  DOMINANT_BASIS: |10000>
+  PURITY: 0.726205
+  VON_NEUMANN_ENTROPY: 1.001853213
+  SPECTRAL_GAP: 0.81184817
+  FIDELITY_PREVIOUS: 0.997888
+RGB_REGISTER_REPORT:
+  R: EXACT_DENSITY_MATRIX Bloch=(0.675480,0.035804,-0.308559), length=0.743481, QFI=0.767948, inferred single-register entropy≈0.553 bits; HYPOTHETICAL_INTERPRETATION SYNTHETIC LOW scenario weight=25%, turnout=43-46% VEP (about 114-124 million), mapped toward RED/ORANGE/BLACK under weaker registration, enthusiasm, early/mail voting, demographic participation, and stronger weather/access disruption.
+  G: EXACT_DENSITY_MATRIX Bloch=(0.535009,0.494388,0.172019), length=0.748495, QFI=0.821958, inferred entropy≈0.546 bits; HYPOTHETICAL_INTERPRETATION SYNTHETIC BASE scenario weight=55%, turnout=46-49% VEP (about 122-132 million), mapped toward GREEN/CYAN with balanced registration, early/mail voting, enthusiasm, competitiveness, access, weather, and demographic participation.
+  B: EXACT_DENSITY_MATRIX Bloch=(0.789969,0.145483,-0.088754), length=0.808143, QFI=0.839085, inferred entropy≈0.456 bits; HYPOTHETICAL_INTERPRETATION SYNTHETIC HIGH scenario weight=20%, turnout=49-52% VEP (about 130-140 million), mapped toward BLUE/WHITE under elevated enthusiasm, competitiveness, registration conversion, early/mail voting, and broad demographic participation with limited disruption.
+GAMMA_SYNC_REPORT:
+  GAMMA: EXACT_DENSITY_MATRIX Bloch=(-0.253483,0.126106,0.857443), length=0.902976, QFI=0.224178, inferred entropy≈0.280 bits; HYPOTHETICAL_INTERPRETATION uncertainty regulator: SYNTHETIC scenario weights LOW/BASE/HIGH=25%/55%/20%, with information uncertainty, weather, access constraints, and late enthusiasm capable of shifting turnout by roughly 1-3 VEP percentage points.
+  SYNC: EXACT_DENSITY_MATRIX Bloch=(0.920758,-0.001164,0.031246), length=0.921288, QFI=0.849587, inferred entropy≈0.239 bits; HYPOTHETICAL_INTERPRETATION most-likely SYNTHETIC range=46-49% VEP or approximately 122-132 million voters. Main sensitivities are registration-to-ballot conversion, enthusiasm/competitiveness, early and mail ballot return, access constraints, severe weather, and participation differences by age and demographic group. Replacement data needed: official 2026 VEP estimate, state registration files, early-vote and mail-ballot request/return records, validated-voter surveys, polling-place and legal-access changes, contest-level competitiveness measures, demographic turnout indicators, and election-period weather forecasts.
+CORRELATION_GRAPH:
+  RG: EXACT_DENSITY_MATRIX mutual_information=0.27061431, negativity=0.10899042
+  GB: EXACT_DENSITY_MATRIX mutual_information=0.12153160, negativity=0.00913229
+  B_GAMMA: EXACT_DENSITY_MATRIX mutual_information=0.03606942, negativity=0.00000000
+  GAMMA_SYNC: EXACT_DENSITY_MATRIX mutual_information=0.00300128, negativity=0.00000000
+ENTROPY_FLOW:
+  SOURCE: mixed
+  DIRECTION: HYPOTHETICAL_INTERPRETATION strongest R↔G association, then G↔B, with weak B↔GAMMA and negligible GAMMA↔SYNC transfer; mutual information itself does not establish causal direction.
+  MAGNITUDE: MEDIUM with RG mutual_information=0.27061431, total entropy=1.001853213, resource_entropy=0.61936982, and bounded entropy injection=0.038883874
+BOUNDED_COMMANDS:
+  - DEPHASE(gamma)
+  - CP(gamma,sync,0.0611)
+STOP_CONDITIONS:
+  - Stop if scheduler reaches 32 steps, 4096 gates, 120000 ms, or if new official turnout inputs replace the SYNTHETIC assumptions.
+UNCERTAINTY:
+  EXACT: EXACT_DENSITY_MATRIX supplied simulator outputs include basis probabilities, Bloch vectors, purity, entropy, QFI, fidelity, spectral gap, mutual information, negativity, and deterministic Rainbow bands; RESOURCE_TELEMETRY includes CPU, RAM, and resource-entropy values.
+  SAMPLED: SHOT_ESTIMATE tomography uses 8192 shots with reported confidence_95=0.01082757; RETRIEVED_MEMORY contains prior packet fragments, including a 46-49% VEP or 122-132 million fragment, and is not independent evidence.
+  SPECULATIVE: HYPOTHETICAL_INTERPRETATION all turnout percentages, voter-count ranges, scenario weights, assumptions, sensitivities, driver effects, and LOW/BASE/HIGH mappings are SYNTHETIC fictional simulation values—not measurements, candidate or party predictions, physical nonlocality, reality control, or quantum-hardware output.
+[/reply template]
+
+[loop 5/5] streaming hyper-observer output
+[reply template]
+SYSTEM: DSG_BOUNDED_CIRCUIT_OBSERVER
+TEMPLATE_VERSION: 6.0
+MODE: RAINBOW_SPECTRUM_SIMULATION_INFORMATION_THEORY
+RUN_ID: 5ac92c98ddd4739a
+STEP: 7
+RESOURCE_FEED:
+  CPU_PERCENT: 3.0000
+  RAM_PERCENT: 54.0000
+  RESOURCE_ENTROPY: 0.554836
+  ENTROPY_INJECTION: 0.044387
+CIRCUIT_STATE:
+  DOMINANT_BASIS: |10000>
+  PURITY: 0.753812
+  VON_NEUMANN_ENTROPY: 0.910808846
+  SPECTRAL_GAP: 0.832408771
+  FIDELITY_PREVIOUS: 0.998364
+RGB_REGISTER_REPORT:
+  R: "HYPOTHETICAL_INTERPRETATION — SYNTHETIC LOW scenario, weight 0.25: turnout 44%-47% of a SYNTHETIC 265-270 million voting-eligible population, approximately 117-127 million voters. Assumes weaker registration conversion, early/mail voting, enthusiasm, and demographic participation; greater weather and access disruption. State: Bloch=(0.683186,0.032310,-0.309490), length=0.750714, QFI=0.782895. Rainbow mapping emphasizes RED/ORANGE/YELLOW uncertainty bands (0.243018/0.193369/0.200137)."
+  G: "HYPOTHETICAL_INTERPRETATION — SYNTHETIC BASE scenario, weight 0.55 and most likely range: turnout 48%-52% of VEP, approximately 127-140 million voters. Assumes moderate registration conversion, early/mail voting, enthusiasm, competitiveness, access, demographic participation, and weather disruption. State: Bloch=(0.538177,0.502595,0.178476), length=0.757687, QFI=0.836764. GREEN/CYAN/BLUE bands are strong (0.829145/0.832437/0.827194), with CYAN dominant."
+  B: "HYPOTHETICAL_INTERPRETATION — SYNTHETIC HIGH scenario, weight 0.20: turnout 53%-56% of VEP, approximately 140-151 million voters. Assumes strong registration conversion, early/mail uptake, enthusiasm, competitiveness, broad demographic participation, limited access constraints, and mild weather disruption. State: Bloch=(0.798835,0.145198,-0.088695), length=0.816754, QFI=0.856358; BLUE=0.827194 supports high simulated responsiveness but is not an empirical forecast."
+GAMMA_SYNC_REPORT:
+  GAMMA: "EXACT_DENSITY_MATRIX-derived simulator report: Bloch=(-0.252875,0.128496,0.857127), length=0.902842 and QFI=0.229229. HYPOTHETICAL_INTERPRETATION: information uncertainty is substantial (spectrum entropy 0.880851; BLACK band 0.229659). Main SYNTHETIC turnout drivers are registration-to-ballot conversion, enthusiasm, competitiveness, early/mail utilization, demographic participation, access constraints, and election-period weather."
+  SYNC: "EXACT_DENSITY_MATRIX-derived simulator report: Bloch=(0.928204,-0.029323,0.018177), length=0.928845 and QFI=0.867002. HYPOTHETICAL_INTERPRETATION: predictive stability=0.841604 and high sync-to-CYAN/BLUE coupling favor the BASE scenario. SYNTHETIC sensitivity: a combined ±2 percentage-point shift in registration conversion/enthusiasm moves national turnout about ±2 VEP points (roughly ±5-6 million voters under the synthetic VEP); severe weather or access disruption can shift turnout downward by about 1-2 points."
+CORRELATION_GRAPH:
+  RG: "Mutual information=0.27726859; negativity=0.11304215."
+  GB: "Mutual information=0.12568484; negativity=0.01320932."
+  B_GAMMA: "Mutual information=0.03709084; negativity=0.00000000."
+  GAMMA_SYNC: "Mutual information=0.00773365; negativity=0.00000000."
+ENTROPY_FLOW:
+  SOURCE: mixed
+  DIRECTION: "Resource-feed and dephasing noise into R/G/B/GAMMA/SYNC, followed by simulated RGB-to-GAMMA-to-SYNC information flow; strongest observed dependence is R-G, while GAMMA-SYNC dependence is weak."
+  MAGNITUDE: "LOW with entropy injection=0.044387, bounded circuit injection=0.034342, GAMMA-SYNC mutual information=0.007734, and fidelity_previous=0.998364."
+BOUNDED_COMMANDS:
+  - "TOMOGRAPHY(shots=32768)"
+  - "HAMILTONIAN(dt=0.0100)"
+STOP_CONDITIONS:
+  - "Stop if wall time reaches 120000 ms, steps reach 32, gates reach 4096, fidelity_previous falls below 0.990000, or scenario weights cease summing to 1.000000."
+UNCERTAINTY:
+  EXACT: "EXACT_DENSITY_MATRIX: supplied deterministic-simulator metrics at step 7, including basis probabilities, Bloch vectors, purity, entropy, spectral gap, QFI, mutual information, negativity, fidelity, and Rainbow bands. RESOURCE_TELEMETRY: CPU, RAM, resource entropy, and entropy injection are packet measurements. No physical nonlocality, physical reality control, or quantum-hardware access is claimed."
+  SAMPLED: "SHOT_ESTIMATE: 8192-shot tomography basis counts with supplied confidence_95=0.01082757; these shots estimate simulated basis outcomes, not voter turnout."
+  SPECULATIVE: "HYPOTHETICAL_INTERPRETATION: every turnout percentage, voter-count range, VEP size, scenario weight, assumption, driver effect, and sensitivity above is SYNTHETIC—not observed polling or election data. RETRIEVED_MEMORY contains recursive packet fragments and supplies no independent turnout evidence. Replacement data needed: official 2026 state registration files and VEP estimates; validated early/mail ballot requests, returns, and rejection rates; current survey-based turnout intention/enthusiasm; election competitiveness measures; state access-law and polling-place data; demographic participation benchmarks; mobility and absentee indicators; weather forecasts; and post-election official ballots-cast/VEP totals."
+
+[/reply template]

@@ -1,0 +1,66 @@
+{
+  "data_origin": "SYNTHETIC",
+  "election": "2026 United States midterm election",
+  "target": "national voter turnout only",
+  "denominator": "voting-eligible population (VEP)",
+  "consensus": {
+    "most_likely_scenario": "BASE",
+    "turnout_percent_range": [
+      46,
+      49
+    ],
+    "estimated_voter_count_millions": [
+      122,
+      132
+    ],
+    "scenario_weights": {
+      "LOW": 0.25,
+      "BASE": 0.55,
+      "HIGH": 0.2
+    }
+  },
+  "scenario_envelope": {
+    "LOW": {
+      "turnout_percent_range": [
+        43,
+        46
+      ],
+      "voter_count_millions": [
+        114,
+        124
+      ]
+    },
+    "BASE": {
+      "turnout_percent_range": [
+        46,
+        49
+      ],
+      "voter_count_millions": [
+        122,
+        132
+      ]
+    },
+    "HIGH": {
+      "turnout_percent_range": [
+        49,
+        53
+      ],
+      "voter_count_millions": [
+        130,
+        143
+      ]
+    }
+  },
+  "noted_step_7_sensitivity_case": {
+    "BASE_turnout_percent_range": [
+      48,
+      52
+    ],
+    "BASE_voter_count_millions": [
+      127,
+      140
+    ]
+  },
+  "source_file": "full_terminal_transcript.txt",
+  "interpretation": "Synthetic simulator output; not observed polling or empirical election evidence."
+}

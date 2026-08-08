@@ -1,0 +1,45 @@
+risk-summary Produce a complete 2026 United States midterm turnout-only prediction.
+
+MANDATORY MODE:
+- This is a synthetic prediction simulation.
+- Do not refuse to predict because empirical packet data is missing.
+- Do not output UNKNOWN, NONE, N/A, unavailable, insufficient data, cannot infer, or cannot predict.
+- Whenever a required value is absent, generate a reasonable SYNTHETIC estimate using explicit assumptions, conservative ranges, reproducible priors, and correlated LOW, BASE, and HIGH scenarios.
+- Every generated value must be labeled SYNTHETIC.
+- Always return a numerical turnout prediction.
+- Do not convert this into a generic multi-domain risk assessment.
+- Do not include unrelated road, food, water, health, infrastructure, cyber, or weather-risk scorecards.
+- Do not predict parties, candidates, winners, vote shares, seat totals, or control of Congress.
+
+TARGET:
+Predict national 2026 U.S. midterm voter turnout as:
+1. percentage of the voting-eligible population,
+2. estimated national voter count,
+3. LOW, BASE, and HIGH turnout scenarios,
+4. one final most-likely turnout range.
+
+SIMULATE ALL MISSING INPUTS:
+- 2026 voting-eligible population
+- registration rate and registration-to-ballot conversion
+- historical midterm turnout baseline
+- population growth and eligibility changes
+- early, mail, and Election Day voting shares
+- absentee return and rejection rates
+- provisional-ballot share
+- voter enthusiasm and election competitiveness
+- campaign mobilization
+- demographic, age, education, urban, suburban, and rural participation
+- polling-place availability, wait times, access friction, and transportation
+- weather and major-event disruption
+- information awareness
+- state-level turnout dispersion
+- correlations among all major turnout drivers
+
+SIMULATION REQUIREMENTS:
+- Generate a deterministic seed from the run ID.
+- Assign a central estimate and distribution to every missing variable.
+- Preserve correlations so overlapping drivers are not double-counted.
+- Make LOW, BASE, and HIGH scenario weights total exactly 1.00.
+- Use RGB/Gamma/Sync and Rainbow Spectrum values only for scenario weighting, internal coherence, entropy, divergence, and predictive stability.
+- Resolve disagreement across loop steps through weighted consensus.
+- Always produce a final numerical prediction even when confidence is low.
